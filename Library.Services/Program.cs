@@ -1,7 +1,13 @@
+using Library.Data;
+using Library.Services.Commands;
 using Library.Services.Models.Media.Book;
 using Library.Services.Models.Media.Movies;
 using Library.Services.Models.Media.Music;
+using Library.Services.Profiles;
+using Library.Services.Queries;
+using Library.Services.Services;
 using Library.Services.Services.Media;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +25,15 @@ builder.Services.AddSwaggerGen(c =>
         Description = "An API to manage books, music, and movies."
     });
 });
+
+builder.Services.AddAutoMapper(typeof(LibraryProfile));
+
+builder.Services.AddDbContext<LibraryContext>(options => options.UseSqlServer(builder.Configuration["SQLConnection"]));
+builder.Services.AddScoped<IContentCommandFactory<Book>,BookCommand>();
+
+builder.Services.AddScoped<IContentQueryFactory<Book>,BookQuery>();
+
+builder.Services.AddScoped<IValidate,Validate>();
 
 builder.Services.AddScoped<IContentServiceFactory<Book>,BookService>();
 builder.Services.AddScoped<IContentServiceFactory<Movie>,MovieService>();

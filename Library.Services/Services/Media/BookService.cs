@@ -1,48 +1,91 @@
-﻿using Library.Services.Models;
+﻿using Library.Services.Commands;
+using Library.Services.Models;
 using Library.Services.Models.Media.Book;
+using Library.Services.Queries;
 
 namespace Library.Services.Services.Media
 {
     public class BookService : IContentServiceFactory<Book>
     {
+        private readonly IContentCommandFactory<Book> _command;
+        private readonly IContentQueryFactory<Book> _query;
 
-        public BookService() { }
-
-        public async Task<List<Book>> GetAllAsync(int accountId, CancellationToken cancellationToken)
-        {
-            return new List<Book>();
+        public BookService(IContentCommandFactory<Book> command, IContentQueryFactory<Book> query) 
+        { 
+            _command = command;
+            _query = query;
         }
 
         public async Task<Book> GetAsync(int id, CancellationToken cancellationToken)
         {
-            return new Book();
+            return await _query.GetAsync(id, cancellationToken);
         }
 
-        public async Task<Book> GetAsync(int accountId, string creator, CancellationToken cancellationToken)
+        public async Task<List<Book>> GetAllAsync(int accountId, CancellationToken cancellationToken)
         {
-            return new Book();
+            return await _query.GetAllAsync(accountId, cancellationToken);
         }
 
         public async Task<ResponseStatus> CreateAsync(Book item, CancellationToken cancellationToken)
         {
-            return new ResponseStatus();
-        }
+            int id = await _command.CreateAsync(item, cancellationToken);
+            var response = new ResponseStatus() 
+            { 
+                Id = id,
+                IsSuccess = (id != 0),
+            };
 
+            if(!response.IsSuccess)
+            {
+                response.Messages = new List<string>()
+                {
+                    "Had problem adding the book."
+                };
+            }
+
+            return response;
+        }
 
         public async Task<ResponseStatus> UpdateAsync(Book item, CancellationToken cancellationToken)
         {
+
             return new ResponseStatus();
         }
 
         public async Task<ResponseStatus> DeleteAsync(int id, CancellationToken cancellationToken)
         {
-            return new ResponseStatus();
-        }
+            var response = new ResponseStatus()
+            {
+                IsSuccess = await _command.DeleteAsync(id, cancellationToken)
+            };
 
+            if (!response.IsSuccess)
+            {
+                response.Messages = new List<string>()
+                {
+                    "Had problem deleting the book."
+                };
+            }
+
+            return response;
+        }
 
         public async Task<ResponseStatus> DeleteAllAsync(int accountId, CancellationToken cancellationToken)
         {
-            return new ResponseStatus();
+            var response = new ResponseStatus()
+            {
+                IsSuccess = await _command.DeleteAllAsync(accountId, cancellationToken)
+            };
+
+            if (!response.IsSuccess)
+            {
+                response.Messages = new List<string>()
+                {
+                    "Had problem deleting all books from the account."
+                };
+            }
+
+            return response;
         }
 
     }

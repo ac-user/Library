@@ -77,7 +77,7 @@ namespace Library.Services.Controllers
                     var result = await operation() as ResponseStatus;
                     if (result != null && result.IsSuccess)
                     {
-                        if(!isCreate)
+                        if(isCreate)
                         {
                             return new CreatedResult("",result.Id);
                         }

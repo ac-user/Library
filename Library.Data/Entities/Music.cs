@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace Library.Data.Entities;
+
+public partial class Music
+{
+    public int MusicId { get; set; }
+
+    public string? Title { get; set; }
+
+    public string? Album { get; set; }
+
+    public string? Writer { get; set; }
+
+    public string? Singer { get; set; }
+
+    public DateTime? DatePublished { get; set; }
+}
