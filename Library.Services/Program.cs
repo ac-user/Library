@@ -30,8 +30,12 @@ builder.Services.AddAutoMapper(typeof(LibraryProfile));
 
 builder.Services.AddDbContext<LibraryContext>(options => options.UseSqlServer(builder.Configuration["SQLConnection"]));
 builder.Services.AddScoped<IContentCommandFactory<Book>,BookCommand>();
+builder.Services.AddScoped<IContentCommandFactory<Movie>,MovieCommand>();
+builder.Services.AddScoped<IContentCommandFactory<Music>, MusicCommand>();
 
 builder.Services.AddScoped<IContentQueryFactory<Book>,BookQuery>();
+builder.Services.AddScoped<IContentQueryFactory<Movie>,MovieQuery>();
+builder.Services.AddScoped<IContentQueryFactory<Music>,MusicQuery>();
 
 builder.Services.AddScoped<IValidate,Validate>();
 
