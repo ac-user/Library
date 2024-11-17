@@ -19,7 +19,7 @@ namespace Library.Services.Commands
         public async Task<int> CreateAsync(Model.Book newItem, CancellationToken cancellationToken)
         {
             var newEntity = _mapper.Map<Entity.Book>(newItem);
-            await _context.AddAsync(newEntity, cancellationToken);
+            await _context.Books.AddAsync(newEntity, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
             return newEntity.BookId; 
         }
@@ -31,7 +31,7 @@ namespace Library.Services.Commands
             
             if(itemToModify != null)
             {
-                _context.Update(itemToModify);
+                _context.Books.Update(itemToModify);
                 success = await _context.SaveChangesAsync(cancellationToken) == 1;
             }
 
@@ -45,7 +45,7 @@ namespace Library.Services.Commands
             
             if(itemToDelete != null)
             {
-                _context.Remove(itemToDelete);
+                _context.Books.Remove(itemToDelete);
                 success = await _context.SaveChangesAsync(cancellationToken) == 1;
             }
 
@@ -59,7 +59,7 @@ namespace Library.Services.Commands
             
             if(itemsToDelete != null)
             {
-                _context.RemoveRange(itemsToDelete);
+                _context.Books.RemoveRange(itemsToDelete);
                 success = await _context.SaveChangesAsync(cancellationToken) == itemsToDelete.Count();
             }
 

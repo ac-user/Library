@@ -1,77 +1,74 @@
 ﻿using AutoMapper;
-using Library.Services.Models.Media.Book;
-using Library.Services.Services;
+using Library.Services.Models.Media.Music;
 using Library.Services.Services.Media;
+using Library.Services.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Library.Services.Controllers.Media
 {
     [Route("api/Account/{accountId}/Library/Media/[controller]")]
     [ApiController]
-    public class BooksController : BaseController
+    public class MusicController : BaseController
     {
-        private readonly IContentServiceFactory<Book> _bookService;
+        private readonly IContentServiceFactory<Music> _musicService;
         private readonly IMapper _mapper;
 
-        public BooksController(IValidate validate, IContentServiceFactory<Book> bookService, ILogger<BooksController> logger, IMapper mapper) : base(validate, logger)
+        public MusicController(IValidate validate, IContentServiceFactory<Music> musicService, ILogger<MusicController> logger, IMapper mapper) : base(validate, logger)
         {
-            _bookService = bookService;
+            _musicService = musicService;
             _mapper = mapper;
         }
 
 
         /// <summary>
-        /// Get all books for a user
+        /// Get all music for a user
         /// </summary>
-        /// <param name="accountId">user books are associated to</param>
+        /// <param name="accountId">user music are associated to</param>
         /// <param name="cancellationToken">token to cancel long running processes</param>
-        /// <returns>List of associated books</returns>
+        /// <returns>List of associated music</returns>
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<Book>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<Music>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BadRequestObjectResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAsync(int accountId, CancellationToken cancellationToken)
         {
             return await ExecuteQueryAsync(async () =>
             {
-               return await _bookService.GetAllAsync(accountId, cancellationToken);
+                return await _musicService.GetAllAsync(accountId, cancellationToken);
             },
             accountId,
             cancellationToken,
-            "Get Book Failed");                
+            "Get Music Failed");
         }
 
 
         /// <summary>
-        /// Get book
+        /// Get music
         /// </summary>
-        /// <param name="bookId">unique identifier of the book</param>
+        /// <param name="musicId">unique identifier of the music</param>
         /// <param name="cancellationToken">token to cancel long running processes</param>
-        /// <returns>Book details</returns>
-        [HttpGet("{bookId}")]
-        [ProducesResponseType(typeof(Book), StatusCodes.Status200OK)]
+        /// <returns>Music details</returns>
+        [HttpGet("{musicId}")]
+        [ProducesResponseType(typeof(Music), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BadRequestObjectResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetAsync(int accountId, int bookId, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetAsync(int accountId, int musicId, CancellationToken cancellationToken)
         {
             return await ExecuteQueryAsync(async () =>
             {
-                return await _bookService.GetAsync(bookId, cancellationToken);
+                return await _musicService.GetAsync(musicId, cancellationToken);
             },
             accountId,
             cancellationToken,
-            "Get Book Failed");            
+            "Get Music Failed");
         }
 
 
         /// <summary>
-        /// Create new book entry
+        /// Create new music entry
         /// </summary>
-        /// <param name="accountId">user books are associated to</param>
-        /// <param name="request">details about the book</param>
+        /// <param name="accountId">user music are associated to</param>
+        /// <param name="request">details about the music</param>
         /// <param name="cancellationToken">token to cancel long running processes</param>
         /// <returns>Status of creation</returns>
         [HttpPost]
@@ -79,24 +76,24 @@ namespace Library.Services.Controllers.Media
         [ProducesResponseType(typeof(BadRequestObjectResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status412PreconditionFailed)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateAsync(int accountId, [FromBody]BookCreationRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreateAsync(int accountId, [FromBody] MusicCreationRequest request, CancellationToken cancellationToken)
         {
             return await ExecuteCommandAsync(async () =>
             {
-                return await _bookService.CreateAsync(_mapper.Map<Book>(request), cancellationToken);
+                return await _musicService.CreateAsync(_mapper.Map<Music>(request), cancellationToken);
             },
             accountId,
             cancellationToken,
-            "Create Book Failed", 
+            "Create Music Failed",
             isCreate: true);
         }
 
 
         /// <summary>
-        /// Update book entry
+        /// Update music entry
         /// </summary>
-        /// <param name="accountId">user books are associated to</param>
-        /// <param name="request">details about the book</param>
+        /// <param name="accountId">user music are associated to</param>
+        /// <param name="request">details about the music</param>
         /// <param name="cancellationToken">token to cancel long running processes</param>
         /// <returns>Status of modification</returns>
         [HttpPut]
@@ -104,23 +101,23 @@ namespace Library.Services.Controllers.Media
         [ProducesResponseType(typeof(BadRequestObjectResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status412PreconditionFailed)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> UpdateAsync(int accountId, [FromBody] BookModificationRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdateAsync(int accountId, [FromBody] MusicModificationRequest request, CancellationToken cancellationToken)
         {
             return await ExecuteCommandAsync(async () =>
             {
-                return await _bookService.UpdateAsync(_mapper.Map<Book>(request), cancellationToken);
+                return await _musicService.UpdateAsync(_mapper.Map<Music>(request), cancellationToken);
             },
             accountId,
             cancellationToken,
-            "Update Book Failed");
+            "Update Music Failed");
         }
 
 
         /// <summary>
-        /// Delete book entry
+        /// Delete music entry
         /// </summary>
-        /// <param name="accountId">user books are associated to</param>
-        /// <param name="bookId">book to delete</param>
+        /// <param name="accountId">user music are associated to</param>
+        /// <param name="musicId">music to delete</param>
         /// <param name="cancellationToken">token to cancel long running processes</param>
         /// <returns>Status of creation</returns>
         [HttpDelete]
@@ -128,15 +125,15 @@ namespace Library.Services.Controllers.Media
         [ProducesResponseType(typeof(BadRequestObjectResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status412PreconditionFailed)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> DeleteAsync(int accountId, int bookId, CancellationToken cancellationToken)
+        public async Task<IActionResult> DeleteAsync(int accountId, int musicId, CancellationToken cancellationToken)
         {
             return await ExecuteCommandAsync(async () =>
             {
-                return await _bookService.DeleteAsync(bookId, cancellationToken);
+                return await _musicService.DeleteAsync(musicId, cancellationToken);
             },
             accountId,
             cancellationToken,
-            "Delete Book Failed");
+            "Delete Music Failed");
         }
 
     }
