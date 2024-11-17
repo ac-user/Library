@@ -41,7 +41,7 @@ namespace Library.Services.Controllers.Media
             },
             accountId,
             cancellationToken,
-            "Failed to get books");                
+            "Get Book Failed");                
         }
 
 
@@ -63,7 +63,7 @@ namespace Library.Services.Controllers.Media
             },
             accountId,
             cancellationToken,
-            "Failed to get requested book");            
+            "Get Book Failed");            
         }
 
 
@@ -87,7 +87,7 @@ namespace Library.Services.Controllers.Media
             },
             accountId,
             cancellationToken,
-            "Failed to create book", 
+            "Create Book Failed", 
             isCreate: true);
         }
 
@@ -112,7 +112,7 @@ namespace Library.Services.Controllers.Media
             },
             accountId,
             cancellationToken,
-            "Failed to update book");
+            "Update Book Failed");
         }
 
 
@@ -136,7 +136,7 @@ namespace Library.Services.Controllers.Media
             },
             accountId,
             cancellationToken,
-            "Failed to delete book");
+            "Delete Book Failed");
         }
 
 
