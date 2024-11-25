@@ -1,3 +1,4 @@
+using Library.Adapters;
 using Library.Components;
 using Library.Components.Account;
 using Library.Data;
@@ -34,6 +35,8 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
     .AddDefaultTokenProviders();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+
+builder.Services.AddScoped<IBookAdapter, BookAdapter>();   
 
 var app = builder.Build();
 

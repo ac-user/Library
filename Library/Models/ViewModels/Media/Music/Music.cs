@@ -1,7 +1,15 @@
-﻿namespace Library.Services.Models.Media.Music
+﻿namespace Library.Models.ViewModels.Media.Music
 {
-    public class Music : Base
+    public class Music
     {
+        /// <summary>
+        /// Unique Identifier for the media content
+        /// </summary>
+        public int Id { get; set; }
+        /// <summary>
+        /// What the mendia content is called
+        /// </summary>
+        public string Title { get; set; }
         /// <summary>
         /// The album the song came from
         /// </summary>

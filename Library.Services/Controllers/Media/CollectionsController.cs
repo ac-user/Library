@@ -1,25 +1,164 @@
-﻿using Library.Services.Services.Media;
+﻿using AutoMapper;
+using Library.Services.Models.Media;
+using Library.Services.Services;
+using Library.Services.Services.Media;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Library.Services.Controllers.Media
 {
     [Route("apiAccount/{accountId}/Library/Media/[controller]")]
     [ApiController]
-    public class CollectionsController : Controller
+    public class CollectionsController : BaseController
     {
-        private readonly CollectionService _collectionService;
-        private readonly ILogger<CollectionsController> _logger;
+        private readonly ICollectionService _service;
+        private readonly IMapper _mapper;
 
-        public CollectionsController(CollectionService collectionService, ILogger<CollectionsController> logger)
+        public CollectionsController(IValidate validate, ICollectionService service, ILogger<CollectionsController> logger, IMapper mapper) : base(validate, logger)
         {
-            _collectionService = collectionService;
-            _logger = logger;
+            _service = service;
+            _mapper = mapper;
         }
 
+
+        /// <summary>
+        /// Get all collections for a user
+        /// </summary>
+        /// <param name="accountId">user collections are associated to</param>
+        /// <param name="cancellationToken">token to cancel long running processes</param>
+        /// <returns>List of associated collections</returns>
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<Collection>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(BadRequestObjectResult), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAsync(int accountId, CancellationToken cancellationToken)
         {
-            return View();
+            return await ExecuteQueryAsync(async () =>
+            {
+                return await _service.GetAllAsync(accountId, cancellationToken);
+            },
+            accountId,
+            cancellationToken,
+            "Get Collection Failed");
         }
+
+
+        /// <summary>
+        /// Get collection
+        /// </summary>
+        /// <param name="collectionId">unique identifier of the collection</param>
+        /// <param name="cancellationToken">token to cancel long running processes</param>
+        /// <returns>Collection details</returns>
+        [HttpGet("{collectionId}")]
+        [ProducesResponseType(typeof(Collection), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(BadRequestObjectResult), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAsync(int accountId, int collectionId, CancellationToken cancellationToken)
+        {
+            return await ExecuteQueryAsync(async () =>
+            {
+                return await _service.GetAsync(collectionId, cancellationToken);
+            },
+            accountId,
+            cancellationToken,
+            "Get Collection Failed");
+        }
+
+
+        /// <summary>
+        /// Create new collection
+        /// </summary>
+        /// <param name="accountId">user collections are associated to</param>
+        /// <param name="request">details about the collection</param>
+        /// <param name="cancellationToken">token to cancel long running processes</param>
+        /// <returns>Status of creation</returns>
+        [HttpPost]
+        [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(BadRequestObjectResult), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status412PreconditionFailed)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> CreateAsync(int accountId, [FromBody] Collection request, CancellationToken cancellationToken)
+        {
+            return await ExecuteCommandAsync(async () =>
+            {
+                return await _service.CreateAsync(request, cancellationToken);
+            },
+            accountId,
+            cancellationToken,
+            "Create Collection Failed",
+            isCreate: true);
+        }
+
+
+        /// <summary>
+        /// Update collection entry
+        /// </summary>
+        /// <param name="accountId">user collections are associated to</param>
+        /// <param name="request">details about the collection</param>
+        /// <param name="cancellationToken">token to cancel long running processes</param>
+        /// <returns>Status of modification</returns>
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(BadRequestObjectResult), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status412PreconditionFailed)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> UpdateAsync(int accountId, [FromBody] Collection request, CancellationToken cancellationToken)
+        {
+            return await ExecuteCommandAsync(async () =>
+            {
+                return await _service.UpdateAsync(request, cancellationToken);
+            },
+            accountId,
+            cancellationToken,
+            "Update Collection Failed");
+        }
+
+
+        /// <summary>
+        /// Delete collection entry
+        /// </summary>
+        /// <param name="accountId">user collections are associated to</param>
+        /// <param name="collectionId">collection to delete</param>
+        /// <param name="cancellationToken">token to cancel long running processes</param>
+        /// <returns>Status of creation</returns>
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(BadRequestObjectResult), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status412PreconditionFailed)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DeleteAsync(int accountId, int collectionId, CancellationToken cancellationToken)
+        {
+            return await ExecuteCommandAsync(async () =>
+            {
+                return await _service.DeleteAsync(collectionId, cancellationToken);
+            },
+            accountId,
+            cancellationToken,
+            "Delete Collection Failed");
+        }
+
+        /// <summary>
+        /// Delete collection entry
+        /// </summary>
+        /// <param name="accountId">user collections are associated to</param>
+        /// <param name="collectionId">collection content is associated to</param>
+        /// <param name="mediaId">content to delete</param>
+        /// <param name="cancellationToken">token to cancel long running processes</param>
+        /// <returns>Status of creation</returns>
+        [HttpDelete("{mediaId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(BadRequestObjectResult), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status412PreconditionFailed)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DeleteAsync(int accountId, int collectionId, int mediaId, CancellationToken cancellationToken)
+        {
+            return await ExecuteCommandAsync(async () =>
+            {
+                return await _service.DeleteAsync(collectionId, mediaId, cancellationToken);
+            },
+            accountId,
+            cancellationToken,
+            "Delete Collection Association Failed");
+        }
+
     }
 }

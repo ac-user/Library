@@ -123,7 +123,7 @@ namespace Library.Services.Controllers.Media
         /// <param name="bookId">book to delete</param>
         /// <param name="cancellationToken">token to cancel long running processes</param>
         /// <returns>Status of creation</returns>
-        [HttpDelete]
+        [HttpDelete("bookId")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BadRequestObjectResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status412PreconditionFailed)]

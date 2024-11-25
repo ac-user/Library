@@ -1,9 +1,9 @@
-﻿namespace Library.Models.Adapter
+﻿namespace Library.Models.Adapter.Media.Book
 {
     /// <summary>
     /// Request details to create a new book entry
     /// </summary>
-    public class BookCreationRequest 
+    public class BookCreationRequest
     {
         /// <summary>
         /// What the mendia content is called

@@ -1,0 +1,18 @@
+﻿[
+  {
+    "outputFile": "wwwroot/css/Actions.css",
+    "inputFile": "wwwroot/css/Actions.scss"
+  },
+  {
+    "outputFile": "wwwroot/App.css",
+    "inputFile": "wwwroot/App.scss"
+  },
+  {
+    "outputFile": "Components/Elements/ClickableCard.razor.css",
+    "inputFile": "Components/Elements/ClickableCard.razor.scss"
+  },
+  {
+    "outputFile": "Components/Elements/AddCard.razor.css",
+    "inputFile": "Components/Elements/AddCard.razor.scss"
+  }
+]

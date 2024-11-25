@@ -1,0 +1,10 @@
+@import '../../wwwroot/css/Styles.scss';
+
+.card{
+    @include card;
+
+    .small{
+        width:5rem;
+        height:6rem;
+    }
+}

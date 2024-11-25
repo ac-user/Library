@@ -1,0 +1,41 @@
+﻿@* @page "/collection/{int:CollectionId}" *@
+@rendermode RenderMode.InteractiveServer
+
+<PageTitle>Collection</PageTitle>
+
+<h2> @collection.Name</h2>
+
+<Library.Components.Elements.SearchBox OnSearch="OnSearch" />
+
+<Library.Components.Elements.ClickableCard OnClick="OnClickAddMedia" Title="Media" Size="small">
+    <i class="bi bi-plus-circle" />
+</Library.Components.Elements.ClickableCard>
+<Library.Components.Elements.ClickableCard OnClick="OnClickAddCollection" Title="Collection" Size="small">
+    <i class="bi bi-plus-circle" />
+</Library.Components.Elements.ClickableCard>
+
+ <div class="container">
+
+    @foreach(var content in collection.Books.Where(w => w.Title.Contains(searchTerm)))
+    {
+        <Library.Components.Elements.ClickableCard Title="@content.Title" Url="@($"/collections/{content.Id}")" ImageUrl="https://via.placeholder.com/150" />
+    }
+    @foreach(var content in collection.Music.Where(w => w.Title.Contains(searchTerm)))
+    {
+        <Library.Components.Elements.ClickableCard Title="@content.Title" Url="@($"/collections/{content.Id}")" ImageUrl="https://via.placeholder.com/150" />
+    }
+    @foreach(var content in collection.Movies.Where(w => w.Title.Contains(searchTerm)))
+    {
+        <Library.Components.Elements.ClickableCard Title="@content.Title" Url="@($"/collections/{content.Id}")" ImageUrl="https://via.placeholder.com/150" />
+    }
+
+    @foreach (var collection in collection.SubCollections.Where(w => w.Name.Contains(searchTerm)))
+    {
+        <Library.Components.Elements.ClickableCard Title="@collection.Name" Url="@($"/collections/{collection.Id}")" ImageUrl="https://via.placeholder.com/150" />
+    }
+</div>
+
+@if (addMedia)
+{
+    <Library.Components.Media.NewMedia OnClose="CloseAddMediaPopup" />
+}

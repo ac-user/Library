@@ -1,48 +1,48 @@
 ﻿using Library.Models;
-using Library.Models.Adapter.Media.Book;
+using Library.Models.Adapter.Media.Movies;
 
 namespace Library.Adapters
 {
-    public interface IBookAdapter
+    public interface IMovieAdapter
     {
         /// <summary>
-        /// Create a new book
+        /// Create a new movie
         /// </summary>
         /// <param name="accountId">the users account</param>
-        /// <param name="request">book information</param>
+        /// <param name="request">movie information</param>
         /// <param name="cancellationToken">token to cancel long running processes</param>
         /// <returns>Creation status</returns>
-        Task<CommandResponseStatus> CreateAsync(int accountId, BookCreationRequest request, CancellationToken cancellationToken);
+        Task<CommandResponseStatus> CreateAsync(int accountId, MovieCreationRequest request, CancellationToken cancellationToken);
         /// <summary>
-        /// Update a book
+        /// Update a movie
         /// </summary>
         /// <param name="accountId">the users account</param>
-        /// <param name="request">information about the book</param>
+        /// <param name="request">information about the movie</param>
         /// <param name="cancellationToken">token to cancel long running processes</param>
         /// <returns>Modification status</returns>
-        Task<CommandResponseStatus> ModifyAsync(int accountId, BookModificationRequest request, CancellationToken cancellationToken);
+        Task<CommandResponseStatus> ModifyAsync(int accountId, MovideModificationRequest request, CancellationToken cancellationToken);
         /// <summary>
-        /// Delete a book
+        /// Delete a movie
         /// </summary>
         /// <param name="accountId">the users account</param>
-        /// <param name="bookId">book to delete</param>
+        /// <param name="movieId">movie to delete</param>
         /// <param name="cancellationToken">token to cancel long running processes</param>
         /// <returns>Deletion status</returns>
-        Task<CommandResponseStatus> DeleteAsync(int accountId, int bookId, CancellationToken cancellationToken);
+        Task<CommandResponseStatus> DeleteAsync(int accountId, int movieId, CancellationToken cancellationToken);
         /// <summary>
-        /// Get a specific book
+        /// Get a specific movie
         /// </summary>
         /// <param name="accountId">the users account</param>
-        /// <param name="bookId">book to get</param>
+        /// <param name="movieId">movie to get</param>
         /// <param name="cancellationToken">token to cancel long running processes</param>
-        /// <returns>Requested book</returns>
-        Task<Book> GetAsync(int accountId, int bookId, CancellationToken cancellationToken);
+        /// <returns>Requested movie</returns>
+        Task<Movie> GetAsync(int accountId, int movieId, CancellationToken cancellationToken);
         /// <summary>
-        /// Get all the books for a user
+        /// Get all the movies for a user
         /// </summary>
         /// <param name="accountId">the users account</param>
         /// <param name="cancellationToken">token to cancel long running processes</param>
-        /// <returns>All books for a user</returns>
-        Task<List<Book>> GetAsync(int accountId, CancellationToken cancellationToken);
+        /// <returns>All movies for a user</returns>
+        Task<List<Movie>> GetAsync(int accountId, CancellationToken cancellationToken);
     }
 }

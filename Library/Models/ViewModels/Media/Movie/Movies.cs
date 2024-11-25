@@ -1,7 +1,15 @@
-﻿namespace Library.Services.Models.Media.Movies
+﻿namespace Library.Models.ViewModels.Media.Movie
 {
-    public class Movie : Base
+    public class Movies
     {
+        /// <summary>
+        /// Unique Identifier for the media content
+        /// </summary>
+        public int Id { get; set; }
+        /// <summary>
+        /// What the mendia content is called
+        /// </summary>
+        public string Title { get; set; }
         /// <summary>
         /// Series the show is from, if any
         /// </summary>

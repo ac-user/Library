@@ -1,0 +1,27 @@
+﻿<div class="input-group mb-3" role="search" aria-label="Search">
+    <input type="text"
+           class="form-control"
+           placeholder="@Placeholder"
+           @bind="searchTerm"
+           @onkeypress="OnKeyPress"
+           aria-label="Search input"
+           aria-describedby="search-button" />
+</div>
+
+@code {
+    [Parameter] public EventCallback<string> OnSearch { get; set; }
+    [Parameter] public string Placeholder { get; set; } = "Search";
+
+    private string searchTerm;
+
+    private async Task OnKeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key.Length == 1 || e.Key == "Backspace") 
+        {
+            if (OnSearch.HasDelegate)
+            {
+                await OnSearch.InvokeAsync(searchTerm);
+            }
+        }
+    }
+}

@@ -2,10 +2,10 @@
 
 namespace Library.Utilities
 {
-    public class CommandUtility
+    public class CommandUtility : IDisposable
     {
         public int TimeoutInSeconds { get; set; }
-
+        private bool _disposed;
 
         /// <summary>
         /// Executes the function that modifies data
@@ -27,10 +27,31 @@ namespace Library.Utilities
             }
             else
             {
-
                 onFailure?.Invoke();
             }
 
+        }
+
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    // Clean up managed resources here if any
+                }
+
+                // Clean up unmanaged resources here if any
+
+                _disposed = true;
+            }
         }
     }
 }
