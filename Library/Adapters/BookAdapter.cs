@@ -5,7 +5,7 @@ namespace Library.Adapters
 {
     public class BookAdapter : AdapterBase, IBookAdapter
     {        
-        public BookAdapter(IHttpClientFactory httpClientFactory) : base(httpClientFactory, "") { }
+        public BookAdapter(IHttpClientFactory httpClientFactory) : base(httpClientFactory, "LibraryService") { }
         
         public async Task<CommandResponseStatus> CreateAsync(int accountId, BookCreationRequest request, CancellationToken cancellationToken)
         {

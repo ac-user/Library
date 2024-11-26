@@ -28,7 +28,7 @@
 
                 @if (selectedMediaType == MediaType.Book)
                 {
-                    <EditForm Model="@newMedia.Book" OnValidSubmit="HandleValidSubmit" OnInvalidSubmit="HandleInvalidSubmit">
+                    <EditForm Model="@newMedia.Book" OnValidSubmit="HandleValidBookSubmit" OnInvalidSubmit="HandleInvalidSubmit">
                         <DataAnnotationsValidator />
                         <ValidationSummary />
 
@@ -64,11 +64,15 @@
                             <InputTextArea id="summary" class="form-control" @bind-Value="newMedia.Book.Summary" />
                             <ValidationMessage For="@(() => newMedia.Book.Summary)" />
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" @onclick="OnClose">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
                     </EditForm>
                 }
                 else if (selectedMediaType == MediaType.Music)
                 {
-                    <EditForm Model="@newMedia.Music" OnValidSubmit="HandleValidSubmit" OnInvalidSubmit="HandleInvalidSubmit">
+                    <EditForm Model="@newMedia.Music" OnValidSubmit="HandleValidMusicSubmit" OnInvalidSubmit="HandleInvalidSubmit">
                         <DataAnnotationsValidator />
                         <ValidationSummary />
 
@@ -79,7 +83,7 @@
                         </div>
                         <div class="form-group">
                             <label for="album">Album</label>
-                            <InputText id="album" class="form-control" @bind-Value="newMedia.Music.Album" aria-describedby="albumHelp" />
+                            <InputText id="album" class="form-control" @bind-Value="newMedia.Music.Album" mask="AAAA-AAA-AAA" aria-describedby="albumHelp" />
                             <small id="albumHelp" class="form-text text-muted">Enter the album name.</small>
                             <ValidationMessage For="@(() => newMedia.Music.Album)" />
                         </div>
@@ -98,11 +102,15 @@
                             <InputDate id="datePublished" class="form-control" @bind-Value="newMedia.Music.DatePublished" />
                             <ValidationMessage For="@(() => newMedia.Music.DatePublished)" />
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" @onclick="OnClose">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
                     </EditForm>
                 }
                 else if (selectedMediaType == MediaType.Movie)
                 {
-                    <EditForm Model="@newMedia.Movie" OnValidSubmit="HandleValidSubmit" OnInvalidSubmit="HandleInvalidSubmit">
+                    <EditForm Model="@newMedia.Movie" OnValidSubmit="HandleValidMovieSubmit" OnInvalidSubmit="HandleInvalidSubmit">
                         <DataAnnotationsValidator />
                         <ValidationSummary />
 
@@ -131,15 +139,15 @@
                             <InputDate id="dateReleased" class="form-control" @bind-Value="newMedia.Movie.DateReleased" />
                             <ValidationMessage For="@(() => newMedia.Movie.DateReleased)" />
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" @onclick="OnClose">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
                     </EditForm>
                 }
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" @onclick="OnClose">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>
 </div>
 
-<Library.Components.Elements.Notification Title="Adding Media" Message="Tried to add media" />
+<Library.Components.Elements.Notification Title="@notificationTitle" Message="@notificationMessage" />

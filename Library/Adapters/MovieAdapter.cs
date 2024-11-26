@@ -5,7 +5,7 @@ namespace Library.Adapters
 {
     public class MovieAdapter : AdapterBase, IMovieAdapter
     {
-        public MovieAdapter(IHttpClientFactory httpClientFactory) : base(httpClientFactory, "") { }
+        public MovieAdapter(IHttpClientFactory httpClientFactory) : base(httpClientFactory, "LibraryService") { }
 
         public async Task<CommandResponseStatus> CreateAsync(int accountId, MovieCreationRequest request, CancellationToken cancellationToken)
         {
@@ -17,9 +17,9 @@ namespace Library.Adapters
             return await GetCommandResponse(httpResponse, cancellationToken);
         }
 
-        public async Task<CommandResponseStatus> ModifyAsync(int accountId, MovideModificationRequest request, CancellationToken cancellationToken)
+        public async Task<CommandResponseStatus> ModifyAsync(int accountId, MovieModificationRequest request, CancellationToken cancellationToken)
         {
-            var httpResponse = await MakeCommandRequest<MovideModificationRequest>(HttpMethod.Put,
+            var httpResponse = await MakeCommandRequest<MovieModificationRequest>(HttpMethod.Put,
                                                                             $"api/Account/{accountId}/Library/Media/Movies",
                                                                             request,
                                                                             cancellationToken);

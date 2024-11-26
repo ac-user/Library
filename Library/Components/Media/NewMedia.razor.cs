@@ -12,7 +12,13 @@ namespace Library.Components.Media
     public partial class NewMedia
     {
         [Inject] 
-        protected IMediaAdpter Adapter {  get; set; }
+        protected IBookAdapter BookAdapter {  get; set; }
+
+        [Inject] 
+        protected IMusicAdapter MusicAdapter {  get; set; }
+        
+        [Inject] 
+        protected IMovieAdapter MovieAdapter {  get; set; }
 
         [Inject]
         protected IJSRuntime JSRuntime { get; set; }
@@ -29,13 +35,6 @@ namespace Library.Components.Media
         private bool showPopUp = false;
         private string notificationTitle;
         private string notificationMessage;
-        //private EditContext editContext;
-
-        //protected override void OnInitialized()
-        //{
-        //    editContext = new EditContext(newBook);
-        //}
-
 
         private void OnMediaTypeChange(ChangeEventArgs e)
         {
@@ -72,8 +71,8 @@ namespace Library.Components.Media
             string name = GetNewMediaName();
 
             notificationTitle = "Created New Media";
-            notificationMessage = $"Successfully added {name}";
-            JSRuntime.InvokeVoidAsync("ShowToast");
+            notificationMessage = $"Successfully added {selectedMediaType.ToString()}: {name}";
+            JSRuntime.InvokeVoidAsync("showToast");
             OnClose.InvokeAsync();
         }
 
@@ -81,34 +80,43 @@ namespace Library.Components.Media
         {
             string name = GetNewMediaName();
             notificationTitle = "Failed New Media";
-            notificationMessage = $"Failed to add {name}";
-            JSRuntime.InvokeVoidAsync("ShowToast");
+            notificationMessage = $"Failed to add new {selectedMediaType.ToString()}: {name}";
+            JSRuntime.InvokeVoidAsync("showToast");
         }
 
-        private async Task HandleValidSubmit()
+        private async Task HandleValidBookSubmit()
         {
-            using var command = new CommandUtility();
-
             if (selectedMediaType == ViewModels.Media.MediaType.Book)
             {
+                using var command = new CommandUtility();
                 var newBook = Mapper.Map<AdapterModels.Media.Book.BookCreationRequest>(newMedia.Book);
-                await command.ExecuteAsync((request, token) => Adapter.CreateAsync(1, request, token),
+                await command.ExecuteAsync((request, token) => BookAdapter.CreateAsync(1, request, token),
                                             newBook,
                                             OnSuccessSubmit,
                                             OnFailedSubmit);
             }
-            else if (selectedMediaType == ViewModels.Media.MediaType.Music)
+        }
+
+        private async Task HandleValidMusicSubmit()
+        {
+            if (selectedMediaType == ViewModels.Media.MediaType.Music)
             {
+                using var command = new CommandUtility();
                 var newMusic = Mapper.Map<AdapterModels.Media.Music.MusicCreationRequest>(newMedia.Music);
-                await command.ExecuteAsync((request, token) => Adapter.CreateAsync(1, request, token),
+                await command.ExecuteAsync((request, token) => MusicAdapter.CreateAsync(1, request, token),
                                             newMusic,
                                             OnSuccessSubmit,
                                             OnFailedSubmit);
             }
-            else if (selectedMediaType == ViewModels.Media.MediaType.Movie)
+        }
+        
+        private async Task HandleValidMovieSubmit()
+        {
+            if (selectedMediaType == ViewModels.Media.MediaType.Movie)
             {
+                using var command = new CommandUtility();
                 var newMovie = Mapper.Map<AdapterModels.Media.Movies.MovieCreationRequest>(newMedia.Movie);
-                await command.ExecuteAsync((request, token) => Adapter.CreateAsync(1, request, token),
+                await command.ExecuteAsync((request, token) => MovieAdapter.CreateAsync(1, request, token),
                                             newMovie,
                                             OnSuccessSubmit,
                                             OnFailedSubmit);

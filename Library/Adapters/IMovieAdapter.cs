@@ -20,7 +20,7 @@ namespace Library.Adapters
         /// <param name="request">information about the movie</param>
         /// <param name="cancellationToken">token to cancel long running processes</param>
         /// <returns>Modification status</returns>
-        Task<CommandResponseStatus> ModifyAsync(int accountId, MovideModificationRequest request, CancellationToken cancellationToken);
+        Task<CommandResponseStatus> ModifyAsync(int accountId, MovieModificationRequest request, CancellationToken cancellationToken);
         /// <summary>
         /// Delete a movie
         /// </summary>

@@ -2,6 +2,7 @@ using Library.Adapters;
 using Library.Components;
 using Library.Components.Account;
 using Library.Data;
+using Library.Profiles;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
 
+//Authentication logic
 builder.Services.AddAuthentication(options =>
     {
         options.DefaultScheme = IdentityConstants.ApplicationScheme;
@@ -36,7 +38,19 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
+
+//Add Http logic
+builder.Services.AddHttpClient("LibraryService", h =>
+{
+    h.BaseAddress = new Uri("www.google.com");
+});
+
+builder.Services.AddHttpClient();
 builder.Services.AddScoped<IBookAdapter, BookAdapter>();   
+builder.Services.AddScoped<IMusicAdapter, MusicAdapter>();   
+builder.Services.AddScoped<IMovieAdapter, MovieAdapter>();
+
+builder.Services.AddAutoMapper(typeof(LibraryProfile));
 
 var app = builder.Build();
 

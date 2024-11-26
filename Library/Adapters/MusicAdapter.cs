@@ -5,7 +5,7 @@ namespace Library.Adapters
 {
     public class MusicAdapter : AdapterBase, IMusicAdapter
     {
-        public MusicAdapter(IHttpClientFactory httpClientFactory) : base(httpClientFactory, "") { }
+        public MusicAdapter(IHttpClientFactory httpClientFactory) : base(httpClientFactory, "LibraryService") { }
 
         public async Task<CommandResponseStatus> CreateAsync(int accountId, MusicCreationRequest request, CancellationToken cancellationToken)
         {

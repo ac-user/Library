@@ -17,11 +17,17 @@ namespace Library.Utilities
         /// <param name="onFailure">what happens on failure</param>
         public async Task ExecuteAsync<T>(Func<T, CancellationToken, Task<CommandResponseStatus>> function, T parameter, Action onSuccess, Action? onFailure = null)
         {
-            CancellationTokenSource cts = new CancellationTokenSource();
-            var response = await function(parameter, cts.Token);
-            cts.Dispose();
+            bool success = false;
+            try
+            {
+                CancellationTokenSource cts = new CancellationTokenSource();
+                var response = await function(parameter, cts.Token);
+                cts.Dispose();
+                success = response.IsSuccess;
+            }
+            catch(Exception e) { }
 
-            if (response.IsSuccess)
+            if (success)
             {
                 onSuccess();
             }
@@ -31,7 +37,6 @@ namespace Library.Utilities
             }
 
         }
-
 
         public void Dispose()
         {
