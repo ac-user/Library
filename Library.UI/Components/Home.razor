@@ -1,0 +1,50 @@
+﻿@page "/"
+@rendermode RenderMode.InteractiveServer
+
+<PageTitle>Home</PageTitle>
+
+    <h2> @_model.UserName's Athenaeum</h2>
+
+    <Library.UI.Components.Elements.SearchBox OnSearch="OnSearch" />
+
+    <section class="m-4">
+        <h3>Content</h3>
+        <div class="container">
+            <Library.UI.Components.Elements.ClickableCard OnClick="OnClickAddMedia">
+                <i class="bi bi-plus-circle" />
+            </Library.UI.Components.Elements.ClickableCard>
+            <Library.UI.Components.Elements.ClickableCard Title="Books" OnClick="NavigateToBooks">
+                <img src="https://via.placeholder.com/150" class="card-img-top" alt="Books">
+            </Library.UI.Components.Elements.ClickableCard>
+            <Library.UI.Components.Elements.ClickableCard Title="Music" OnClick="NavigateToMusic">
+                <img src="https://via.placeholder.com/150" class="card-img-top" alt="Books">
+            </Library.UI.Components.Elements.ClickableCard>
+            <Library.UI.Components.Elements.ClickableCard Title="Movies" OnClick="NavigateToMovies">
+                <img src="https://via.placeholder.com/150" class="card-img-top" alt="Books">
+            </Library.UI.Components.Elements.ClickableCard>
+        </div>
+
+        <h3>Collections</h3>
+        <div class="container">
+            <Library.UI.Components.Elements.ClickableCard OnClick="OnClickAddCollection">
+                <i class="bi bi-plus-circle" />
+            </Library.UI.Components.Elements.ClickableCard>
+            @if (_model?.Collections == null)
+            {
+                <div class="spinner-border" />
+            }
+            else
+            {
+                @foreach(var collection in _model.Collections.Where(w => w.Name.Contains(searchTerm)))
+                {
+                    <Library.UI.Components.Elements.ClickableCard Title="@collection.Name" OnClick="@(() => NavigateToCollection(collection.Id))" />
+                }
+            }
+        </div>
+
+    </section>
+
+    @if (addMedia)
+    {
+        <Library.UI.Components.Media.NewMedia OnClose="CloseAddMediaPopup" />
+    }

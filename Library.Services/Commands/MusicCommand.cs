@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Model = Library.Services.Models.Media.Music;
+using Model = Library.Models.Media.Music;
 using Entity = Library.Data.Entities;
 using Library.Data;
 
@@ -16,17 +16,19 @@ namespace Library.Services.Commands
             _mapper = mapper;
         }
 
-        public async Task<int> CreateAsync(Model.Music newItem, CancellationToken cancellationToken)
+        public async Task<int> CreateAsync(int accountId, Model.Music newItem, CancellationToken cancellationToken)
         {
             var newEntity = _mapper.Map<Entity.Music>(newItem);
+            newEntity.AccountId = accountId;
             await _context.Musics.AddAsync(newEntity, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
             return newEntity.MusicId;
         }
 
-        public async Task<bool> UpdateAsync(Model.Music item, CancellationToken cancellationToken)
+        public async Task<bool> UpdateAsync(int accountId, Model.Music item, CancellationToken cancellationToken)
         {
             var itemToModify = _mapper.Map<Entity.Music>(item);
+            itemToModify.AccountId = accountId;
             bool success = true;
 
             if (itemToModify != null)
@@ -54,7 +56,7 @@ namespace Library.Services.Commands
 
         public async Task<bool> DeleteAllAsync(int accountId, CancellationToken cancellationToken)
         {
-            var itemsToDelete = _context.Musics.Where(f => f.MusicId == accountId);
+            var itemsToDelete = _context.Musics.Where(f => f.AccountId == accountId);
             bool success = true;
 
             if (itemsToDelete != null)

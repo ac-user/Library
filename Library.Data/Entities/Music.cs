@@ -7,6 +7,7 @@ public partial class Music
 {
     public int MusicId { get; set; }
 
+    public int AccountId { get; set; }
     public string? Title { get; set; }
 
     public string? Album { get; set; }

@@ -1,9 +1,8 @@
-﻿using Library.Services.Models.Media;
-using Model = Library.Services.Models;
+﻿using Model = Library.Models;
 
 namespace Library.Services.Commands
 {
-    public interface ICollectionCommand : IContentCommandFactory<Collection>
+    public interface ICollectionCommand : IContentCommandFactory<Model.Media.Collection>
     {
         /// <summary>
         /// Create association between collection and books
@@ -36,7 +35,7 @@ namespace Library.Services.Commands
         /// <param name="newItems">new items to associate</param>
         /// <param name="cancellationToken">token to cancel long running processes</param>
         /// <returns>Association id's</returns>
-        Task<List<int>> CreateAsync(int collectionId, List<Collection> newItems, CancellationToken cancellationToken);
+        Task<List<int>> CreateAsync(int collectionId, List<Model.Media.Collection> newItems, CancellationToken cancellationToken);
         /// <summary>
         /// Delete the association between a collection and media content
         /// </summary>

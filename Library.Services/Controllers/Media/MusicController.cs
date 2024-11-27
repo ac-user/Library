@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Library.Services.Models.Media.Music;
+using Library.Models.Media.Music;
 using Library.Services.Services.Media;
 using Library.Services.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -80,7 +80,7 @@ namespace Library.Services.Controllers.Media
         {
             return await ExecuteCommandAsync(async () =>
             {
-                return await _musicService.CreateAsync(_mapper.Map<Music>(request), cancellationToken);
+                return await _musicService.CreateAsync(accountId, _mapper.Map<Music>(request), cancellationToken);
             },
             accountId,
             cancellationToken,
@@ -105,7 +105,7 @@ namespace Library.Services.Controllers.Media
         {
             return await ExecuteCommandAsync(async () =>
             {
-                return await _musicService.UpdateAsync(_mapper.Map<Music>(request), cancellationToken);
+                return await _musicService.UpdateAsync(accountId, _mapper.Map<Music>(request), cancellationToken);
             },
             accountId,
             cancellationToken,

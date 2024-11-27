@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
-using Model = Library.Services.Models.Media.Book;
+using Model = Library.Models.Media.Book;
 using Entity = Library.Data.Entities;
 using Library.Data;
+using Microsoft.Identity.Client;
 
 namespace Library.Services.Commands
 {
@@ -16,17 +17,19 @@ namespace Library.Services.Commands
             _mapper = mapper;
         }
 
-        public async Task<int> CreateAsync(Model.Book newItem, CancellationToken cancellationToken)
+        public async Task<int> CreateAsync(int accountId, Model.Book newItem, CancellationToken cancellationToken)
         {
             var newEntity = _mapper.Map<Entity.Book>(newItem);
+            newEntity.AccountId = accountId;
             await _context.Books.AddAsync(newEntity, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
             return newEntity.BookId; 
         }
 
-        public async Task<bool> UpdateAsync(Model.Book item, CancellationToken cancellationToken)
+        public async Task<bool> UpdateAsync(int accountId, Model.Book item, CancellationToken cancellationToken)
         {
             var itemToModify = _mapper.Map<Entity.Book>(item);
+            itemToModify.AccountId = accountId;
             bool success = true;
             
             if(itemToModify != null)
@@ -54,7 +57,7 @@ namespace Library.Services.Commands
 
         public async Task<bool> DeleteAllAsync(int accountId, CancellationToken cancellationToken)
         {
-            var itemsToDelete = _context.Books.Where(f => f.BookId == accountId);
+            var itemsToDelete = _context.Books.Where(f => f.AccountId == accountId);
             bool success = true;
             
             if(itemsToDelete != null)

@@ -2,7 +2,7 @@
 using Library.Services.Services.Media;
 using Library.Services.Services;
 using Microsoft.AspNetCore.Mvc;
-using Library.Services.Models.Media.Movies;
+using Library.Models.Media.Movies;
 
 namespace Library.Services.Controllers.Media
 {
@@ -80,7 +80,7 @@ namespace Library.Services.Controllers.Media
         {
             return await ExecuteCommandAsync(async () =>
             {
-                return await _movieService.CreateAsync(_mapper.Map<Movie>(request), cancellationToken);
+                return await _movieService.CreateAsync(accountId, _mapper.Map<Movie>(request), cancellationToken);
             },
             accountId,
             cancellationToken,
@@ -105,7 +105,7 @@ namespace Library.Services.Controllers.Media
         {
             return await ExecuteCommandAsync(async () =>
             {
-                return await _movieService.UpdateAsync(_mapper.Map<Movie>(request), cancellationToken);
+                return await _movieService.UpdateAsync(accountId, _mapper.Map<Movie>(request), cancellationToken);
             },
             accountId,
             cancellationToken,

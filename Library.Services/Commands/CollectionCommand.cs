@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using Library.Data;
-using Model = Library.Services.Models;
+using Model = Library.Models;
 using Entity = Library.Data.Entities;
-using Library.Services.Models.Media;
 
 namespace Library.Services.Commands
 {
@@ -17,9 +16,13 @@ namespace Library.Services.Commands
             _mapper = mapper;
         }
 
-        public async Task<int> CreateAsync(Collection newItem, CancellationToken cancellationToken)
+        public async Task<int> CreateAsync(int accountId, Model.Media.Collection newItem, CancellationToken cancellationToken)
         {
-            var collection = new Entity.Collection() { Title = newItem.Name };
+            var collection = new Entity.Collection() 
+            { 
+                Title = newItem.Name,
+                AccountId = accountId
+            };
             await _context.Collections.AddAsync(collection, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
             return collection.CollectionId;
@@ -87,7 +90,7 @@ namespace Library.Services.Commands
 
             return collectionContent.Select(s => s.CollectionAssociationId).ToList();
         }
-        public async Task<List<int>> CreateAsync(int collectionId, List<Collection> newItems, CancellationToken cancellationToken)
+        public async Task<List<int>> CreateAsync(int collectionId, List<Model.Media.Collection> newItems, CancellationToken cancellationToken)
         {
             var collectionContent = new List<Entity.SubCollectionAssociation>();
             if (newItems != null && newItems.Any())
@@ -108,12 +111,12 @@ namespace Library.Services.Commands
             return collectionContent.Select(s => s.SubCollectionAssociationId).ToList();
         }
 
-        public async Task<bool> UpdateAsync(Collection item, CancellationToken cancellationToken)
+        public async Task<bool> UpdateAsync(int accountId, Model.Media.Collection item, CancellationToken cancellationToken)
         {
             var itemToModify = _context.Collections.FirstOrDefault(f => f.CollectionId == item.Id);
             bool success = true;
 
-            if (itemToModify != null)
+            if (itemToModify != null && itemToModify.AccountId == accountId)
             {
                 itemToModify.Title = item.Name;
                 _context.Collections.Update(itemToModify);
@@ -152,7 +155,7 @@ namespace Library.Services.Commands
 
         public async Task<bool> DeleteAllAsync(int accountId, CancellationToken cancellationToken)
         {//TODO: include sub items to delete
-            var itemsToDelete = _context.Collections.Where(f => f.CollectionId == accountId);
+            var itemsToDelete = _context.Collections.Where(f => f.AccountId == accountId);
             bool success = true;
 
             if (itemsToDelete != null)

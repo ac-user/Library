@@ -21,17 +21,19 @@ namespace Library.Services.Services.Media
         /// <summary>
         /// Create a new <typeparamref name="T"/>
         /// </summary>
+        /// <param name="accountId">account to search</param>
         /// <param name="item">new <typeparamref name="T"/> to create</param>
         /// <param name="cancellationToken">token to cancel long running processes</param>
         /// <returns>Status of creation</returns>
-        Task<ResponseStatus> CreateAsync(T item, CancellationToken cancellationToken);
+        Task<ResponseStatus> CreateAsync(int accountId, T item, CancellationToken cancellationToken);
         /// <summary>
         /// Modify <typeparamref name="T"/>
         /// </summary>
+        /// <param name="accountId">account to search</param>
         /// <param name="item"><typeparamref name="T"/> new information</param>
         /// <param name="cancellationToken">token to cancel long running processes</param>
         /// <returns>Status of modification</returns>
-        Task<ResponseStatus> UpdateAsync(T item, CancellationToken cancellationToken);
+        Task<ResponseStatus> UpdateAsync(int accountId, T item, CancellationToken cancellationToken);
         /// <summary>
         /// Delete <typeparamref name="T"/>
         /// </summary>

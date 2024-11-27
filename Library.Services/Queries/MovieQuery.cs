@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Library.Data;
-using Library.Services.Models.Media.Movies;
+using Library.Models.Media.Movies;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library.Services.Queries

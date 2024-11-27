@@ -1,5 +1,5 @@
 ﻿using Library.Services.Models;
-using Library.Services.Models.Media;
+using Library.Models.Media;
 
 namespace Library.Services.Services.Media
 {

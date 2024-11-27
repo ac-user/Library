@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Library.Services.Models.Media;
+using Library.Models.Media;
 using Library.Services.Services;
 using Library.Services.Services.Media;
 using Microsoft.AspNetCore.Mvc;
@@ -80,7 +80,7 @@ namespace Library.Services.Controllers.Media
         {
             return await ExecuteCommandAsync(async () =>
             {
-                return await _service.CreateAsync(request, cancellationToken);
+                return await _service.CreateAsync(accountId, request, cancellationToken);
             },
             accountId,
             cancellationToken,
@@ -105,7 +105,7 @@ namespace Library.Services.Controllers.Media
         {
             return await ExecuteCommandAsync(async () =>
             {
-                return await _service.UpdateAsync(request, cancellationToken);
+                return await _service.UpdateAsync(accountId, request, cancellationToken);
             },
             accountId,
             cancellationToken,

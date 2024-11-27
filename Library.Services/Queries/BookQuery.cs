@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Library.Data;
-using Library.Services.Models.Media.Book;
+using Library.Models.Media.Book;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library.Services.Queries

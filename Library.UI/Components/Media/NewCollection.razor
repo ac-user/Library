@@ -1,0 +1,33 @@
+﻿@page "/new-collection"
+
+<InputText @bind-Value="collection.Name"/>
+<Library.UI.Components.Elements.SearchBox OnSearch="OnSearch" />
+
+
+<div class="container">
+
+    @foreach (var content in collection.Books.Where(w => w.Title.Contains(searchTerm)))
+    {
+        <Library.UI.Components.Elements.ClickableCard Title="@content.Title" ImageUrl="https://via.placeholder.com/150" />
+    }
+    @foreach (var content in collection.Music.Where(w => w.Title.Contains(searchTerm)))
+    {
+        <Library.UI.Components.Elements.ClickableCard Title="@content.Title" ImageUrl="https://via.placeholder.com/150" />
+    }
+    @foreach (var content in collection.Movies.Where(w => w.Title.Contains(searchTerm)))
+    {
+        <Library.UI.Components.Elements.ClickableCard Title="@content.Title" Url="@($"/collections/{content.Id}")" ImageUrl="https://via.placeholder.com/150" />
+    }
+
+    @foreach (var collection in collection.SubCollections.Where(w => w.Name.Contains(searchTerm)))
+    {
+        <Library.UI.Components.Elements.ClickableCard Title="@collection.Name" Url="@($"/collections/{collection.Id}")" ImageUrl="https://via.placeholder.com/150" />
+    }
+</div>
+
+<footer>
+    <button >Cancel</button>
+    <button @onclick="OnSaveCollection">Save</button>
+</footer>
+
+

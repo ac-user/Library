@@ -1,0 +1,12 @@
+﻿@using Library.UI.Model.ViewModels.Media
+@page "/media/{mediaType}"
+@rendermode RenderMode.InteractiveServer
+
+
+@foreach(var element in mediaContents)
+{
+    <Library.UI.Components.Elements.ClickableCard Title="@element.Title" />
+}
+
+
+

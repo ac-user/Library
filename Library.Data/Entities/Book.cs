@@ -6,6 +6,7 @@ namespace Library.Data.Entities;
 public partial class Book
 {
     public int BookId { get; set; }
+    public int AccountId { get; set; }
 
     public string? Isbn { get; set; }
 

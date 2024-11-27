@@ -7,6 +7,7 @@ public partial class Movie
 {
     public int MovieId { get; set; }
 
+    public int AccountId { get; set; }
     public string? Title { get; set; }
 
     public string? Series { get; set; }

@@ -1,6 +1,6 @@
 ﻿using Library.Services.Commands;
 using Library.Services.Models;
-using Library.Services.Models.Media.Book;
+using Library.Models.Media.Book;
 using Library.Services.Queries;
 
 namespace Library.Services.Services.Media
@@ -26,9 +26,9 @@ namespace Library.Services.Services.Media
             return await _query.GetAllAsync(accountId, cancellationToken);
         }
 
-        public async Task<ResponseStatus> CreateAsync(Book item, CancellationToken cancellationToken)
+        public async Task<ResponseStatus> CreateAsync(int accountId, Book item, CancellationToken cancellationToken)
         {
-            int id = await _command.CreateAsync(item, cancellationToken);
+            int id = await _command.CreateAsync(accountId, item, cancellationToken);
             var response = new ResponseStatus() 
             { 
                 Id = id,
@@ -46,7 +46,7 @@ namespace Library.Services.Services.Media
             return response;
         }
 
-        public async Task<ResponseStatus> UpdateAsync(Book item, CancellationToken cancellationToken)
+        public async Task<ResponseStatus> UpdateAsync(int accountId, Book item, CancellationToken cancellationToken)
         {
 
             return new ResponseStatus();

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Library.Data;
-using Library.Services.Models.Media.Music;
+using Library.Models.Media.Music;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library.Services.Queries

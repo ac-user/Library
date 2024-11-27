@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Library.Services.Models.Media.Book;
-using Library.Services.Models.Media.Movies;
-using Library.Services.Models.Media.Music;
+using Library.Models.Media.Book;
+using Library.Models.Media.Movies;
+using Library.Models.Media.Music;
 using Entity = Library.Data.Entities;
 
 namespace Library.Services.Profiles

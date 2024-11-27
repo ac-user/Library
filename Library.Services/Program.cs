@@ -1,8 +1,8 @@
 using Library.Data;
 using Library.Services.Commands;
-using Library.Services.Models.Media.Book;
-using Library.Services.Models.Media.Movies;
-using Library.Services.Models.Media.Music;
+using Library.Models.Media.Book;
+using Library.Models.Media.Movies;
+using Library.Models.Media.Music;
 using Library.Services.Profiles;
 using Library.Services.Queries;
 using Library.Services.Services;
