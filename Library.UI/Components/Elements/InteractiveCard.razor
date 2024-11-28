@@ -1,0 +1,24 @@
+﻿<div class="card clickable @Size" @onclick="OnClick">
+    <i class="bi bi-trash" @onclick="OnDelete"/>
+    @ChildContent
+    <div class="card-body">
+        <h5 class="card-title">@Title</h5>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public string Size { get; set; }
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
+    [Parameter]
+    public EventCallback OnDelete { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+}

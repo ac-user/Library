@@ -10,3 +10,6 @@
   width: 5rem;
   height: 6rem;
 }
+.card .selected {
+  border: 1px solid #1bd2ff;
+}

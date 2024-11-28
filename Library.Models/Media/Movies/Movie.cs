@@ -18,5 +18,17 @@
         /// Summary of the show
         /// </summary>
         public string? Summary { get; set; }
+        /// <summary>
+        /// How many times watched
+        /// </summary>
+        public int? TimesWatched { get; set; }
+        /// <summary>
+        /// Is the series ongoing
+        /// </summary>
+        public bool Ongoing { get; set; }
+        /// <summary>
+        /// Are you currently watching series
+        /// </summary>
+        public bool IsActivelyWatching { get; set; }
     }
 }

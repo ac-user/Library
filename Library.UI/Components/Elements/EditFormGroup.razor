@@ -1,0 +1,46 @@
+﻿@typeparam TModel
+@typeparam TValue
+
+<div class="form-group">
+    <label for="@FieldId">@Label <span class="text-danger" *ngIf="Required">*</span></label>
+    @if (typeof(TValue) == typeof(string))
+    {
+        <InputText @bind-Value="StringValue" class="form-control" id="@FieldId" aria-describedby="@helpText" />
+    }
+    else if (typeof(TValue) == typeof(DateTime))
+    {
+        <InputDate @bind-Value="DateTimeValue" class="form-control" id="@FieldId" />
+    }
+    <small id="@helpText" class="form-text text-muted">@HelpText</small>
+
+</div>
+
+@code {
+    [Parameter] 
+    public string Label { get; set; }
+    
+    [Parameter] 
+    public string HelpText { get; set; }
+    
+    [Parameter] 
+    public string FieldId { get; set; }
+    
+    [Parameter] 
+    public bool Required { get; set; }
+    
+    [Parameter] 
+    public string StringValue { get; set; }
+    
+    [Parameter] 
+    public DateTime? DateTimeValue { get; set; }
+
+
+    private string helpText;
+
+    protected override void OnParametersSet()
+    {
+        helpText = $"{FieldId}Help";
+        base.OnParametersSet();
+    }
+
+}

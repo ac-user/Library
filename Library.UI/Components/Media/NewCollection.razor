@@ -1,33 +1,65 @@
 ﻿@page "/new-collection"
+@rendermode RenderMode.InteractiveServer
 
-<InputText @bind-Value="collection.Name"/>
+<InputText @bind-Value="newCollection.Name" />
 <Library.UI.Components.Elements.SearchBox OnSearch="OnSearch" />
 
+@if(loading)
+{
+    <i class="bi spinner-border" />
+}
+else
+{
+    <div class="container">
 
-<div class="container">
+        @foreach (var content in newCollection.Books.Where(w => w.Title.Contains(searchTerm)))
+        {
+            <Library.UI.Components.Elements.ClickableCard 
+                @key="@content.Id" 
+                Title="@content.Title" 
+                Status="@(content.Selected ? "selected" : "")"
+                OnClick="@(() => OnToggleContentSelection(Model.ViewModels.Media.MediaType.Book, content.Id))" />
+        }
+        @foreach (var content in newCollection.Music.Where(w => w.Title.Contains(searchTerm)))
+        {
+            <Library.UI.Components.Elements.ClickableCard 
+                @key="@content.Id"
+                Title="@content.Title"
+                Status="@(content.Selected ? "selected" : "")"
+                OnClick="@(() => OnToggleContentSelection(Model.ViewModels.Media.MediaType.Music, content.Id))" />
+        }
+        @foreach (var content in newCollection.Movies.Where(w => w.Title.Contains(searchTerm)))
+        {
+            <Library.UI.Components.Elements.ClickableCard 
+                @key="@content.Id"
+                Title="@content.Title"
+                Status="@(content.Selected ? "selected" : "")"
+                OnClick="@(() => OnToggleContentSelection(Model.ViewModels.Media.MediaType.Movie, content.Id))" />
 
-    @foreach (var content in collection.Books.Where(w => w.Title.Contains(searchTerm)))
-    {
-        <Library.UI.Components.Elements.ClickableCard Title="@content.Title" ImageUrl="https://via.placeholder.com/150" />
-    }
-    @foreach (var content in collection.Music.Where(w => w.Title.Contains(searchTerm)))
-    {
-        <Library.UI.Components.Elements.ClickableCard Title="@content.Title" ImageUrl="https://via.placeholder.com/150" />
-    }
-    @foreach (var content in collection.Movies.Where(w => w.Title.Contains(searchTerm)))
-    {
-        <Library.UI.Components.Elements.ClickableCard Title="@content.Title" Url="@($"/collections/{content.Id}")" ImageUrl="https://via.placeholder.com/150" />
-    }
+        }
 
-    @foreach (var collection in collection.SubCollections.Where(w => w.Name.Contains(searchTerm)))
-    {
-        <Library.UI.Components.Elements.ClickableCard Title="@collection.Name" Url="@($"/collections/{collection.Id}")" ImageUrl="https://via.placeholder.com/150" />
-    }
-</div>
+        @foreach (var collection in newCollection.Collections.Where(w => w.Title.Contains(searchTerm)))
+        {
+            <Library.UI.Components.Elements.ClickableCard 
+                @key="@collection.Id"
+                Title="@collection.Title"
+                Status="@(collection.Selected ? "selected" : "")"
+                OnClick="@(() => OnToggleContentSelection(null, collection.Id))" />
+        }
+
+        @if (!newCollection.Books.Any() && !newCollection.Music.Any() && !newCollection.Movies.Any())
+        {
+            <p>There is nothing here, sorry. Try going back to the home page and adding content</p>
+        }
+    </div>
+}
 
 <footer>
     <button >Cancel</button>
     <button @onclick="OnSaveCollection">Save</button>
 </footer>
 
-
+@if(showDetails)
+{
+    <MediaView OnClose="OnClose" />
+}

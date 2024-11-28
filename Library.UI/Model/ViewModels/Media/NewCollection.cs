@@ -9,19 +9,19 @@
         /// <summary>
         /// Books within the collection
         /// </summary>
-        public List<NewCollectionContent> Books { get; set; }
+        public List<NewCollectionContent> Books { get; set; } = new();
         /// <summary>
         /// Music within the collection
         /// </summary>
-        public List<NewCollectionContent> Music { get; set; }
+        public List<NewCollectionContent> Music { get; set; } = new();
         /// <summary>
         /// Movies within the collection
         /// </summary>
-        public List<NewCollectionContent> Movies { get; set; }
+        public List<NewCollectionContent> Movies { get; set; } = new();
         /// <summary>
-        /// Subcollections within the collection
+        /// Collections that can be subcollections within the collection
         /// </summary>
-        public List<NewCollectionContent> SubCollections { get; set; }
+        public List<NewCollectionContent> Collections { get; set; } = new();
     }
 
     public class NewCollectionContent
@@ -37,6 +37,6 @@
         /// <summary>
         /// Is the element selected to be in the collection
         /// </summary>
-        public string Selected { get; set; }
+        public bool Selected { get; set; }
     }
 }

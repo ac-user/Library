@@ -1,6 +1,6 @@
 ﻿namespace Library.Models.Media.Music
 {
-    public class MusicModificationRequest
+    public class MusicModificationRequest : Music
     {
     }
 }

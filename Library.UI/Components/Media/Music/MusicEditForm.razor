@@ -1,0 +1,57 @@
+﻿@inherits MediaEditFormBase
+@using ViewModels = Library.UI.Model.ViewModels;
+
+<EditForm Model="@EditableMusicModel" OnValidSubmit="HandleValidMusicSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <Library.UI.Components.Elements.EditFormGroup 
+        TModel="ViewModels.Media.Music.EditableMusic"
+        TValue="string"
+        Label="Title" 
+        FieldId="musicTitle" 
+        Required="true" 
+        StringValue="@EditableMusicModel.Title" />
+    
+    <Library.UI.Components.Elements.EditFormGroup 
+        TModel="ViewModels.Media.Music.EditableMusic" 
+        TValue="string"
+        Label="Album" 
+        FieldId="album" 
+        Required="true" 
+        StringValue="@EditableMusicModel.Album" />
+
+    <Library.UI.Components.Elements.EditFormGroup 
+        TModel="ViewModels.Media.Music.EditableMusic" 
+        TValue="string"
+        Label="Artist" 
+        FieldId="artist" 
+        Required="true" 
+        StringValue="@EditableMusicModel.Artist" />
+    
+    <Library.UI.Components.Elements.EditFormGroup 
+        TModel="ViewModels.Media.Music.EditableMusic" 
+        TValue="string"
+        Label="Composer" 
+        FieldId="composer" 
+        Required="true" 
+        StringValue="@EditableMusicModel.Composer" />
+    
+    <Library.UI.Components.Elements.EditFormGroup 
+        TModel="ViewModels.Media.Music.EditableMusic" 
+        TValue="DateTime?"
+        Label="Date Published" 
+        FieldId="datePublished" 
+        Required="true" 
+        DateTimeValue="@EditableMusicModel.DateReleased" />
+    
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" @onclick="OnClose">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+    </div>
+</EditForm>
+
+@if (notificationUtility != null)
+{
+    <Library.UI.Components.Elements.Notification Title="@notificationUtility.Title" Message="@notificationUtility.Message" />
+}

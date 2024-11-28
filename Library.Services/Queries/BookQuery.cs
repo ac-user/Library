@@ -23,7 +23,7 @@ namespace Library.Services.Queries
 
         public async Task<List<Book>> GetAllAsync(int accountId, CancellationToken cancellationToken)
         {
-            return _mapper.Map<List<Book>>(await _context.Books.Where(f => f.BookId == accountId).ToListAsync(cancellationToken));
+            return _mapper.Map<List<Book>>(await _context.Books.Where(f => f.AccountId == accountId).ToListAsync(cancellationToken));
         }
     }
 }

@@ -1,11 +1,11 @@
-﻿namespace Library.Models
+﻿namespace Library.UI.Model.ViewModels.Media
 {
-    public class CreationBase
+    public class NewBase
     {
         /// <summary>
         /// What the mendia content is called
         /// </summary>
-        public string Title { get; set; }
+        public string? Title { get; set; }
         /// <summary>
         /// How would it be categorized
         /// </summary>
@@ -14,5 +14,6 @@
         /// Rating
         /// </summary>
         public int? Stars { get; set; }
+
     }
 }

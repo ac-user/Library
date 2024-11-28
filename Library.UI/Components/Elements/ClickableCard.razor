@@ -1,6 +1,6 @@
 ﻿@inject NavigationManager NavigationManager
 
-<div class="card clickable @Size" @onclick="OnClick">
+<div class="card clickable @Size @Status" @onclick="OnClick" @ondblclick="OnDoubleClick">
     @ChildContent
     <div class="card-body">
         <h5 class="card-title">@Title</h5>
@@ -9,6 +9,9 @@
 
 
 @code {
+    [Parameter]
+    public EventCallback OnDoubleClick { get; set; }
+
     [Parameter]
     public EventCallback OnClick { get; set; }
 
@@ -20,4 +23,7 @@
 
     [Parameter]
     public string Size { get; set; }
+
+    [Parameter]
+    public string Status { get; set; }
 }

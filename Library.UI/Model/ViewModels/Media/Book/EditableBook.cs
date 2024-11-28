@@ -1,15 +1,11 @@
-﻿namespace Library.Models.Media.Book
+﻿namespace Library.UI.Model.ViewModels.Media.Book
 {
-    /// <summary>
-    /// Request details to create a new book entry
-    /// </summary>
-    public class BookCreationRequest : CreationBase
+    public class EditableBook : NewBase
     {
         /// <summary>
-        /// Unique identifier for the media
+        /// Unique identifier for the book
         /// </summary>
-        /// <example>Book ISBN: 123-123645-452</example>
-        public string Identification { get; set; }
+        public string? ISBN { get; set; }
         /// <summary>
         /// The person who wrote the book
         /// </summary>
@@ -34,6 +30,5 @@
         /// The short description about the book
         /// </summary>
         public string? Description { get; set; }
-
     }
 }

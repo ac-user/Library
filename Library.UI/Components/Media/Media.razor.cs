@@ -1,7 +1,9 @@
 using AutoMapper;
 using Library.UI.Adapters;
 using Library.UI.Model.ViewModels.Media;
+using Library.UI.Utilities;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace Library.UI.Components.Media
 {
@@ -17,6 +19,9 @@ namespace Library.UI.Components.Media
         protected IMovieAdapter MovieAdapter { get; set; }
 
         [Inject]
+        protected IJSRuntime JSRuntime { get; set; }
+
+        [Inject]
         protected IMapper Mapper { get; set; }
 
         [Parameter]
@@ -24,6 +29,9 @@ namespace Library.UI.Components.Media
 
         private MediaType pageMediaType;
         private List<MediaCollection> mediaContents = new();
+        private NotificationUtility notificationUtility;
+        private bool cardView = true;
+        private string searchTerm = "";
 
         protected override void OnParametersSet()
         {
@@ -36,6 +44,7 @@ namespace Library.UI.Components.Media
             if (firstRender)
             {
                 await GetMediaContentsAsync();
+                notificationUtility = new NotificationUtility(JSRuntime);
             }
             await base.OnAfterRenderAsync(firstRender);
         }
@@ -56,7 +65,65 @@ namespace Library.UI.Components.Media
             {
                 mediaContents = Mapper.Map<List<MediaCollection>>(await MovieAdapter.GetAsync(1, cts.Token));
             }
+            cts.Dispose();
             StateHasChanged();
+        }
+
+        private async Task DeleteMediaContentAsync(int id)
+        {
+            //using var command = new CommandUtility();
+            
+            //if (pageMediaType == MediaType.Book)
+            //{
+            //    await command.ExecuteAsync((token) => BookAdapter.DeleteAsync(1, id, token),
+            //                            parameter: null,
+            //                            OnSuccessSubmit,
+            //                            OnFailedSubmit);
+            //}
+            //else if (pageMediaType == MediaType.Music)
+            //{
+            //    await command.ExecuteAsync((token) => MusicAdapter.DeleteAsync(1, id, token),
+            //                            parameter: null,
+            //                            OnSuccessSubmit,
+            //                            OnFailedSubmit);
+            //}
+            //else if (pageMediaType == MediaType.Movie)
+            //{
+            //    await command.ExecuteAsync((token) => MovieAdapter.DeleteAsync(1, id, token),
+            //                            parameter: null,
+            //                            OnSuccessSubmit,
+            //                            OnFailedSubmit);
+            //}
+        }
+        private void OnSuccessSubmit()
+        {
+            notificationUtility.ShowNotification("Success", "Failed to delete content");
+        }
+
+        private void OnFailedSubmit()
+        {
+            notificationUtility.ShowNotification("Failed", "Failed to delete content");   
+        }
+
+        private void OnSearch(string term)
+        {
+            if(term == null)
+            {
+                searchTerm = "";
+            }
+            else
+            {
+                searchTerm = term;
+            }
+        }
+
+        private void ShowCards()
+        {
+            cardView = true;
+        }
+        private void ShowTable()
+        {
+            cardView = false;
         }
     }
 }

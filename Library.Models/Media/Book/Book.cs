@@ -6,28 +6,41 @@
     public class Book : Base
     {
         /// <summary>
-        /// The person who wrote the book
+        /// Unique identifier for the media
         /// </summary>
-        public string Series { get; set; }
+        /// <example>Book ISBN: 123-123645-452</example>
+        public string Identification { get; set; }
         /// <summary>
         /// The person who wrote the book
         /// </summary>
-        public string Author { get; set; }
+        public string? Series { get; set; }
+        /// <summary>
+        /// The person who wrote the book
+        /// </summary>
+        public string? Author { get; set; }
         /// <summary>
         /// The company who printed the book
         /// </summary>
-        public string Publisher { get; set; }
+        public string? Publisher { get; set; }
         /// <summary>
         /// When was this release published
         /// </summary>
-        public DateTime Published { get; set; }
-        /// <summary>
-        /// The short description about the book
-        /// </summary>
-        public string Description { get; set; }
+        public DateTime? Published { get; set; }
         /// <summary>
         /// A short summary about the book
         /// </summary>
-        public string Summary { get; set; }
+        public string? Summary { get; set; }
+        /// <summary>
+        /// How many times read
+        /// </summary>
+        public int? TimesRead { get; set; }
+        /// <summary>
+        /// Is the series ongoing
+        /// </summary>
+        public bool Ongoing { get; set; }
+        /// <summary>
+        /// Are you currently reading series
+        /// </summary>
+        public bool IsActivelyReading { get; set; }
     }
 }

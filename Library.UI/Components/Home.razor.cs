@@ -31,7 +31,7 @@ namespace Library.UI.Components
 
         private void OnClickAddCollection()
         {
-
+            Navigation.NavigateTo($"/new-collection");
         }
 
         private void OnClickAddMedia()

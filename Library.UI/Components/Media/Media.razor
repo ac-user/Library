@@ -2,11 +2,68 @@
 @page "/media/{mediaType}"
 @rendermode RenderMode.InteractiveServer
 
+<Library.UI.Components.Elements.SearchBox OnSearch="OnSearch" />
 
-@foreach(var element in mediaContents)
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-secondary active" @onclick="ShowCards">
+        <input type="radio" name="Card" id="option1" autocomplete="off" checked> Card
+    </label>
+    <label class="btn btn-secondary" @onclick="ShowTable">
+        <input type="radio" name="Table" id="option2" autocomplete="off"> Table
+    </label>
+</div>
+
+@if(cardView)
 {
-    <Library.UI.Components.Elements.ClickableCard Title="@element.Title" />
+    @foreach (var element in mediaContents.Where(w => w.Title.Contains(searchTerm)))
+    {
+        <Library.UI.Components.Elements.InteractiveCard Title="@element.Title" />
+    }
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Title</th>
+                @if (pageMediaType == MediaType.Book)
+                {
+                    <th>Series</th>
+                    <th>Volume</th>
+                    <th>Author</th>
+                }
+                else if (pageMediaType == MediaType.Music)
+                {
+                    <th>Album</th>
+                    <th>Artist</th>
+                    <th></th>
+                }
+                else
+                {
+                    <th>Series</th>
+                    <th>Genre</th>
+                    <th></th>
+                }
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var element in mediaContents)
+            {
+                <tr>
+                    <td>@element.Title</td>
+                    <td>@element.ColumnTwo</td>
+                    <td>@element.ColumnThree</td>
+                    <td>@element.ColumnFour</td>
+                    <td><i class="bi bi-trash" @onclick="@(() => DeleteMediaContentAsync(element.ContentId))" /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
 
-
-
+@if (notificationUtility != null)
+{
+    <Library.UI.Components.Elements.Notification Title="@notificationUtility.Title" Message="@notificationUtility.Message"/>
+}
+    

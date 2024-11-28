@@ -1,6 +1,6 @@
-﻿namespace Library.Models.Media.Movies
+﻿namespace Library.UI.Model.ViewModels.Media.Movie
 {
-    public class MovieCreationRequest : CreationBase
+    public class EditableMovie : NewBase
     {
         /// <summary>
         /// Series the show is from, if any
@@ -22,5 +22,6 @@
         /// How many times watched
         /// </summary>
         public int? TimesWatched { get; set; }
+
     }
 }

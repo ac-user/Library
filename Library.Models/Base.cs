@@ -13,6 +13,14 @@
         /// <summary>
         /// A description of the media content
         /// </summary>
-        public string Description { get; set; }
+        public string? Description { get; set; }
+        /// <summary>
+        /// How would it be categorized
+        /// </summary>
+        public List<string> Genre { get; set; }
+        /// <summary>
+        /// Rating
+        /// </summary>
+        public int? Stars { get; set; }
     }
 }

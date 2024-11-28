@@ -1,10 +1,14 @@
 @import '../../wwwroot/css/Styles.scss';
 
-.card{
+.card {
     @include card;
 
-    .small{
-        width:5rem;
-        height:6rem;
+    .small {
+        width: 5rem;
+        height: 6rem;
+    }
+
+    .selected {
+        border: 1px solid #1bd2ff;
     }
 }

@@ -1,0 +1,49 @@
+﻿@inherits MediaEditFormBase
+@using ViewModels = Library.UI.Model.ViewModels;
+
+<EditForm Model="@EditableMovieModel" OnValidSubmit="HandleValidMovieSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <Library.UI.Components.Elements.EditFormGroup 
+        TModel="ViewModels.Media.Movie.EditableMovie" 
+        TValue="string"
+        Label="Title" 
+        FieldId="movieTitle" 
+        Required="true" 
+        StringValue="@EditableMovieModel.Title" />
+
+    <Library.UI.Components.Elements.EditFormGroup 
+        TModel="ViewModels.Media.Movie.EditableMovie" 
+        TValue="string"
+        Label="Series" 
+        FieldId="series" 
+        StringValue="@EditableMovieModel.Series"/>
+
+    <Library.UI.Components.Elements.EditFormGroup 
+        TModel="ViewModels.Media.Movie.EditableMovie" 
+        TValue="string"
+        Label="Writer" 
+        FieldId="writer" 
+        StringValue="@EditableMovieModel.Writer" />
+
+    <Library.UI.Components.Elements.EditFormGroup 
+        TModel="ViewModels.Media.Movie.EditableMovie" 
+        TValue="DateTime?"
+        Label="Date Released" 
+        FieldId="dateReleased"
+        DateTimeValue="@EditableMovieModel.DateReleased" />
+
+    <Library.UI.Components.Elements.EditFormGroup 
+        TModel="ViewModels.Media.Movie.EditableMovie" 
+        TValue="string"
+        Label="Summary"
+        FieldId="summary" 
+        StringValue="@EditableMovieModel.Summary" />
+
+</EditForm>
+
+@if (notificationUtility != null)
+{
+    <Library.UI.Components.Elements.Notification Title="@notificationUtility.Title" Message="@notificationUtility.Message" />
+}

@@ -1,0 +1,78 @@
+﻿@inherits MediaEditFormBase
+@using ViewModels = Library.UI.Model.ViewModels;
+
+<EditForm Model="@EditableBookModel" OnValidSubmit="HandleValidBookSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <Library.UI.Components.Elements.EditFormGroup 
+        TModel="ViewModels.Media.Book.EditableBook" 
+        TValue="string"
+        Label="Title" 
+        FieldId="bookTitle" 
+        Required="true" 
+        HelpText="Enter the book's title" 
+        StringValue="@EditableBookModel.Title"/>
+
+    <Library.UI.Components.Elements.EditFormGroup 
+        TModel="ViewModels.Media.Book.EditableBook" 
+        TValue="string"
+        Label="Series" 
+        FieldId="bookSeries" 
+        Required="true" 
+        HelpText="Enter the book's series" 
+        StringValue="@EditableBookModel.Series"/>
+    
+    <Library.UI.Components.Elements.EditFormGroup 
+        TModel="ViewModels.Media.Book.EditableBook" 
+        TValue="string"
+        Label="Author" 
+        FieldId="author" 
+        HelpText="Enter the author's name" 
+        StringValue="@EditableBookModel.Author" />
+    
+    <Library.UI.Components.Elements.EditFormGroup 
+        TModel="ViewModels.Media.Book.EditableBook"  
+        TValue="string"
+        Label="ISBN" 
+        FieldId="isbn"
+        Required="true"
+        HelpText="Enter the ISBN of the book" 
+        StringValue="@EditableBookModel.ISBN" />
+    
+    <Library.UI.Components.Elements.EditFormGroup 
+        TModel="ViewModels.Media.Book.EditableBook" 
+        TValue="string"
+        Label="Publisher" 
+        FieldId="publisher"
+        HelpText="Enter the Publisher of the book" 
+        StringValue="@EditableBookModel.Publisher" />
+    
+    <Library.UI.Components.Elements.EditFormGroup
+        TModel="ViewModels.Media.Book.EditableBook" 
+        TValue="DateTime?"
+        Label="Published Date" 
+        FieldId="published" 
+        DateTimeValue="@EditableBookModel.Published" />
+
+    <Library.UI.Components.Elements.EditFormGroup 
+        TModel="ViewModels.Media.Book.EditableBook" 
+        TValue="string"
+        Label="Description" 
+        FieldId="description" 
+        StringValue="@EditableBookModel.Description" />
+    
+    <Library.UI.Components.Elements.EditFormGroup 
+        TModel="ViewModels.Media.Book.EditableBook" 
+        TValue="string"
+        Label="Summary" 
+        FieldId="summary"
+        StringValue="@EditableBookModel.Summary" />
+
+</EditForm>
+
+
+@if (notificationUtility != null)
+{
+    <Library.UI.Components.Elements.Notification Title="@notificationUtility.Title" Message="@notificationUtility.Message" />
+}
