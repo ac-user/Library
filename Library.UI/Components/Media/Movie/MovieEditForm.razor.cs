@@ -23,7 +23,7 @@ namespace Library.UI.Components.Media.Movie
             if (IsCreate)
             {
                 var newMovie = Mapper.Map<AdapterModels.Media.Movies.MovieCreationRequest>(EditableMovieModel);
-                await command.ExecuteAsync((request, token) => MovieAdapter.CreateAsync(1, request, token),
+                await command.ExecuteAsync((request, token) => MovieAdapter.CreateAsync(Utilities.Account.AccountId, request, token),
                                             newMovie,
                                             OnSuccessSubmit,
                                             OnFailedSubmit);
@@ -31,7 +31,7 @@ namespace Library.UI.Components.Media.Movie
             else
             {
                 var modifyMovie = Mapper.Map<AdapterModels.Media.Movies.MovieModificationRequest>(EditableMovieModel);
-                await command.ExecuteAsync((request, token) => MovieAdapter.ModifyAsync(1, request, token),
+                await command.ExecuteAsync((request, token) => MovieAdapter.ModifyAsync(Utilities.Account.AccountId, request, token),
                                             modifyMovie,
                                             OnSuccessSubmit,
                                             OnFailedSubmit);

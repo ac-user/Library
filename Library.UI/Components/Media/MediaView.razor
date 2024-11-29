@@ -1,21 +1,17 @@
-﻿@typeparam TModel
-@using ViewModels = Library.UI.Model.ViewModels.Media;
+﻿@using ViewModels = Library.UI.Model.ViewModels.Media;
 
 <Library.UI.Components.Elements.Modal OnClose="OnClose">
-    @if (MediaType == ViewModels.MediaType.Book &&
-        typeof(TModel) == typeof(ViewModels.Book.Book))
+    @if (MediaType == ViewModels.MediaType.Book)
     {
-        <Library.UI.Components.Media.Book.BookView Book="Value as ViewModels.Book.Book" />
+        <Library.UI.Components.Media.Book.BookView Id="Id" />
     }
-    else if (MediaType == ViewModels.MediaType.Music &&
-        typeof(TModel) == typeof(ViewModels.Music.Music))
+    else if (MediaType == ViewModels.MediaType.Music)
     {
-        <Library.UI.Components.Media.Music.MusicView Music="Value as ViewModels.Music.Music"/>
+        <Library.UI.Components.Media.Music.MusicView Id="Id" />
     }
-    else if (MediaType == ViewModels.MediaType.Movie &&
-        typeof(TModel) == typeof(ViewModels.Movie.Movies))
+    else if (MediaType == ViewModels.MediaType.Movie)
     {
-        <Library.UI.Components.Media.Movie.MovieView Movie="Value as ViewModels.Movie.Movies" />
+        <Library.UI.Components.Media.Movie.MovieView Id="Id" />
     }
 </Library.UI.Components.Elements.Modal>
 

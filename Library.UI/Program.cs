@@ -51,6 +51,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddScoped<IBookAdapter, BookAdapter>();   
 builder.Services.AddScoped<IMusicAdapter, MusicAdapter>();   
 builder.Services.AddScoped<IMovieAdapter, MovieAdapter>();
+builder.Services.AddScoped<ICollectionAdapter, CollectionAdapter>();
 
 builder.Services.AddAutoMapper(typeof(LibraryProfile));
 

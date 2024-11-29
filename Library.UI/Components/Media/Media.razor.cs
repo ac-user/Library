@@ -1,9 +1,9 @@
 using AutoMapper;
 using Library.UI.Adapters;
-using Library.UI.Model.ViewModels.Media;
 using Library.UI.Utilities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using ViewModels = Library.UI.Model.ViewModels.Media;
 
 namespace Library.UI.Components.Media
 {
@@ -27,15 +27,17 @@ namespace Library.UI.Components.Media
         [Parameter]
         public string mediaType { get; set; }
 
-        private MediaType pageMediaType;
-        private List<MediaCollection> mediaContents = new();
+        private ViewModels.MediaType pageMediaType;
+        private List<ViewModels.MediaCollection> mediaContents = new();
         private NotificationUtility notificationUtility;
         private bool cardView = true;
+        private bool showDetails;
         private string searchTerm = "";
-
+        private int contentToOpen;
+        
         protected override void OnParametersSet()
         {
-            pageMediaType = (MediaType)Enum.Parse(typeof(MediaType), mediaType);
+            pageMediaType = (ViewModels.MediaType)Enum.Parse(typeof(ViewModels.MediaType), mediaType);
             base.OnParametersSet();
         }
 
@@ -53,17 +55,17 @@ namespace Library.UI.Components.Media
         {
             CancellationTokenSource cts = new CancellationTokenSource();
 
-            if (pageMediaType == MediaType.Book)
+            if (pageMediaType == ViewModels.MediaType.Book)
             {
-                mediaContents = Mapper.Map<List<MediaCollection>>(await BookAdapter.GetAsync(1, cts.Token));
+                mediaContents = Mapper.Map<List<ViewModels.MediaCollection>>(await BookAdapter.GetAsync(Utilities.Account.AccountId, cts.Token));
             }
-            else if (pageMediaType == MediaType.Music)
+            else if (pageMediaType == ViewModels.MediaType.Music)
             {
-                mediaContents = Mapper.Map<List<MediaCollection>>(await MusicAdapter.GetAsync(1, cts.Token));
+                mediaContents = Mapper.Map<List<ViewModels.MediaCollection>>(await MusicAdapter.GetAsync(Utilities.Account.AccountId, cts.Token));
             }
-            else if (pageMediaType == MediaType.Movie)
+            else if (pageMediaType == ViewModels.MediaType.Movie)
             {
-                mediaContents = Mapper.Map<List<MediaCollection>>(await MovieAdapter.GetAsync(1, cts.Token));
+                mediaContents = Mapper.Map<List<ViewModels.MediaCollection>>(await MovieAdapter.GetAsync(Utilities.Account.AccountId, cts.Token));
             }
             cts.Dispose();
             StateHasChanged();
@@ -71,30 +73,31 @@ namespace Library.UI.Components.Media
 
         private async Task DeleteMediaContentAsync(int id)
         {
-            //using var command = new CommandUtility();
-            
-            //if (pageMediaType == MediaType.Book)
-            //{
-            //    await command.ExecuteAsync((token) => BookAdapter.DeleteAsync(1, id, token),
-            //                            parameter: null,
-            //                            OnSuccessSubmit,
-            //                            OnFailedSubmit);
-            //}
-            //else if (pageMediaType == MediaType.Music)
-            //{
-            //    await command.ExecuteAsync((token) => MusicAdapter.DeleteAsync(1, id, token),
-            //                            parameter: null,
-            //                            OnSuccessSubmit,
-            //                            OnFailedSubmit);
-            //}
-            //else if (pageMediaType == MediaType.Movie)
-            //{
-            //    await command.ExecuteAsync((token) => MovieAdapter.DeleteAsync(1, id, token),
-            //                            parameter: null,
-            //                            OnSuccessSubmit,
-            //                            OnFailedSubmit);
-            //}
+            using var command = new CommandUtility();
+
+            if (pageMediaType == ViewModels.MediaType.Book)
+            {
+                await command.ExecuteAsync((id, token) => BookAdapter.DeleteAsync(Utilities.Account.AccountId, id, token),
+                                        id,
+                                        OnSuccessSubmit,
+                                        OnFailedSubmit);
+            }
+            else if (pageMediaType == ViewModels.MediaType.Music)
+            {
+                await command.ExecuteAsync((id, token) => MusicAdapter.DeleteAsync(Utilities.Account.AccountId, id, token),
+                                        id,
+                                        OnSuccessSubmit,
+                                        OnFailedSubmit);
+            }
+            else if (pageMediaType == ViewModels.MediaType.Movie)
+            {
+                await command.ExecuteAsync((id, token) => MovieAdapter.DeleteAsync(Utilities.Account.AccountId, id, token),
+                                        id,
+                                        OnSuccessSubmit,
+                                        OnFailedSubmit);
+            }
         }
+        
         private void OnSuccessSubmit()
         {
             notificationUtility.ShowNotification("Success", "Failed to delete content");
@@ -107,23 +110,29 @@ namespace Library.UI.Components.Media
 
         private void OnSearch(string term)
         {
-            if(term == null)
-            {
-                searchTerm = "";
-            }
-            else
-            {
-                searchTerm = term;
-            }
+            searchTerm = term ?? "";
+        }
+
+        private void ShowCardDetails(int id)
+        {
+            contentToOpen = id;
+            showDetails = true;
+        }
+
+        private void CloseDetailView()
+        {
+            showDetails = false;
         }
 
         private void ShowCards()
         {
             cardView = true;
         }
+        
         private void ShowTable()
         {
             cardView = false;
         }
+
     }
 }

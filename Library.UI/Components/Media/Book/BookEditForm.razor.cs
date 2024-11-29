@@ -24,7 +24,7 @@ namespace Library.UI.Components.Media.Book
             if (IsCreate)
             {
                 var newBook = Mapper.Map<AdapterModels.Media.Book.BookCreationRequest>(EditableBookModel);
-                await command.ExecuteAsync((request, token) => BookAdapter.CreateAsync(1, request, token),
+                await command.ExecuteAsync((request, token) => BookAdapter.CreateAsync(Utilities.Account.AccountId, request, token),
                                             newBook,
                                             OnSuccessSubmit,
                                             OnFailedSubmit);
@@ -32,7 +32,7 @@ namespace Library.UI.Components.Media.Book
             else
             {
                 var modifyBook = Mapper.Map<AdapterModels.Media.Book.BookModificationRequest>(EditableBookModel);
-                await command.ExecuteAsync((request, token) => BookAdapter.ModifyAsync(1, request, token),
+                await command.ExecuteAsync((request, token) => BookAdapter.ModifyAsync(Utilities.Account.AccountId, request, token),
                                             modifyBook,
                                             OnSuccessSubmit,
                                             OnFailedSubmit);

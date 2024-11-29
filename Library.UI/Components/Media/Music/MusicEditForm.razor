@@ -5,50 +5,27 @@
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <Library.UI.Components.Elements.EditFormGroup 
-        TModel="ViewModels.Media.Music.EditableMusic"
-        TValue="string"
-        Label="Title" 
-        FieldId="musicTitle" 
-        Required="true" 
-        StringValue="@EditableMusicModel.Title" />
+    <Library.UI.Components.Elements.EditFormGroup Label="Title" FieldId="musicTitle" Required="true" >
+        <InputText id="movieTitle" class="form-control" @bind-Value="EditableMusicModel.Title" aria-describedby="movieTitleHelp" />
+    </Library.UI.Components.Elements.EditFormGroup>
     
-    <Library.UI.Components.Elements.EditFormGroup 
-        TModel="ViewModels.Media.Music.EditableMusic" 
-        TValue="string"
-        Label="Album" 
-        FieldId="album" 
-        Required="true" 
-        StringValue="@EditableMusicModel.Album" />
+    <Library.UI.Components.Elements.EditFormGroup Label="Album" FieldId="album" >
+        <InputText id="album" class="form-control" @bind-Value="EditableMusicModel.Album" aria-describedby="albumHelp" />
+    </Library.UI.Components.Elements.EditFormGroup>
 
-    <Library.UI.Components.Elements.EditFormGroup 
-        TModel="ViewModels.Media.Music.EditableMusic" 
-        TValue="string"
-        Label="Artist" 
-        FieldId="artist" 
-        Required="true" 
-        StringValue="@EditableMusicModel.Artist" />
-    
-    <Library.UI.Components.Elements.EditFormGroup 
-        TModel="ViewModels.Media.Music.EditableMusic" 
-        TValue="string"
-        Label="Composer" 
-        FieldId="composer" 
-        Required="true" 
-        StringValue="@EditableMusicModel.Composer" />
-    
-    <Library.UI.Components.Elements.EditFormGroup 
-        TModel="ViewModels.Media.Music.EditableMusic" 
-        TValue="DateTime?"
-        Label="Date Published" 
-        FieldId="datePublished" 
-        Required="true" 
-        DateTimeValue="@EditableMusicModel.DateReleased" />
-    
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" @onclick="OnClose">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
-    </div>
+    <Library.UI.Components.Elements.EditFormGroup Label="Artist" FieldId="artist" >
+        <InputText id="artist" class="form-control" @bind-Value="EditableMusicModel.Artist" aria-describedby="artistHelp" />
+    </Library.UI.Components.Elements.EditFormGroup>
+
+    <Library.UI.Components.Elements.EditFormGroup Label="Composer" FieldId="composer" >
+        <InputText id="movieTitle" class="form-control" @bind-Value="EditableMusicModel.Composer" aria-describedby="movieTitleHelp" />
+    </Library.UI.Components.Elements.EditFormGroup>
+
+    <Library.UI.Components.Elements.EditFormGroup Label="Date Published" FieldId="datePublished" >
+        <InputDate id="date" class="form-control" @bind-Value="EditableMusicModel.DateReleased" />
+    </Library.UI.Components.Elements.EditFormGroup>
+
+    <EditFormButtons OnClose="OnClose" />
 </EditForm>
 
 @if (notificationUtility != null)

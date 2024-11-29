@@ -8,7 +8,10 @@ namespace Library.UI.Components.Media
         [Inject]
         protected IMapper Mapper { get; set; }
 
+        [Parameter]
+        public EventCallback OnClose { get; set; }
         
+
         public bool editMode;
 
         public void TurnOffEditMode()

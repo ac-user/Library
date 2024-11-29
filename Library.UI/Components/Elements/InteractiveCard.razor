@@ -1,4 +1,4 @@
-﻿<div class="card clickable @Size" @onclick="OnClick">
+﻿<div class="card clickable @Size" @onclick="OnClick" @ondblclick="OnDoubleClick">
     <i class="bi bi-trash" @onclick="OnDelete"/>
     @ChildContent
     <div class="card-body">
@@ -15,6 +15,9 @@
 
     [Parameter]
     public EventCallback OnClick { get; set; }
+
+    [Parameter]
+    public EventCallback OnDoubleClick { get; set; }
 
     [Parameter]
     public EventCallback OnDelete { get; set; }

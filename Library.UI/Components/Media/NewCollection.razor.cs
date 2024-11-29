@@ -21,6 +21,9 @@ namespace Library.UI.Components.Media
         protected IMovieAdapter MovieAdapter { get; set; }
 
         [Inject]
+        protected ICollectionAdapter CollectionAdapter { get; set; }
+
+        [Inject]
         protected IMapper Mapper { get; set; }
 
         [Inject]
@@ -48,10 +51,10 @@ namespace Library.UI.Components.Media
         private async Task GetAllContentAsync()
         {
             CancellationTokenSource cts = new CancellationTokenSource();
-            newCollection.Books = Mapper.Map<List<NewCollectionContent>>(await BookAdapter.GetAsync(1, cts.Token));
-            newCollection.Music = Mapper.Map<List<NewCollectionContent>>(await MusicAdapter.GetAsync(1, cts.Token));
-            newCollection.Movies = Mapper.Map<List<NewCollectionContent>>(await MovieAdapter.GetAsync(1, cts.Token));
-            newCollection.Collections = new();
+            newCollection.Books = Mapper.Map<List<NewCollectionContent>>(await BookAdapter.GetAsync(Utilities.Account.AccountId, cts.Token));
+            newCollection.Music = Mapper.Map<List<NewCollectionContent>>(await MusicAdapter.GetAsync(Utilities.Account.AccountId, cts.Token));
+            newCollection.Movies = Mapper.Map<List<NewCollectionContent>>(await MovieAdapter.GetAsync(Utilities.Account.AccountId, cts.Token));
+            newCollection.Collections = Mapper.Map<List<NewCollectionContent>>(await CollectionAdapter.GetAsync(Utilities.Account.AccountId, cts.Token));
             loading = false;
             cts.Dispose();
             StateHasChanged();
@@ -90,5 +93,6 @@ namespace Library.UI.Components.Media
         {
 
         }
+
     }
 }

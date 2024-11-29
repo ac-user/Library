@@ -5,42 +5,27 @@
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <Library.UI.Components.Elements.EditFormGroup 
-        TModel="ViewModels.Media.Movie.EditableMovie" 
-        TValue="string"
-        Label="Title" 
-        FieldId="movieTitle" 
-        Required="true" 
-        StringValue="@EditableMovieModel.Title" />
+    <Library.UI.Components.Elements.EditFormGroup Label="Title" FieldId="movieTitle" Required="true" >
+        <InputText id="movieTitle" class="form-control" @bind-Value="EditableMovieModel.Title" required aria-describedby="movieTitleHelp" />
+    </Library.UI.Components.Elements.EditFormGroup>
 
-    <Library.UI.Components.Elements.EditFormGroup 
-        TModel="ViewModels.Media.Movie.EditableMovie" 
-        TValue="string"
-        Label="Series" 
-        FieldId="series" 
-        StringValue="@EditableMovieModel.Series"/>
+    <Library.UI.Components.Elements.EditFormGroup Label="Series" FieldId="series">
+        <InputText id="series" class="form-control" @bind-Value="EditableMovieModel.Series" aria-describedby="seriesHelp" />
+    </Library.UI.Components.Elements.EditFormGroup>
 
-    <Library.UI.Components.Elements.EditFormGroup 
-        TModel="ViewModels.Media.Movie.EditableMovie" 
-        TValue="string"
-        Label="Writer" 
-        FieldId="writer" 
-        StringValue="@EditableMovieModel.Writer" />
+    <Library.UI.Components.Elements.EditFormGroup Label="Writer" FieldId="writer">
+        <InputText id="writer" class="form-control" @bind-Value="EditableMovieModel.Writer" aria-describedby="writerHelp" />
+    </Library.UI.Components.Elements.EditFormGroup>
 
-    <Library.UI.Components.Elements.EditFormGroup 
-        TModel="ViewModels.Media.Movie.EditableMovie" 
-        TValue="DateTime?"
-        Label="Date Released" 
-        FieldId="dateReleased"
-        DateTimeValue="@EditableMovieModel.DateReleased" />
+    <Library.UI.Components.Elements.EditFormGroup Label="Date Released" FieldId="dateReleased" >
+        <InputDate id="date" class="form-control" @bind-Value="EditableMovieModel.DateReleased" />
+    </Library.UI.Components.Elements.EditFormGroup>
 
-    <Library.UI.Components.Elements.EditFormGroup 
-        TModel="ViewModels.Media.Movie.EditableMovie" 
-        TValue="string"
-        Label="Summary"
-        FieldId="summary" 
-        StringValue="@EditableMovieModel.Summary" />
+    <Library.UI.Components.Elements.EditFormGroup Label="Summary" FieldId="summary" >
+        <InputTextArea id="summary" class="form-control" @bind-Value="EditableMovieModel.Summary" />
+    </Library.UI.Components.Elements.EditFormGroup>
 
+    <EditFormButtons OnClose="OnClose" />
 </EditForm>
 
 @if (notificationUtility != null)

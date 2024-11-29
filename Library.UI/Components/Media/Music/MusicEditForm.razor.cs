@@ -23,7 +23,7 @@ namespace Library.UI.Components.Media.Music
             if (IsCreate)
             {
                 var newMusic = Mapper.Map<AdapterModels.Media.Music.MusicCreationRequest>(EditableMusicModel);
-                await command.ExecuteAsync((request, token) => MusicAdapter.CreateAsync(1, request, token),
+                await command.ExecuteAsync((request, token) => MusicAdapter.CreateAsync(Utilities.Account.AccountId, request, token),
                                             newMusic,
                                             OnSuccessSubmit,
                                             OnFailedSubmit);
@@ -31,7 +31,7 @@ namespace Library.UI.Components.Media.Music
             else
             {
                 var modifyMusic = Mapper.Map<AdapterModels.Media.Music.MusicModificationRequest>(EditableMusicModel);
-                await command.ExecuteAsync((request, token) => MusicAdapter.ModifyAsync(1, request, token),
+                await command.ExecuteAsync((request, token) => MusicAdapter.ModifyAsync(Utilities.Account.AccountId, request, token),
                                             modifyMusic,
                                             OnSuccessSubmit,
                                             OnFailedSubmit);
