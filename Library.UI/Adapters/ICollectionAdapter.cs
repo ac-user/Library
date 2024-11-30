@@ -12,7 +12,7 @@ namespace Library.UI.Adapters
         /// <param name="request">collection information</param>
         /// <param name="cancellationToken">token to cancel long running processes</param>
         /// <returns>Creation status</returns>
-        Task<CommandResponseStatus> CreateAsync(int accountId, Collection request, CancellationToken cancellationToken);
+        Task<CommandResponseStatus> CreateAsync(int accountId, CollectionCreationRequest request, CancellationToken cancellationToken);
         /// <summary>
         /// Update a collection
         /// </summary>

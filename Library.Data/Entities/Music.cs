@@ -17,4 +17,7 @@ public partial class Music
     public string? Singer { get; set; }
 
     public DateTime? DatePublished { get; set; }
+
+    public CollectionAssociation CollectionAssociation { get; set; }
+
 }

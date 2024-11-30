@@ -29,6 +29,11 @@ a, .btn-link {
   gap: 5px;
 }
 
+.quad-container {
+  height: 16rem;
+  width: 16rem;
+}
+
 h1:focus {
   outline: none;
 }

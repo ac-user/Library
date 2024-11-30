@@ -1,24 +1,22 @@
 ﻿@inherits ViewBase
 
-@if(editMode)
-{
-    <i class="bi breadcrumb-item" @onclick="TurnOffEditMode" />
-    <BookEditForm EditableBookModel="editableBook" IsCreate="false" OnClose="OnClose" OnSuccess="TurnOffEditMode" />
-}
-else if (Book != null)
-{
-    <i class="bi bi-pencil" @onclick="EnableEditMode"/>
-    <div>
-        <p><strong>Title:</strong> @Book.Title</p>
-        <p><strong>Series:</strong> @Book.Series</p>
-        <p><strong>Author:</strong> @Book.Author</p>
-        <p><strong>Publisher:</strong> @Book.Publisher</p>
-        <p><strong>Published:</strong> @Book.Published.ToString("MMMM dd, yyyy")</p>
-        <p><strong>Description:</strong> @Book.Description</p>
-        <p><strong>Summary:</strong> @Book.Summary</p>
-    </div>
-}
-else
-{
-    <i class="bi spinner-border"/>
-}
+<Library.UI.Components.Elements.LoadableContent Loading="@(Book == null)">
+    @if (editMode)
+    {
+        <i class="bi breadcrumb-item" @onclick="TurnOffEditMode" />
+        <BookEditForm EditableBookModel="editableBook" IsCreate="false" OnClose="OnClose" OnSuccess="TurnOffEditMode" />
+    }
+    else if (Book != null)
+    {
+        <i class="bi bi-pencil" @onclick="EnableEditMode" />
+        <div>
+            <p><strong>Title:</strong> @Book.Title</p>
+            <p><strong>Series:</strong> @Book.Series</p>
+            <p><strong>Author:</strong> @Book.Author</p>
+            <p><strong>Publisher:</strong> @Book.Publisher</p>
+            <p><strong>Published:</strong> @Book.Published.ToString("MMMM dd, yyyy")</p>
+            <p><strong>Description:</strong> @Book.Description</p>
+            <p><strong>Summary:</strong> @Book.Summary</p>
+        </div>
+    }
+</Library.UI.Components.Elements.LoadableContent>

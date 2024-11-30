@@ -1,11 +1,12 @@
 using AutoMapper;
-using Library.Models.Media;
 using Library.UI.Adapters;
 using Library.UI.Model.ViewModels.Media;
 using Library.UI.Utilities;
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 using ViewModels = Library.UI.Model.ViewModels;
+using Adapter = Library.Models.Media;
+using Microsoft.JSInterop;
+using AutoMapper.Internal.Mappers;
 
 namespace Library.UI.Components.Media
 {
@@ -27,9 +28,13 @@ namespace Library.UI.Components.Media
         protected IMapper Mapper { get; set; }
 
         [Inject]
+        protected IJSRuntime JSRuntime { get; set; }
+
+        [Inject]
         protected NavigationManager Navigation {  get; set; }
 
         private ViewModels.Media.NewCollection newCollection = new();
+        private Utilities.NotificationUtility notificationUtility;
         private string searchTerm = "";
         private bool loading = true;
 
@@ -43,6 +48,7 @@ namespace Library.UI.Components.Media
         {
             if (firstRender)
             {
+                notificationUtility = new NotificationUtility(JSRuntime);
                 await GetAllContentAsync();
             }
             await base.OnAfterRenderAsync(firstRender);
@@ -91,8 +97,31 @@ namespace Library.UI.Components.Media
 
         private async Task OnSaveCollection()
         {
+            var collection = new Adapter.CollectionCreationRequest()
+            {
+                Title = newCollection.Name,
+                NewCollectionContents = new()
+            };
+            collection.NewCollectionContents.AddRange(newCollection.Books.Where(w => w.Selected).Select(s => new Adapter.NewCollectionContent(){MediaType = Adapter.MediaContentType.Book, Id = s.Id}));
+            collection.NewCollectionContents.AddRange(newCollection.Music.Where(w => w.Selected).Select(s => new Adapter.NewCollectionContent(){MediaType = Adapter.MediaContentType.Music, Id = s.Id}));
+            collection.NewCollectionContents.AddRange(newCollection.Movies.Where(w => w.Selected).Select(s => new Adapter.NewCollectionContent(){MediaType = Adapter.MediaContentType.Movie, Id = s.Id}));
+            collection.NewCollectionContents.AddRange(newCollection.Collections.Where(w => w.Selected).Select(s => new Adapter.NewCollectionContent() {Id = s.Id}));
 
+            using var command = new CommandUtility();
+            await command.ExecuteAsync((request, token) => CollectionAdapter.CreateAsync(Utilities.Account.AccountId, request, token),
+                                        collection,
+                                        onSuccessId: OnSuccessSubmit,
+                                        onFailureMessage: OnFailedSubmit);
         }
 
+        private void OnSuccessSubmit(int collectionId)
+        {
+            Navigation.NavigateTo($"/collection/{collectionId}");
+        }
+
+        private void OnFailedSubmit(List<string> messages)
+        {
+            notificationUtility.ShowNotification("Failed Collection Creation", messages);
+        }
     }
 }

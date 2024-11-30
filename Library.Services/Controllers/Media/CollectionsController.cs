@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Library.Services.Controllers.Media
 {
-    [Route("apiAccount/{accountId}/Library/Media/[controller]")]
+    [Route("api/Account/{accountId}/Library/Media/[controller]")]
     [ApiController]
     public class CollectionsController : BaseController
     {
@@ -76,11 +76,11 @@ namespace Library.Services.Controllers.Media
         [ProducesResponseType(typeof(BadRequestObjectResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status412PreconditionFailed)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreateAsync(int accountId, [FromBody] Collection request, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreateAsync(int accountId, [FromBody] CollectionCreationRequest request, CancellationToken cancellationToken)
         {
             return await ExecuteCommandAsync(async () =>
             {
-                return await _service.CreateAsync(accountId, request, cancellationToken);
+                return await _service.CreateAsync(accountId, _mapper.Map<Collection>(request), cancellationToken);
             },
             accountId,
             cancellationToken,

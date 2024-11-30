@@ -33,9 +33,12 @@ namespace Library.UI.Profiles
                 .ForMember(d => d.DateReleased, o => o.MapFrom(s => s.ColumnFour)).ReverseMap();
 
 
-            CreateMap<Views.Media.Book.Book, Adapter.Media.Book.Book>().ReverseMap();
+            CreateMap<Views.Media.Book.Book, Adapter.Media.Book.Book>()
+                .ForMember(d => d.Identification, o => o.MapFrom(s => s.ISBN)).ReverseMap();
             CreateMap<Views.Media.Music.Music, Adapter.Media.Music.Music>().ReverseMap();
             CreateMap<Views.Media.Movie.Movies, Adapter.Media.Movies.Movie>().ReverseMap();
+            CreateMap<Views.Media.Collection, Adapter.Media.Collection>().ReverseMap();
+            CreateMap<Views.CollectionCards, Adapter.Media.Collection>().ReverseMap();
 
         }
 
@@ -49,19 +52,19 @@ namespace Library.UI.Profiles
             CreateMap<Views.Media.NewCollectionContent, Adapter.Media.Book.Book>().ReverseMap();
             CreateMap<Views.Media.NewCollectionContent, Adapter.Media.Music.Music>().ReverseMap();
             CreateMap<Views.Media.NewCollectionContent, Adapter.Media.Movies.Movie>().ReverseMap();
-
+            CreateMap<Views.Media.NewCollectionContent, Adapter.Media.NewCollectionContent>().ReverseMap();
         }
 
         private void ModifyingMedia()
         {
-            CreateMap<Views.Media.Book.EditableBook, Adapter.Media.Book.Book>()
-                .ForMember(d => d.Identification, o => o.MapFrom(s => s.ISBN)).ReverseMap();
-            CreateMap<Views.Media.Music.EditableMusic, Adapter.Media.Music.Music>().ReverseMap();
-            CreateMap<Views.Media.Movie.EditableMovie, Adapter.Media.Movies.Movie>().ReverseMap();
+            CreateMap<Views.Media.Book.EditableBook, Views.Media.Book.Book>().ReverseMap();
+            CreateMap<Views.Media.Music.EditableMusic, Views.Media.Music.Music>().ReverseMap();
+            CreateMap<Views.Media.Movie.EditableMovie, Views.Media.Movie.Movies>().ReverseMap();
 
-            CreateMap<Views.Media.Book.Book, Adapter.Media.Book.BookModificationRequest>().ReverseMap();
-            CreateMap<Views.Media.Music.Music, Adapter.Media.Music.MusicModificationRequest>().ReverseMap();
-            CreateMap<Views.Media.Movie.Movies, Adapter.Media.Movies.MovieModificationRequest>().ReverseMap();
+            CreateMap<Views.Media.Book.EditableBook, Adapter.Media.Book.BookModificationRequest>()
+                .ForMember(d => d.Identification, o => o.MapFrom(s => s.ISBN)).ReverseMap();
+            CreateMap<Views.Media.Music.EditableMusic, Adapter.Media.Music.MusicModificationRequest>().ReverseMap();
+            CreateMap<Views.Media.Movie.EditableMovie, Adapter.Media.Movies.MovieModificationRequest>().ReverseMap();
         }
     }
 }

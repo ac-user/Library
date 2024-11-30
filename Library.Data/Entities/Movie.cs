@@ -17,4 +17,7 @@ public partial class Movie
     public DateTime? DateReleased { get; set; }
 
     public string? Summary { get; set; }
+
+    public CollectionAssociation CollectionAssociation { get; set; }
+
 }

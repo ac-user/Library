@@ -67,6 +67,10 @@ public partial class LibraryContext : DbContext
 
             entity.Property(e => e.CollectionId).ValueGeneratedOnAdd();
             entity.Property(e => e.Title).IsUnicode(false);
+
+            entity.HasMany(h => h.CollectionAssociations)
+                  .WithOne(o => o.Collection)
+                  .HasForeignKey(f => f.CollectionId);
         });
 
         modelBuilder.Entity<CollectionAssociation>(entity =>
@@ -78,6 +82,21 @@ public partial class LibraryContext : DbContext
             entity.Property(e => e.MediaType)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+
+            entity.HasMany(h => h.Books)
+                  .WithOne(o => o.CollectionAssociation)
+                  .HasForeignKey(f => f.BookId)
+                  .HasPrincipalKey(p => p.MediaId);
+
+            entity.HasMany(h => h.Music)
+                  .WithOne(o => o.CollectionAssociation)
+                  .HasForeignKey(f => f.MusicId)
+                  .HasPrincipalKey(p => p.MediaId);
+
+            entity.HasMany(h => h.Movies)
+                  .WithOne(o => o.CollectionAssociation)
+                  .HasForeignKey(f => f.MovieId)
+                  .HasPrincipalKey(p => p.MediaId);
         });
 
         modelBuilder.Entity<Movie>(entity =>

@@ -19,7 +19,7 @@ namespace Library.UI.Components
 
         private ViewModels.Home _model = new();
         private bool addMedia;
-        private string searchTerm;
+        private string searchTerm = "";
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {

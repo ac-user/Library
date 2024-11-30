@@ -7,9 +7,9 @@ namespace Library.UI.Adapters
     {
         public CollectionAdapter(IHttpClientFactory httpClientFactory) : base(httpClientFactory, "LibraryService") { }
 
-        public async Task<CommandResponseStatus> CreateAsync(int accountId, Collection request, CancellationToken cancellationToken)
+        public async Task<CommandResponseStatus> CreateAsync(int accountId, CollectionCreationRequest request, CancellationToken cancellationToken)
         {
-            var httpResponse = await MakeCommandRequest<Collection>(HttpMethod.Post,
+            var httpResponse = await MakeCommandRequest<CollectionCreationRequest>(HttpMethod.Post,
                                                                             $"api/Account/{accountId}/Library/Media/Collections",
                                                                             request,
                                                                             cancellationToken);

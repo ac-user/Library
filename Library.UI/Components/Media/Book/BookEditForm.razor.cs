@@ -26,20 +26,20 @@ namespace Library.UI.Components.Media.Book
                 var newBook = Mapper.Map<AdapterModels.Media.Book.BookCreationRequest>(EditableBookModel);
                 await command.ExecuteAsync((request, token) => BookAdapter.CreateAsync(Utilities.Account.AccountId, request, token),
                                             newBook,
-                                            OnSuccessSubmit,
-                                            OnFailedSubmit);
+                                            onSuccess: (() => OnSuccessSubmit()),
+                                            onFailure: OnFailedSubmit);
             }
             else
             {
                 var modifyBook = Mapper.Map<AdapterModels.Media.Book.BookModificationRequest>(EditableBookModel);
                 await command.ExecuteAsync((request, token) => BookAdapter.ModifyAsync(Utilities.Account.AccountId, request, token),
                                             modifyBook,
-                                            OnSuccessSubmit,
-                                            OnFailedSubmit);
+                                            onSuccess: (() => OnSuccessSubmit()),
+                                            onFailure: OnFailedSubmit);
             }
         }
 
-        private void OnSuccessSubmit()
+        private async Task OnSuccessSubmit()
         {
             if (IsCreate)
             {
@@ -49,7 +49,8 @@ namespace Library.UI.Components.Media.Book
             {
                 notificationUtility.ShowNotification("Modified Book", $"Successfully modified {EditableBookModel.Title}");
             }
-            OnSuccess.InvokeAsync();
+            await Task.Delay(2000);
+            await OnSuccess.InvokeAsync();
         }
 
         private void OnFailedSubmit()

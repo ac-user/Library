@@ -6,6 +6,10 @@
     public class Book : Base
     {
         /// <summary>
+        /// Secondary title
+        /// </summary>
+        public string SubTitle { get; set; }
+        /// <summary>
         /// Unique identifier for the media
         /// </summary>
         /// <example>Book ISBN: 123-123645-452</example>
@@ -30,6 +34,10 @@
         /// A short summary about the book
         /// </summary>
         public string? Summary { get; set; }
+        /// <summary>
+        /// Number of pages within the book
+        /// </summary>
+        public int Pages { get; set; }
         /// <summary>
         /// How many times read
         /// </summary>

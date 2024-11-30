@@ -1,20 +1,18 @@
 ﻿@inherits ViewBase
 
-@if(editMode)
-{
-    <i class="bi breadcrumb-item" @onclick="TurnOffEditMode" />
-    <MusicEditForm EditableMusicModel="editableMusic" IsCreate="false" OnClose="OnClose" OnSuccess="TurnOffEditMode" />
-}
-else if(Music != null)
-{
-    <i class="bi bi-pencil" @onclick="EnableEditMode"/>
-    <div>
-        <p><strong>Title:</strong> @Music.Title</p>
-        <p><strong>Album:</strong> @Music.Album</p>
-        <p><strong>Singer:</strong> @Music.Singer</p>
-    </div>
-}
-else
-{
-    <i class="bi spinner-border" />
-}
+<Library.UI.Components.Elements.LoadableContent Loading="@(Music == null)">
+    @if (editMode)
+    {
+        <i class="bi breadcrumb-item" @onclick="TurnOffEditMode" />
+        <MusicEditForm EditableMusicModel="editableMusic" IsCreate="false" OnClose="OnClose" OnSuccess="TurnOffEditMode" />
+    }
+    else if (Music != null)
+    {
+        <i class="bi bi-pencil" @onclick="EnableEditMode" />
+        <div>
+            <p><strong>Title:</strong> @Music.Title</p>
+            <p><strong>Album:</strong> @Music.Album</p>
+            <p><strong>Singer:</strong> @Music.Singer</p>
+        </div>
+    }
+</Library.UI.Components.Elements.LoadableContent>

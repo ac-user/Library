@@ -27,4 +27,6 @@ public partial class Book
     public string? Author { get; set; }
 
     public string? Artist { get; set; }
+
+    public CollectionAssociation CollectionAssociation { get; set; }
 }

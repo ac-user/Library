@@ -25,16 +25,16 @@ namespace Library.UI.Components.Media.Music
                 var newMusic = Mapper.Map<AdapterModels.Media.Music.MusicCreationRequest>(EditableMusicModel);
                 await command.ExecuteAsync((request, token) => MusicAdapter.CreateAsync(Utilities.Account.AccountId, request, token),
                                             newMusic,
-                                            OnSuccessSubmit,
-                                            OnFailedSubmit);
+                                            onSuccess: OnSuccessSubmit,
+                                            onFailure: OnFailedSubmit);
             }
             else
             {
                 var modifyMusic = Mapper.Map<AdapterModels.Media.Music.MusicModificationRequest>(EditableMusicModel);
                 await command.ExecuteAsync((request, token) => MusicAdapter.ModifyAsync(Utilities.Account.AccountId, request, token),
                                             modifyMusic,
-                                            OnSuccessSubmit,
-                                            OnFailedSubmit);
+                                            onSuccess: OnSuccessSubmit,
+                                            onFailure: OnFailedSubmit);
             }
         }
 

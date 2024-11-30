@@ -4,47 +4,38 @@
 <InputText @bind-Value="newCollection.Name" />
 <Library.UI.Components.Elements.SearchBox OnSearch="OnSearch" />
 
-@if(loading)
-{
-    <i class="bi spinner-border" />
-}
-else
-{
+<Library.UI.Components.Elements.LoadableContent Loading="loading">
     <div class="container">
 
         @foreach (var content in newCollection.Books.Where(w => w.Title.Contains(searchTerm)))
         {
-            <Library.UI.Components.Elements.ClickableCard 
-                @key="@content.Id" 
-                Title="@content.Title" 
-                Status="@(content.Selected ? "selected" : "")"
-                OnClick="@(() => OnToggleContentSelection(Model.ViewModels.Media.MediaType.Book, content.Id))" />
+            <Library.UI.Components.Elements.ClickableCard @key="@($"book_{content.Id}")"
+                                                          Title="@content.Title"
+                                                          Status="@(content.Selected ? "selected" : "")"
+                                                          OnClick="@(() => OnToggleContentSelection(Model.ViewModels.Media.MediaType.Book, content.Id))" />
         }
         @foreach (var content in newCollection.Music.Where(w => w.Title.Contains(searchTerm)))
         {
-            <Library.UI.Components.Elements.ClickableCard 
-                @key="@content.Id"
-                Title="@content.Title"
-                Status="@(content.Selected ? "selected" : "")"
-                OnClick="@(() => OnToggleContentSelection(Model.ViewModels.Media.MediaType.Music, content.Id))" />
+            <Library.UI.Components.Elements.ClickableCard @key="@($"music_{content.Id}")"
+                                                          Title="@content.Title"
+                                                          Status="@(content.Selected ? "selected" : "")"
+                                                          OnClick="@(() => OnToggleContentSelection(Model.ViewModels.Media.MediaType.Music, content.Id))" />
         }
         @foreach (var content in newCollection.Movies.Where(w => w.Title.Contains(searchTerm)))
         {
-            <Library.UI.Components.Elements.ClickableCard 
-                @key="@content.Id"
-                Title="@content.Title"
-                Status="@(content.Selected ? "selected" : "")"
-                OnClick="@(() => OnToggleContentSelection(Model.ViewModels.Media.MediaType.Movie, content.Id))" />
+            <Library.UI.Components.Elements.ClickableCard @key="@($"movie_{content.Id}")"
+                                                          Title="@content.Title"
+                                                          Status="@(content.Selected ? "selected" : "")"
+                                                          OnClick="@(() => OnToggleContentSelection(Model.ViewModels.Media.MediaType.Movie, content.Id))" />
 
         }
 
         @foreach (var collection in newCollection.Collections.Where(w => w.Title.Contains(searchTerm)))
         {
-            <Library.UI.Components.Elements.ClickableCard 
-                @key="@collection.Id"
-                Title="@collection.Title"
-                Status="@(collection.Selected ? "selected" : "")"
-                OnClick="@(() => OnToggleContentSelection(null, collection.Id))" />
+            <Library.UI.Components.Elements.ClickableCard @key="@($"collection_{collection.Id}")"
+                                                          Title="@collection.Title"
+                                                          Status="@(collection.Selected ? "selected" : "")"
+                                                          OnClick="@(() => OnToggleContentSelection(null, collection.Id))" />
         }
 
         @if (!newCollection.Books.Any() && !newCollection.Music.Any() && !newCollection.Movies.Any())
@@ -52,10 +43,15 @@ else
             <p>There is nothing here, sorry. Try going back to the home page and adding content</p>
         }
     </div>
-}
+</Library.UI.Components.Elements.LoadableContent>
 
 <footer>
     <button >Cancel</button>
     <button @onclick="OnSaveCollection">Save</button>
 </footer>
 
+@if (notificationUtility != null)
+{
+    <Library.UI.Components.Elements.Notification Title="@notificationUtility.Title" Message="@notificationUtility.Message" />
+}
+    

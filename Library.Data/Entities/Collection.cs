@@ -9,4 +9,6 @@ public partial class Collection
 
     public int AccountId { get; set; }
     public string Title { get; set; } = null!;
+
+    public ICollection<CollectionAssociation> CollectionAssociations { get; set; } = new List<CollectionAssociation>();
 }

@@ -2,13 +2,36 @@
 
 .card {
     @include card;
+    @include flexibleColumn;
+    align-items: center;
 
-    .small {
-        width: 5rem;
-        height: 6rem;
+    .card-body {
+        @include flexibleColumn;
+        align-items: center;
+
+        .card-title {
+            font-size: small;
+        }
     }
 
-    .selected {
+    &.small {
+        height: 6rem;
+        width: 6rem;
+        gap: 5px;
+
+        .card-body {
+            .card-title {
+                font-size: small;
+            }
+        }
+    }
+
+    &.selected {
         border: 1px solid #1bd2ff;
+    }
+
+    i {
+        height: 75%;
+        width: 75%;
     }
 }

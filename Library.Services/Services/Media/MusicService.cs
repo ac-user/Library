@@ -48,8 +48,16 @@ namespace Library.Services.Services.Media
 
         public async Task<ResponseStatus> UpdateAsync(int accountId, Music item, CancellationToken cancellationToken)
         {
-
-            return new ResponseStatus();
+            bool success = await _command.UpdateAsync(accountId, item, cancellationToken);
+            var response = new ResponseStatus()
+            {
+                IsSuccess = success,
+                Messages = success ? new() : new List<string>()
+                {
+                    $"Had problem modifying the music {item.Title}."
+                }
+            };
+            return response;
         }
 
         public async Task<ResponseStatus> DeleteAsync(int id, CancellationToken cancellationToken)

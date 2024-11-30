@@ -25,16 +25,16 @@ namespace Library.UI.Components.Media.Movie
                 var newMovie = Mapper.Map<AdapterModels.Media.Movies.MovieCreationRequest>(EditableMovieModel);
                 await command.ExecuteAsync((request, token) => MovieAdapter.CreateAsync(Utilities.Account.AccountId, request, token),
                                             newMovie,
-                                            OnSuccessSubmit,
-                                            OnFailedSubmit);
+                                            onSuccess: OnSuccessSubmit,
+                                            onFailure: OnFailedSubmit);
             }
             else
             {
                 var modifyMovie = Mapper.Map<AdapterModels.Media.Movies.MovieModificationRequest>(EditableMovieModel);
                 await command.ExecuteAsync((request, token) => MovieAdapter.ModifyAsync(Utilities.Account.AccountId, request, token),
                                             modifyMovie,
-                                            OnSuccessSubmit,
-                                            OnFailedSubmit);
+                                            onSuccess: OnSuccessSubmit,
+                                            onFailure: OnFailedSubmit);
             }
         }
 

@@ -20,5 +20,11 @@ namespace Library.UI.Utilities
             Message = message;
             _jsRuntime.InvokeVoidAsync("showToast");
         }
+
+        public void ShowNotification(string title, List<string> messages)
+        {
+            string message = String.Join("\n", messages);
+            ShowNotification(title, message);
+        }
     }
 }

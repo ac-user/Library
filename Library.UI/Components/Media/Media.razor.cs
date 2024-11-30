@@ -81,22 +81,22 @@ namespace Library.UI.Components.Media
             {
                 await command.ExecuteAsync((tuple, token) => BookAdapter.DeleteAsync(Utilities.Account.AccountId, id, new CancellationToken()),
                                         tuple,
-                                        (() => OnSuccessSubmit(id)),
-                                        OnFailedSubmit);
+                                        onSuccess:(() => OnSuccessSubmit(id)),
+                                        onFailure: OnFailedSubmit);
             }
             else if (pageMediaType == ViewModels.MediaType.Music)
             {
                 await command.ExecuteAsync((tuple, token) => MusicAdapter.DeleteAsync(Utilities.Account.AccountId, id, token),
                                         tuple,
-                                        (() => OnSuccessSubmit(id)),
-                                        OnFailedSubmit);
+                                        onSuccess:(() => OnSuccessSubmit(id)),
+                                        onFailure: OnFailedSubmit);
             }
             else if (pageMediaType == ViewModels.MediaType.Movie)
             {
                 await command.ExecuteAsync((tuple, token) => MovieAdapter.DeleteAsync(Utilities.Account.AccountId, id, token),
                                         tuple,
-                                        (() => OnSuccessSubmit(id)),
-                                        OnFailedSubmit);
+                                        onSuccess:(() => OnSuccessSubmit(id)),
+                                        onFailure: OnFailedSubmit);
             }
         }
         

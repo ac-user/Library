@@ -2,6 +2,7 @@
 using Library.Data;
 using Model = Library.Models;
 using Entity = Library.Data.Entities;
+using Library.Models.Media;
 
 namespace Library.Services.Commands
 {
@@ -36,7 +37,7 @@ namespace Library.Services.Commands
                 {
                     CollectionId = collectionId,
                     MediaId = s.Id,
-                    MediaType = "Book"
+                    MediaType = MediaContentType.Book.ToString()
                 }));
             }
             
@@ -57,7 +58,7 @@ namespace Library.Services.Commands
                 {
                     CollectionId = collectionId,
                     MediaId = s.Id,
-                    MediaType = "Music"
+                    MediaType = MediaContentType.Music.ToString()
                 }));
             }
             
@@ -78,7 +79,7 @@ namespace Library.Services.Commands
                 {
                     CollectionId = collectionId,
                     MediaId = s.Id,
-                    MediaType = "Movie"
+                    MediaType = MediaContentType.Movie.ToString()
                 }));
             }
             
