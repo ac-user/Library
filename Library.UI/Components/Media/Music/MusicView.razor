@@ -5,7 +5,7 @@
     <i class="bi breadcrumb-item" @onclick="TurnOffEditMode" />
     <MusicEditForm EditableMusicModel="editableMusic" IsCreate="false" OnClose="OnClose" OnSuccess="TurnOffEditMode" />
 }
-else
+else if(Music != null)
 {
     <i class="bi bi-pencil" @onclick="EnableEditMode"/>
     <div>
@@ -13,4 +13,8 @@ else
         <p><strong>Album:</strong> @Music.Album</p>
         <p><strong>Singer:</strong> @Music.Singer</p>
     </div>
+}
+else
+{
+    <i class="bi spinner-border" />
 }

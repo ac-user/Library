@@ -5,7 +5,7 @@
     <i class="bi breadcrumb-item" @onclick="TurnOffEditMode" />
     <MovieEditForm EditableMovieModel="editableMovie" IsCreate="false" OnClose="OnClose" OnSuccess="TurnOffEditMode" />
 }
-else
+else if (Movie != null)
 {
     <i class="bi bi-pencil" @onclick="EnableEditMode"/>
     <div>
@@ -13,4 +13,8 @@ else
         <p><strong>Series:</strong> @Movie.Series</p>
         <p><strong>Summary:</strong> @Movie.Summary</p>
     </div>
+}
+else
+{
+    <i class="bi spinner-border" />
 }

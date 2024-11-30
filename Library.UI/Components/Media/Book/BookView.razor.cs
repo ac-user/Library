@@ -29,8 +29,9 @@ namespace Library.UI.Components.Media.Book
         private async Task GetAsync()
         {
             CancellationTokenSource cts = new CancellationTokenSource();
-            Mapper.Map<ViewModels.Media.Book.Book>(await BookAdapter.GetAsync(Utilities.Account.AccountId, Id, cts.Token));
+            Book = Mapper.Map<ViewModels.Media.Book.Book>(await BookAdapter.GetAsync(Utilities.Account.AccountId, Id, cts.Token));
             cts.Dispose();
+            StateHasChanged();
         }
 
         private void EnableEditMode()

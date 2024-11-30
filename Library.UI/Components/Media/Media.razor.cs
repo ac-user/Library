@@ -1,4 +1,5 @@
 using AutoMapper;
+using Library.Models.Media;
 using Library.UI.Adapters;
 using Library.UI.Utilities;
 using Microsoft.AspNetCore.Components;
@@ -74,33 +75,35 @@ namespace Library.UI.Components.Media
         private async Task DeleteMediaContentAsync(int id)
         {
             using var command = new CommandUtility();
+            var tuple = (Utilities.Account.AccountId, id);
 
             if (pageMediaType == ViewModels.MediaType.Book)
             {
-                await command.ExecuteAsync((id, token) => BookAdapter.DeleteAsync(Utilities.Account.AccountId, id, token),
-                                        id,
-                                        OnSuccessSubmit,
+                await command.ExecuteAsync((tuple, token) => BookAdapter.DeleteAsync(Utilities.Account.AccountId, id, new CancellationToken()),
+                                        tuple,
+                                        (() => OnSuccessSubmit(id)),
                                         OnFailedSubmit);
             }
             else if (pageMediaType == ViewModels.MediaType.Music)
             {
-                await command.ExecuteAsync((id, token) => MusicAdapter.DeleteAsync(Utilities.Account.AccountId, id, token),
-                                        id,
-                                        OnSuccessSubmit,
+                await command.ExecuteAsync((tuple, token) => MusicAdapter.DeleteAsync(Utilities.Account.AccountId, id, token),
+                                        tuple,
+                                        (() => OnSuccessSubmit(id)),
                                         OnFailedSubmit);
             }
             else if (pageMediaType == ViewModels.MediaType.Movie)
             {
-                await command.ExecuteAsync((id, token) => MovieAdapter.DeleteAsync(Utilities.Account.AccountId, id, token),
-                                        id,
-                                        OnSuccessSubmit,
+                await command.ExecuteAsync((tuple, token) => MovieAdapter.DeleteAsync(Utilities.Account.AccountId, id, token),
+                                        tuple,
+                                        (() => OnSuccessSubmit(id)),
                                         OnFailedSubmit);
             }
         }
         
-        private void OnSuccessSubmit()
+        private void OnSuccessSubmit(int id)
         {
-            notificationUtility.ShowNotification("Success", "Failed to delete content");
+            mediaContents.Remove(mediaContents.First(f => f.ContentId == id));
+            notificationUtility.ShowNotification("Success", "Deleted content");
         }
 
         private void OnFailedSubmit()

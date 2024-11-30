@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newMediaModalLabel">Add New Media</h5>
+                <h5 class="modal-title" id="newMediaModalLabel">@Title</h5>
                 <button type="button" class="close" aria-label="Close" @onclick="OnClose">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -17,6 +17,9 @@
 
 
 @code {
+    [Parameter]
+    public string Title { get; set; }
+
     [Parameter]
     public RenderFragment ChildContent { get; set; }
 

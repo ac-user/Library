@@ -5,8 +5,8 @@
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <Library.UI.Components.Elements.EditFormGroup Label="Title" FieldId="musicTitle" Required="true" >
-        <InputText id="movieTitle" class="form-control" @bind-Value="EditableMusicModel.Title" aria-describedby="movieTitleHelp" />
+    <Library.UI.Components.Elements.EditFormGroup Label="Title" FieldId="title" Required="true" >
+        <InputText id="title" class="form-control" @bind-Value="EditableMusicModel.Title" aria-describedby="titleHelp" />
     </Library.UI.Components.Elements.EditFormGroup>
     
     <Library.UI.Components.Elements.EditFormGroup Label="Album" FieldId="album" >
@@ -18,7 +18,7 @@
     </Library.UI.Components.Elements.EditFormGroup>
 
     <Library.UI.Components.Elements.EditFormGroup Label="Composer" FieldId="composer" >
-        <InputText id="movieTitle" class="form-control" @bind-Value="EditableMusicModel.Composer" aria-describedby="movieTitleHelp" />
+        <InputText id="composer" class="form-control" @bind-Value="EditableMusicModel.Composer" aria-describedby="composerHelp" />
     </Library.UI.Components.Elements.EditFormGroup>
 
     <Library.UI.Components.Elements.EditFormGroup Label="Date Published" FieldId="datePublished" >

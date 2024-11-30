@@ -5,7 +5,7 @@
 @using Library.UI.Model.ViewModels.Media;
 @using Library.Models.Media;
 
-<Modal OnClose="OnClose">
+<Modal Title="@($"Add New {selectedMediaType.ToString()}")" OnClose="OnClose">
     <div class="form-group">
         <label for="mediaType">Select Media Type</label>
         <select id="mediaType" class="form-control" @onchange="OnMediaTypeChange" aria-describedby="mediaTypeHelp" required>

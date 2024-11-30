@@ -28,9 +28,11 @@ namespace Library.UI.Components.Media.Music
         private async Task GetAsync()
         {
             CancellationTokenSource cts = new CancellationTokenSource();
-            Mapper.Map<ViewModels.Media.Music.Music>(await MusicAdapter.GetAsync(Utilities.Account.AccountId, Id, cts.Token));
+            Music = Mapper.Map<ViewModels.Media.Music.Music>(await MusicAdapter.GetAsync(Utilities.Account.AccountId, Id, cts.Token));
             cts.Dispose();
+            StateHasChanged();
         }
+
         private void EnableEditMode()
         {
             editableMusic = Mapper.Map<ViewModels.Media.Music.EditableMusic>(Music);

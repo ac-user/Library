@@ -29,9 +29,11 @@ namespace Library.UI.Components.Media.Movie
         private async Task GetAsync()
         {
             CancellationTokenSource cts = new CancellationTokenSource();
-            Mapper.Map<ViewModels.Media.Movie.Movies>(await MovieAdapter.GetAsync(Utilities.Account.AccountId, Id, cts.Token));
+            Movie = Mapper.Map<ViewModels.Media.Movie.Movies>(await MovieAdapter.GetAsync(Utilities.Account.AccountId, Id, cts.Token));
             cts.Dispose();
+            StateHasChanged();
         }
+
         private void EnableEditMode()
         {
             editableMovie = Mapper.Map<ViewModels.Media.Movie.EditableMovie>(Movie);

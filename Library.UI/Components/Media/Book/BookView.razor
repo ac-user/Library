@@ -5,7 +5,7 @@
     <i class="bi breadcrumb-item" @onclick="TurnOffEditMode" />
     <BookEditForm EditableBookModel="editableBook" IsCreate="false" OnClose="OnClose" OnSuccess="TurnOffEditMode" />
 }
-else
+else if (Book != null)
 {
     <i class="bi bi-pencil" @onclick="EnableEditMode"/>
     <div>
@@ -17,4 +17,8 @@ else
         <p><strong>Description:</strong> @Book.Description</p>
         <p><strong>Summary:</strong> @Book.Summary</p>
     </div>
+}
+else
+{
+    <i class="bi spinner-border"/>
 }
