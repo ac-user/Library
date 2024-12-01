@@ -8,19 +8,30 @@
     }
     else if (Movie != null)
     {
-        <i class="bi bi-pencil" @onclick="EnableEditMode" />
+        <i class="bi bi-pencil position-absolute end-0 p-2" @onclick="EnableEditMode" />
         <div>
-            <p><strong>Title:</strong> @Movie.Title</p>
+            <p><strong>@Movie.Title</strong> @Movie.Stars <i class="bi bi-star" /></p>
             <p><strong>Series:</strong> @Movie.Series</p>
-            <p><strong>Language:</strong> @Movie.Summary</p>
-            <p><strong>Writer:</strong> @Movie.Summary</p>
-            <p><strong>Date Released:</strong> @Movie.Summary</p>
+            <p>
+                @if (Movie.Ongoing)
+                {
+                    <strong>Ongoing</strong>
+
+                    <br />
+                }
+                @if (Movie.IsActivelyWatching)
+                {
+                    <strong>Reading</strong>
+
+                    <br />
+                }
+            </p>
+            <p><strong>Language:</strong> @Movie.Language</p>
+            <p><strong>Writer:</strong> @Movie.Writer</p>
+            <p><strong>Date Released:</strong> @Movie.DateReleased?.ToString("MM/DD/YYYY")</p>
             <p><strong>Summary:</strong> @Movie.Summary</p>
-            <p><strong>Times Watched:</strong> @Movie.Summary</p>
-            <p><strong>Ongoing:</strong> @Movie.Summary</p>
-            <p><strong>Watching:</strong> @Movie.Summary</p>
-            <p><strong>Stars:</strong> @Movie.Summary</p>
-            <p><strong>Genre:</strong> @Movie.Summary</p>
+            <p><strong>Times Watched:</strong> @Movie.TimesWatched</p>
+            <p><strong>Genre:</strong> @(String.Join(',',Movie.Genre))</p>
         </div>
     }
 </Library.UI.Components.Elements.LoadableContent>

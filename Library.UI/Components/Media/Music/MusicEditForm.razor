@@ -10,6 +10,11 @@
                 <InputText id="title" class="form-control" @bind-Value="EditableMusicModel.Title" aria-describedby="titleHelp" />
             </Library.UI.Components.Elements.EditFormGroup>
         </div>
+        <div class="col-3">
+            <Library.UI.Components.Elements.EditFormGroup FieldId="stars">
+                <Library.UI.Components.Elements.Stars StarCount="5" @bind-value="EditableMusicModel.Stars" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
     </div>
     <div class="row">
         <div class="col">
@@ -50,13 +55,8 @@
         </div>
     </div>
     <div class="row">
-        <Library.UI.Components.Elements.EditFormGroup Label="Genre" FieldId="genre">
-            <InputTextArea id="genre" class="form-control" @bind-Value="EditableMusicModel.Genre" />
-        </Library.UI.Components.Elements.EditFormGroup>
-    </div>
-    <div class="row">
-        <Library.UI.Components.Elements.EditFormGroup FieldId="stars">
-            <Library.UI.Components.Elements.Stars StarCount="5" @bind-value="EditableMusicModel.Stars" />
+        <Library.UI.Components.Elements.EditFormGroup Label="Genre" FieldId="select">
+            <Library.UI.Components.Elements.MultiSelect Items="Genres" @bind-SelectedItems="EditableMusicModel.Genre" />
         </Library.UI.Components.Elements.EditFormGroup>
     </div>
     

@@ -120,7 +120,7 @@ namespace Library.Services.Controllers.Media
         /// <param name="collectionId">collection to delete</param>
         /// <param name="cancellationToken">token to cancel long running processes</param>
         /// <returns>Status of creation</returns>
-        [HttpDelete]
+        [HttpDelete("{collectionId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BadRequestObjectResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status412PreconditionFailed)]
@@ -144,7 +144,7 @@ namespace Library.Services.Controllers.Media
         /// <param name="mediaId">content to delete</param>
         /// <param name="cancellationToken">token to cancel long running processes</param>
         /// <returns>Status of creation</returns>
-        [HttpDelete("{mediaId}")]
+        [HttpDelete("{collectionId}/Content/{mediaId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BadRequestObjectResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status412PreconditionFailed)]

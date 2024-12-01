@@ -30,4 +30,8 @@
         border: 1px solid #1bd2ff;
     }
 
+    &.disabled{
+        pointer-events:none;
+        background-color:lightgray;
+    }
 }

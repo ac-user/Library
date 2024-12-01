@@ -1,7 +1,7 @@
 ﻿<div>
     @for(int i = 0; i < StarCount; i++)
     {
-        <i @key="i" class="bi @(i < Value ? "bi-star-fill" : "bi-star" )" style="height:15px; width:15px;" @onclick="@(() => OnClick(i))" />
+        <i @key="i" id="@i" class="bi @(i < Value ? "bi-star-fill" : "bi-star" )" style="height:15px; width:15px;" @onclick="@(() => OnClick(i))" />
     }
 </div>
 
@@ -16,9 +16,9 @@
     public EventCallback<int> ValueChanged { get; set; }
 
 
-    private void OnClick(int id)
+    private async Task OnClick(int id)
     {
         Value = id;
-        ValueChanged.InvokeAsync(id);
+        await ValueChanged.InvokeAsync(id);
     }
 }

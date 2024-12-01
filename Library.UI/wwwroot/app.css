@@ -33,6 +33,10 @@
 .card.selected {
   border: 1px solid #1bd2ff;
 }
+.card.disabled {
+  pointer-events: none;
+  background-color: lightgray;
+}
 
 html, body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;

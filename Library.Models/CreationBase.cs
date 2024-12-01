@@ -14,5 +14,13 @@
         /// Rating
         /// </summary>
         public int? Stars { get; set; }
+        /// <summary>
+        /// Language it is in
+        /// </summary>
+        public string? Language { get; set; }
+        /// <summary>
+        /// A short description of the content
+        /// </summary>
+        public string? Description { get; set; }
     }
 }

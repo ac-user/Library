@@ -17,6 +17,11 @@ namespace Library.UI.Components.Media.Music
         public ViewModels.Media.Music.EditableMusic EditableMusicModel { get; set; }
 
 
+        private List<string> Genres = new List<string>()
+        {
+            "Pop", "Rock", "Jazz", "Classical", "Hip-Hop", "Country", "Electronic"
+        };
+
         private async Task HandleValidMusicSubmit()
         {
             using var command = new CommandUtility();
@@ -25,7 +30,7 @@ namespace Library.UI.Components.Media.Music
                 var newMusic = Mapper.Map<AdapterModels.Media.Music.MusicCreationRequest>(EditableMusicModel);
                 await command.ExecuteAsync((request, token) => MusicAdapter.CreateAsync(Utilities.Account.AccountId, request, token),
                                             newMusic,
-                                            onSuccess: OnSuccessSubmit,
+                                            onSuccess: (() => OnSuccessSubmit()),
                                             onFailure: OnFailedSubmit);
             }
             else
@@ -33,12 +38,12 @@ namespace Library.UI.Components.Media.Music
                 var modifyMusic = Mapper.Map<AdapterModels.Media.Music.MusicModificationRequest>(EditableMusicModel);
                 await command.ExecuteAsync((request, token) => MusicAdapter.ModifyAsync(Utilities.Account.AccountId, request, token),
                                             modifyMusic,
-                                            onSuccess: OnSuccessSubmit,
+                                            onSuccess: (() => OnSuccessSubmit()),
                                             onFailure: OnFailedSubmit);
             }
         }
 
-        private void OnSuccessSubmit()
+        private async Task OnSuccessSubmit()
         {
             if (IsCreate)
             {
@@ -48,7 +53,8 @@ namespace Library.UI.Components.Media.Music
             {
                 notificationUtility.ShowNotification("Modified Music", $"Successfully modified {EditableMusicModel.Title}");
             }
-            OnSuccess.InvokeAsync();
+            await Task.Delay(2000);
+            await OnSuccess.InvokeAsync();
         }
         private void OnFailedSubmit()
         {

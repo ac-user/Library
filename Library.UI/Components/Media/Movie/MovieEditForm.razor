@@ -5,9 +5,16 @@
     <DataAnnotationsValidator />
     <ValidationSummary />
     <div class="row">
-        <Library.UI.Components.Elements.EditFormGroup Label="Title" FieldId="movieTitle" Required="true" >
-            <InputText id="movieTitle" class="form-control" @bind-Value="EditableMovieModel.Title" required aria-describedby="movieTitleHelp" />
-        </Library.UI.Components.Elements.EditFormGroup>
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Title" FieldId="movieTitle" Required="true" >
+                <InputText id="movieTitle" class="form-control" @bind-Value="EditableMovieModel.Title" required aria-describedby="movieTitleHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+        <div class="col-2">
+            <Library.UI.Components.Elements.EditFormGroup FieldId="stars">
+                <Library.UI.Components.Elements.Stars StarCount="5" @bind-value="EditableMovieModel.Stars" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
     </div>
     <div class="row">
         <div class="col">
@@ -15,21 +22,26 @@
             <InputText id="series" class="form-control" @bind-Value="EditableMovieModel.Series" aria-describedby="seriesHelp" />
         </Library.UI.Components.Elements.EditFormGroup>
         </div>
-        <div class="col">
-            <Library.UI.Components.Elements.EditFormGroup Label="Ongoing" FieldId="ongoing" Required="true" HelpText="Is the series ongoing">
+        <div class="col-1">
+            <Library.UI.Components.Elements.EditFormGroup Label="Ongoing" FieldId="ongoing" HelpText="Is the series ongoing">
                 <InputCheckbox id="ongoing" class="form-control" @bind-Value="EditableMovieModel.Ongoing" aria-describedby="ongoingHelp" />
             </Library.UI.Components.Elements.EditFormGroup>
         </div>
-    </div>
-    <div class="row">
-        <Library.UI.Components.Elements.EditFormGroup Label="Language" FieldId="language" HelpText="Enter the language">
-            <InputText id="language" class="form-control" @bind-Value="EditableMovieModel.Language" aria-describedby="languageHelp" />
-        </Library.UI.Components.Elements.EditFormGroup>
+        <div class="col-2">
+            <Library.UI.Components.Elements.EditFormGroup Label="Times Watched" FieldId="watch">
+                <InputNumber id="watch" class="form-control" @bind-Value="EditableMovieModel.TimesWatched" aria-describedby="watchHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
     </div>
     <div class="row">
         <div class="col">
             <Library.UI.Components.Elements.EditFormGroup Label="Writer" FieldId="writer">
                 <InputText id="writer" class="form-control" @bind-Value="EditableMovieModel.Writer" aria-describedby="writerHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Language" FieldId="language" HelpText="Enter the language">
+                <InputText id="language" class="form-control" @bind-Value="EditableMovieModel.Language" aria-describedby="languageHelp" />
             </Library.UI.Components.Elements.EditFormGroup>
         </div>
         <div class="col">
@@ -45,15 +57,10 @@
             </Library.UI.Components.Elements.EditFormGroup>
         </div>
         <div class="col">
-            <Library.UI.Components.Elements.EditFormGroup Label="Genre" FieldId="genre">
-                <InputTextArea id="genre" class="form-control" @bind-Value="EditableMovieModel.Genre" />
+            <Library.UI.Components.Elements.EditFormGroup Label="Genre" FieldId="select">
+                <Library.UI.Components.Elements.MultiSelect Items="Genres" @bind-SelectedItems="EditableMovieModel.Genre" />
             </Library.UI.Components.Elements.EditFormGroup>
         </div>
-    </div>
-    <div class="row">
-        <Library.UI.Components.Elements.EditFormGroup FieldId="stars">
-            <Library.UI.Components.Elements.Stars StarCount="5" @bind-value="EditableMovieModel.Stars" />
-        </Library.UI.Components.Elements.EditFormGroup>
     </div>
     <EditFormButtons OnClose="OnClose" />
 </EditForm>

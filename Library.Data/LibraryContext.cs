@@ -72,6 +72,9 @@ public partial class LibraryContext : DbContext
             entity.Property(e => e.CollectionId).ValueGeneratedOnAdd();
             entity.Property(e => e.Title).IsUnicode(false);
 
+            entity.HasMany(h => h.SubCollectionAssociations)
+                  .WithOne(o => o.Collection)
+                  .HasForeignKey(f => f.CollectionId);
             entity.HasMany(h => h.CollectionAssociations)
                   .WithOne(o => o.Collection)
                   .HasForeignKey(f => f.CollectionId);

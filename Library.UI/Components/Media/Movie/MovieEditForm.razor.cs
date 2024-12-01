@@ -16,6 +16,11 @@ namespace Library.UI.Components.Media.Movie
         [Parameter]
         public ViewModels.Media.Movie.EditableMovie EditableMovieModel { get; set; }
 
+        private List<string> Genres = new List<string>()
+        {
+            "Action", "Adventure", "Comedy", "Drama", "Horror", "Romantic", "Documentary", "Animated"
+        };
+        private string selectGenre;
 
         private async Task HandleValidMovieSubmit()
         {
@@ -25,7 +30,7 @@ namespace Library.UI.Components.Media.Movie
                 var newMovie = Mapper.Map<AdapterModels.Media.Movies.MovieCreationRequest>(EditableMovieModel);
                 await command.ExecuteAsync((request, token) => MovieAdapter.CreateAsync(Utilities.Account.AccountId, request, token),
                                             newMovie,
-                                            onSuccess: OnSuccessSubmit,
+                                            onSuccess: (() => OnSuccessSubmit()),
                                             onFailure: OnFailedSubmit);
             }
             else
@@ -33,12 +38,12 @@ namespace Library.UI.Components.Media.Movie
                 var modifyMovie = Mapper.Map<AdapterModels.Media.Movies.MovieModificationRequest>(EditableMovieModel);
                 await command.ExecuteAsync((request, token) => MovieAdapter.ModifyAsync(Utilities.Account.AccountId, request, token),
                                             modifyMovie,
-                                            onSuccess: OnSuccessSubmit,
+                                            onSuccess: (() => OnSuccessSubmit()),
                                             onFailure: OnFailedSubmit);
             }
         }
 
-        private void OnSuccessSubmit()
+        private async Task OnSuccessSubmit()
         {
             if(IsCreate)
             {
@@ -48,7 +53,8 @@ namespace Library.UI.Components.Media.Movie
             {
                 notificationUtility.ShowNotification("Created New Movie", $"Successfully added {EditableMovieModel.Title}");
             }
-            OnSuccess.InvokeAsync();
+            await Task.Delay(2000);
+            await OnSuccess.InvokeAsync();
         }
         private void OnFailedSubmit()
         {

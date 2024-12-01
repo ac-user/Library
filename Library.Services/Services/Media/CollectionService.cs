@@ -2,6 +2,7 @@
 using Library.Services.Models;
 using Library.Models.Media;
 using Library.Services.Queries;
+using AutoMapper;
 
 namespace Library.Services.Services.Media
 {
@@ -42,23 +43,16 @@ namespace Library.Services.Services.Media
             }
             else
             {
-                var bookIds = await _command.CreateAsync(id, item.Books, cancellationToken);
-                var musicIds = await _command.CreateAsync(id, item.Music, cancellationToken);
-                var movieIds = await _command.CreateAsync(id, item.Movies, cancellationToken);
+                var media = new List<CollectionContentAssociation>();
+                media.AddRange(item.Books.Select(s => new CollectionContentAssociation() { MediaId = s.Id, MediaType = MediaContentType.Book}));
+                media.AddRange(item.Music.Select(s => new CollectionContentAssociation() { MediaId = s.Id, MediaType = MediaContentType.Music}));
+                media.AddRange(item.Movies.Select(s => new CollectionContentAssociation() { MediaId = s.Id, MediaType = MediaContentType.Movie}));
 
-                if(bookIds.Any(a => a == 0))
+                var mediaIds = await _command.CreateAsync(id, media, cancellationToken);
+
+                if(mediaIds.Any(a => a == 0))
                 {
-                    response.Messages.Add("Had problem adding some books to the collection.");
-                    response.IsSuccess = false;
-                }
-                if(musicIds.Any(a => a == 0))
-                {
-                    response.Messages.Add("Had problem adding some music to the collection.");
-                    response.IsSuccess = false;
-                }
-                if (movieIds.Any(a => a == 0))
-                {
-                    response.Messages.Add("Had problem adding some movies to the collection.");
+                    response.Messages.Add("Had problem adding some media to the collection.");
                     response.IsSuccess = false;
                 }
 
@@ -69,7 +63,6 @@ namespace Library.Services.Services.Media
                     response.IsSuccess = false;
                 }
             }
-
 
             return response;
         }

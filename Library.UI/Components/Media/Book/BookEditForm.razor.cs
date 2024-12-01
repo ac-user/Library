@@ -1,11 +1,8 @@
 using Microsoft.AspNetCore.Components;
-using AutoMapper;
 using Library.UI.Adapters;
 using Library.UI.Utilities;
 using ViewModels = Library.UI.Model.ViewModels;
 using AdapterModels = Library.Models;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.JSInterop;
 
 namespace Library.UI.Components.Media.Book
 {
@@ -17,6 +14,10 @@ namespace Library.UI.Components.Media.Book
         [Parameter]
         public ViewModels.Media.Book.EditableBook EditableBookModel { get; set; }
 
+        private List<string> Genres = new List<string>() 
+        {
+            "Science Fiction", "Fantasy", "Romance", "Mystery", "Thriller", "Non-Fiction", "Historical Fiction", "Biography"
+        };
 
         private async Task HandleValidBookSubmit()
         {

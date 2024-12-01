@@ -55,6 +55,8 @@ namespace Library.UI.Profiles
             CreateMap<Views.Media.NewCollectionContent, Adapter.Media.Book.Book>().ReverseMap();
             CreateMap<Views.Media.NewCollectionContent, Adapter.Media.Music.Music>().ReverseMap();
             CreateMap<Views.Media.NewCollectionContent, Adapter.Media.Movies.Movie>().ReverseMap();
+            CreateMap<Views.Media.NewCollectionContent, Adapter.Media.Collection>()
+                .ForMember(s => s.Name, o => o.MapFrom(d => d.Title)).ReverseMap();
             CreateMap<Views.Media.NewCollectionContent, Adapter.Media.NewCollectionContent>().ReverseMap();
         }
 

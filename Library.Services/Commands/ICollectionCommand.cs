@@ -1,4 +1,5 @@
-﻿using Model = Library.Models;
+﻿using Library.Services.Models;
+using Model = Library.Models;
 
 namespace Library.Services.Commands
 {
@@ -11,23 +12,7 @@ namespace Library.Services.Commands
         /// <param name="newItems">new items to associate</param>
         /// <param name="cancellationToken">token to cancel long running processes</param>
         /// <returns>Association id's</returns>
-        Task<List<int>> CreateAsync(int collectionId, List<Model.Media.Book.Book> newItems, CancellationToken cancellationToken);
-        /// <summary>
-        /// Create association between collection and music
-        /// </summary>
-        /// <param name="collectionId">collection items belong to</param>
-        /// <param name="newItems">new items to associate</param>
-        /// <param name="cancellationToken">token to cancel long running processes</param>
-        /// <returns>Association id's</returns>
-        Task<List<int>> CreateAsync(int collectionId, List<Model.Media.Music.Music> newItems, CancellationToken cancellationToken);
-        /// <summary>
-        /// Create association between collection and movies
-        /// </summary>
-        /// <param name="collectionId">collection items belong to</param>
-        /// <param name="newItems">new items to associate</param>
-        /// <param name="cancellationToken">token to cancel long running processes</param>
-        /// <returns>Association id's</returns>
-        Task<List<int>> CreateAsync(int collectionId, List<Model.Media.Movies.Movie> newItems, CancellationToken cancellationToken);
+        Task<List<int>> CreateAsync(int collectionId, List<CollectionContentAssociation> newItems, CancellationToken cancellationToken);
         /// <summary>
         /// Create association between collection and sub collections
         /// </summary>

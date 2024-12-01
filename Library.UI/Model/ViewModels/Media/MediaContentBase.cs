@@ -13,7 +13,7 @@
         /// <summary>
         /// How would it be categorized
         /// </summary>
-        public string Genre { get; set; }
+        public List<string> Genre { get; set; } = new List<string>();
         /// <summary>
         /// Rating
         /// </summary>

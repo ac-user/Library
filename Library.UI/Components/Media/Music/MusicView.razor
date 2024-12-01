@@ -8,17 +8,16 @@
     }
     else if (Music != null)
     {
-        <i class="bi bi-pencil" @onclick="EnableEditMode" />
+        <i class="bi bi-pencil position-absolute end-0 p-2" @onclick="EnableEditMode" />
         <div>
-            <p><strong>Title:</strong> @Music.Title</p>
+            <p><strong>@Music.Title</strong> @Music.Stars <i class="bi bi-star"/> </p>
             <p><strong>Album:</strong> @Music.Album</p>
             <p><strong>Singer:</strong> @Music.Artist</p>
             <p><strong>Composer:</strong> @Music.Composer</p>
             <p><strong>Language:</strong> @Music.Language</p>
             <p><strong>Date Published:</strong> @Music.DateReleased</p>
             <p><strong>Times Listened:</strong> @Music.TimesListenedTo</p>
-            <p><strong>Stars:</strong> @Music.Stars</p>
-            <p><strong>Genre:</strong> @Music.Genre</p>
+            <p><strong>Genre:</strong> @(String.Join(',',Music.Genre))</p>
         </div>
     }
 </Library.UI.Components.Elements.LoadableContent>

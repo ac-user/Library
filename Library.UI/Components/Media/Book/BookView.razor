@@ -8,24 +8,31 @@
     }
     else if (Book != null)
     {
-        <i class="bi bi-pencil" @onclick="EnableEditMode" />
+        <i class="bi bi-pencil position-absolute end-0 p-2" @onclick="EnableEditMode" />
         <div>
-            <p><strong>Title:</strong> @Book.Title</p>
+            <p><strong> @Book.Title</strong> @Book.Stars <i class="bi bi-star" /></p>
             <p><strong>Sub-Title:</strong> @Book.SubTitle</p>
             <p><strong>Series:</strong> @Book.Series</p>
+            <p>
+                @if (Book.Ongoing)
+                {
+                    <strong>Ongoing</strong><br/>
+                }
+                @if (Book.IsActivelyReading)
+                {
+                    <strong>Reading</strong><br/>
+                }
+            </p>
             <p><strong>Author:</strong> @Book.Author</p>
+            <p><strong>Artist:</strong> @Book.Artist</p>
             <p><strong>ISBN:</strong> @Book.ISBN</p>
             <p><strong>Pages:</strong> @Book.Pages</p>
             <p><strong>Language:</strong> @Book.Language</p>
-            <p><strong>Publisher:</strong> @Book.Publisher</p>
-            <p><strong>Published:</strong> @Book.Published?.ToString("MMMM dd, yyyy")</p>
+            <p><strong>Publish:</strong> @Book.Publisher @Book.Published?.ToString("MMMM dd, yyyy")</p>
             <p><strong>Summary:</strong> @Book.Summary</p>
             <p><strong>Description:</strong> @Book.Description</p>
-            <p><strong>Times Read:</strong> @Book.Description</p>
-            <p><strong>Ongoing:</strong> @Book.Description</p>
-            <p><strong>Reading:</strong> @Book.Description</p>
-            <p><strong>Stars:</strong> @Book.Description</p>
-            <p><strong>Genre:</strong> @Book.Description</p>
+            <p><strong>Times Read:</strong> @Book.TimesRead</p>
+            <p><strong>Genre:</strong> @(String.Join(',',Book.Genre))</p>
         </div>
     }
 </Library.UI.Components.Elements.LoadableContent>

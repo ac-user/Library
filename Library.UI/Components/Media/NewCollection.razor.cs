@@ -121,6 +121,10 @@ namespace Library.UI.Components.Media
 
         private void OnFailedSubmit(List<string> messages)
         {
+            if (!messages.Any() || messages.All(a => String.IsNullOrWhiteSpace(a)))
+            {
+                messages.Add("Sorry, we had a problem saving all the information.");
+            }
             notificationUtility.ShowNotification("Failed Collection Creation", messages);
         }
     }

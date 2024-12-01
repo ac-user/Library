@@ -10,4 +10,7 @@ public partial class SubCollectionAssociation
     public int CollectionId { get; set; }
 
     public int SubCollectionId { get; set; }
+
+    public Collection Collection { get; set; }
+
 }

@@ -3,6 +3,8 @@ using Library.Data;
 using Model = Library.Models;
 using Entity = Library.Data.Entities;
 using Library.Models.Media;
+using Microsoft.EntityFrameworkCore;
+using Library.Services.Models;
 
 namespace Library.Services.Commands
 {
@@ -28,88 +30,42 @@ namespace Library.Services.Commands
             await _context.SaveChangesAsync(cancellationToken);
             return collection.CollectionId;
         }
-        public async Task<List<int>> CreateAsync(int collectionId, List<Model.Media.Book.Book> newItems, CancellationToken cancellationToken)
+        public async Task<List<int>> CreateAsync(int collectionId, List<CollectionContentAssociation> newItems, CancellationToken cancellationToken)
         {
-            var collectionContent = new List<Entity.CollectionAssociation>();
             if (newItems != null && newItems.Any())
             {
-                collectionContent.AddRange(newItems.Select(s => new Entity.CollectionAssociation()
+                var collectionContent = newItems.Select(s => new Entity.CollectionAssociation()
                 {
                     CollectionId = collectionId,
-                    MediaId = s.Id,
-                    MediaType = MediaContentType.Book.ToString()
-                }));
+                    MediaId = s.MediaId,
+                    MediaType = s.MediaType.ToString()
+                });
+
+                _context.CollectionAssociations.AddRange(collectionContent);
+                await _context.SaveChangesAsync(cancellationToken);
+            
+                return collectionContent.Select(s => s.CollectionAssociationId).ToList();
             }
             
-            if (collectionContent.Any())
-            {
-                await _context.CollectionAssociations.AddRangeAsync(collectionContent, cancellationToken);
-                await _context.SaveChangesAsync(cancellationToken);
-            }
-
-            return collectionContent.Select(s => s.CollectionAssociationId).ToList();
+            return new List<int>();
         }
-        public async Task<List<int>> CreateAsync(int collectionId, List<Model.Media.Music.Music> newItems, CancellationToken cancellationToken)
-        {
-            var collectionContent = new List<Entity.CollectionAssociation>();
-            if (newItems != null && newItems.Any())
-            {
-                collectionContent.AddRange(newItems.Select(s => new Entity.CollectionAssociation()
-                {
-                    CollectionId = collectionId,
-                    MediaId = s.Id,
-                    MediaType = MediaContentType.Music.ToString()
-                }));
-            }
-            
-            if (collectionContent.Any())
-            {
-                await _context.CollectionAssociations.AddRangeAsync(collectionContent, cancellationToken);
-                await _context.SaveChangesAsync(cancellationToken);
-            }
 
-            return collectionContent.Select(s => s.CollectionAssociationId).ToList();
-        }
-        public async Task<List<int>> CreateAsync(int collectionId, List<Model.Media.Movies.Movie> newItems, CancellationToken cancellationToken)
-        {
-            var collectionContent = new List<Entity.CollectionAssociation>();
-            if (newItems != null && newItems.Any())
-            {
-                collectionContent.AddRange(newItems.Select(s => new Entity.CollectionAssociation()
-                {
-                    CollectionId = collectionId,
-                    MediaId = s.Id,
-                    MediaType = MediaContentType.Movie.ToString()
-                }));
-            }
-            
-            if (collectionContent.Any())
-            {
-                await _context.CollectionAssociations.AddRangeAsync(collectionContent, cancellationToken);
-                await _context.SaveChangesAsync(cancellationToken);
-            }
-
-            return collectionContent.Select(s => s.CollectionAssociationId).ToList();
-        }
         public async Task<List<int>> CreateAsync(int collectionId, List<Model.Media.Collection> newItems, CancellationToken cancellationToken)
         {
-            var collectionContent = new List<Entity.SubCollectionAssociation>();
             if (newItems != null && newItems.Any())
             {
-                collectionContent.AddRange(newItems.Select(s => new Entity.SubCollectionAssociation()
+                var collectionContent = newItems.Select(s => new Entity.SubCollectionAssociation()
                 {
                     CollectionId = collectionId,
                     SubCollectionId = s.Id
-                }));
-            }
-            
-            if (collectionContent.Any())
-            {
+                });
+
                 await _context.SubCollectionAssociations.AddRangeAsync(collectionContent, cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);
+                
+                return collectionContent.Select(s => s.SubCollectionAssociationId).ToList();
             }
-
-            return collectionContent.Select(s => s.SubCollectionAssociationId).ToList();
+            return new List<int>();
         }
 
         public async Task<bool> UpdateAsync(int accountId, Model.Media.Collection item, CancellationToken cancellationToken)
@@ -127,15 +83,16 @@ namespace Library.Services.Commands
             return success;
         }
 
+
         public async Task<bool> DeleteAsync(int itemId, CancellationToken cancellationToken)
-        {//TODO: include sub items to delete and cascade delete for data
-            var itemToDelete = _context.Collections.FirstOrDefault(f => f.CollectionId == itemId);
+        {
+            var itemToDelete = _context.Collections.Include(i => i.SubCollectionAssociations).FirstOrDefault(f => f.CollectionId == itemId);
             bool success = true;
 
             if (itemToDelete != null)
             {
                 _context.Collections.Remove(itemToDelete);
-                success = await _context.SaveChangesAsync(cancellationToken) == 1;
+                success = await _context.SaveChangesAsync(cancellationToken) >= 1;
             }
 
             return success;
@@ -155,8 +112,10 @@ namespace Library.Services.Commands
         }
 
         public async Task<bool> DeleteAllAsync(int accountId, CancellationToken cancellationToken)
-        {//TODO: include sub items to delete
-            var itemsToDelete = _context.Collections.Where(f => f.AccountId == accountId);
+        {
+            var itemsToDelete = _context.Collections.Include(i => i.SubCollectionAssociations)
+                                                    .Include(i => i.CollectionAssociations)
+                                                    .Where(f => f.AccountId == accountId);
             bool success = true;
 
             if (itemsToDelete != null)

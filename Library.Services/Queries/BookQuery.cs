@@ -18,12 +18,12 @@ namespace Library.Services.Queries
 
         public async Task<Book> GetAsync(int itemId, CancellationToken cancellationToken)
         {
-            return _mapper.Map<Book>(await _context.Books.FirstOrDefaultAsync(f => f.BookId == itemId, cancellationToken));
+            return _mapper.Map<Book>(await _context.Books.AsNoTracking().FirstOrDefaultAsync(f => f.BookId == itemId, cancellationToken));
         }
 
         public async Task<List<Book>> GetAllAsync(int accountId, CancellationToken cancellationToken)
         {
-            return _mapper.Map<List<Book>>(await _context.Books.Where(f => f.AccountId == accountId).ToListAsync(cancellationToken));
+            return _mapper.Map<List<Book>>(await _context.Books.AsNoTracking().Where(f => f.AccountId == accountId).ToListAsync(cancellationToken));
         }
     }
 }

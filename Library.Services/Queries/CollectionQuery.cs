@@ -22,19 +22,19 @@ namespace Library.Services.Queries
         public async Task<Collection> GetAsync(int itemId, CancellationToken cancellationToken)
         {
             var result = new Collection();
-            var collection = await _context.Collections.FirstOrDefaultAsync(f => f.CollectionId == itemId, cancellationToken);
+            var collection = await _context.Collections.AsNoTracking().FirstOrDefaultAsync(f => f.CollectionId == itemId, cancellationToken);
             if(collection != null)
             {
                 result.Id = itemId;
 
                 /*Gether media content*/
-                var books = _mapper.Map<List<Book>>(await _context.CollectionAssociations.Include(i => i.Books)
+                var books = _mapper.Map<List<Book>>(await _context.CollectionAssociations.AsNoTracking().Include(i => i.Books)
                                                            .Where(w => w.CollectionId == itemId && w.MediaType == MediaContentType.Book.ToString())
                                                            .SelectMany(s => s.Books).ToListAsync(cancellationToken));
-                var music = _mapper.Map<List<Music>>(await _context.CollectionAssociations.Include(i => i.Music)
+                var music = _mapper.Map<List<Music>>(await _context.CollectionAssociations.AsNoTracking().Include(i => i.Music)
                                                            .Where(w => w.CollectionId == itemId && w.MediaType == MediaContentType.Music.ToString())
                                                            .SelectMany(s => s.Music).ToListAsync(cancellationToken));
-                var movies = _mapper.Map<List<Movie>>(await _context.CollectionAssociations.Include(i => i.Movies)
+                var movies = _mapper.Map<List<Movie>>(await _context.CollectionAssociations.AsNoTracking().Include(i => i.Movies)
                                                            .Where(w => w.CollectionId == itemId && w.MediaType == MediaContentType.Movie.ToString())
                                                            .SelectMany(s => s.Movies).ToListAsync(cancellationToken));
                 result.Name = collection!.Title;
@@ -43,7 +43,7 @@ namespace Library.Services.Queries
                 result.Movies = movies;                
 
                 /*Gather collection content*/
-                var subCollectionIds = await _context.SubCollectionAssociations.Where(w => w.CollectionId == itemId)
+                var subCollectionIds = await _context.SubCollectionAssociations.AsNoTracking().Where(w => w.CollectionId == itemId)
                                                                          .Select(s => s.SubCollectionId).ToListAsync(cancellationToken);
                 result.SubCollections = new();
                 foreach (var subCollectionId in subCollectionIds)
@@ -57,7 +57,7 @@ namespace Library.Services.Queries
         public async Task<List<Collection>> GetAllAsync(int accountId, CancellationToken cancellationToken)
         {
             var result = new List<Collection>();
-            var collections = await _context.Collections.Where(w => w.AccountId == accountId).ToListAsync(cancellationToken);
+            var collections = await _context.Collections.AsNoTracking().Where(w => w.AccountId == accountId).ToListAsync(cancellationToken);
             if (collections != null)
             {
                 foreach(var collection in collections)
