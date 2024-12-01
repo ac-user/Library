@@ -22,5 +22,9 @@
         /// Rating
         /// </summary>
         public int? Stars { get; set; }
+        /// <summary>
+        /// Language it is in
+        /// </summary>
+        public string? Language { get; set; }
     }
 }

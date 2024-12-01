@@ -34,9 +34,12 @@ namespace Library.UI.Profiles
 
 
             CreateMap<Views.Media.Book.Book, Adapter.Media.Book.Book>()
-                .ForMember(d => d.Identification, o => o.MapFrom(s => s.ISBN)).ReverseMap();
-            CreateMap<Views.Media.Music.Music, Adapter.Media.Music.Music>().ReverseMap();
-            CreateMap<Views.Media.Movie.Movies, Adapter.Media.Movies.Movie>().ReverseMap();
+                .ForMember(d => d.Identification, o => o.MapFrom(s => s.ISBN))
+                 .ForMember(d => d.Genre, o => o.MapFrom(s => string.Join(',', s.Genre))).ReverseMap();
+            CreateMap<Views.Media.Music.Music, Adapter.Media.Music.Music>()
+                 .ForMember(d => d.Genre, o => o.MapFrom(s => string.Join(',', s.Genre))).ReverseMap();
+            CreateMap<Views.Media.Movie.Movies, Adapter.Media.Movies.Movie>()
+                 .ForMember(d => d.Genre, o => o.MapFrom(s => string.Join(',', s.Genre))).ReverseMap();
             CreateMap<Views.Media.Collection, Adapter.Media.Collection>().ReverseMap();
             CreateMap<Views.CollectionCards, Adapter.Media.Collection>().ReverseMap();
 

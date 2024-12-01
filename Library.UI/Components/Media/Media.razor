@@ -3,26 +3,32 @@
 @page "/media/{mediaType}"
 @rendermode RenderMode.InteractiveServer
 
-<Library.UI.Components.Elements.SearchBox OnSearch="OnSearch" />
-
-<div class="btn-group btn-group-toggle" data-toggle="buttons">
-    <label class="btn btn-secondary active" @onclick="ShowCards">
-        <input type="radio" name="Card" id="option1" autocomplete="off" checked> Card
-    </label>
-    <label class="btn btn-secondary" @onclick="ShowTable">
-        <input type="radio" name="Table" id="option2" autocomplete="off"> Table
-    </label>
+<div class="row">
+    <div class="col-9">
+        <Library.UI.Components.Elements.SearchBox OnSearch="OnSearch" />
+    </div>
+    <div class="col-3 btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-secondary active" @onclick="ShowCards">
+            <input type="radio" name="Card" id="option1" autocomplete="off" checked="@cardView"> Card
+        </label>
+        <label class="btn btn-secondary" @onclick="ShowTable">
+            <input type="radio" name="Table" id="option2" autocomplete="off" checked="@(!cardView)"> Table
+        </label>
+    </div>
 </div>
 
 @if(cardView)
 {
-    @foreach (var element in mediaContents.Where(w => w.Title.Contains(searchTerm)))
-    {
-        <Library.UI.Components.Elements.InteractiveCard 
-            Title="@element.Title"
-            OnDoubleClick="@(() => ShowCardDetails(element.ContentId))"
-            OnDelete="@(() => DeleteMediaContentAsync(element.ContentId))"/>
-    }
+    <div class="container">
+        @foreach (var element in mediaContents.Where(w => w.Title.Contains(searchTerm)))
+        {
+            <Library.UI.Components.Elements.ClickableCard 
+                Title="@element.Title"
+                Deletable="true"
+                OnDoubleClick="@(() => ShowCardDetails(element.ContentId))"
+                OnDelete="@(() => DeleteMediaContentAsync(element.ContentId))"/>
+        }
+    </div>
 }
 else
 {
@@ -54,12 +60,12 @@ else
         <tbody>
             @foreach(var element in mediaContents)
             {
-                <tr>
-                    <td>@element.Title</td>
-                    <td>@element.ColumnTwo</td>
-                    <td>@element.ColumnThree</td>
-                    <td>@element.ColumnFour</td>
-                    <td><i class="bi bi-trash" @onclick="@(() => DeleteMediaContentAsync(element.ContentId))" /></td>
+                <tr class="clickable">
+                    <td @ondblclick="@(() => ShowCardDetails(element.ContentId))">@element.Title</td>
+                    <td @ondblclick="@(() => ShowCardDetails(element.ContentId))">@element.ColumnTwo</td>
+                    <td @ondblclick="@(() => ShowCardDetails(element.ContentId))">@element.ColumnThree</td>
+                    <td @ondblclick="@(() => ShowCardDetails(element.ContentId))">@element.ColumnFour</td>
+                    <td @onclick="@(() => DeleteMediaContentAsync(element.ContentId))"><i class="bi bi-trash text-danger" /></td>
                 </tr>
             }
         </tbody>

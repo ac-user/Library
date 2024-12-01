@@ -45,6 +45,7 @@ public partial class LibraryContext : DbContext
 
             entity.Property(e => e.Artist).IsUnicode(false);
             entity.Property(e => e.Author).IsUnicode(false);
+            entity.Property(e => e.Publisher).IsUnicode(false);
             entity.Property(e => e.BookId).ValueGeneratedOnAdd();
             entity.Property(e => e.Description).IsUnicode(false);
             entity.Property(e => e.Isbn)
@@ -58,6 +59,9 @@ public partial class LibraryContext : DbContext
             entity.Property(e => e.SubTitle).IsUnicode(false);
             entity.Property(e => e.Summary).IsUnicode(false);
             entity.Property(e => e.Title).IsUnicode(false);
+            entity.Property(e => e.Ongoing).HasColumnType("bit");
+            entity.Property(e => e.IsActivelyReading).HasColumnType("bit");
+            entity.Property(e => e.Genre).IsUnicode(false);
         });
 
         modelBuilder.Entity<Collection>(entity =>
@@ -104,12 +108,18 @@ public partial class LibraryContext : DbContext
             entity.ToTable("Movie");
             entity.HasKey("MovieId");
 
+            entity.Property(e => e.Language)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.DateReleased).HasColumnType("datetime");
             entity.Property(e => e.MovieId).ValueGeneratedOnAdd();
             entity.Property(e => e.Series).IsUnicode(false);
             entity.Property(e => e.Summary).IsUnicode(false);
             entity.Property(e => e.Title).IsUnicode(false);
             entity.Property(e => e.Writer).IsUnicode(false);
+            entity.Property(e => e.Ongoing).HasColumnType("bit");
+            entity.Property(e => e.IsActivelyWatching).HasColumnType("bit");
+            entity.Property(e => e.Genre).IsUnicode(false);
         });
 
         modelBuilder.Entity<Music>(entity =>
@@ -117,12 +127,16 @@ public partial class LibraryContext : DbContext
             entity.ToTable("Music");
             entity.HasKey("MusicId");
 
+            entity.Property(e => e.Language)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.Album).IsUnicode(false);
             entity.Property(e => e.DatePublished).HasColumnType("datetime");
             entity.Property(e => e.MusicId).ValueGeneratedOnAdd();
             entity.Property(e => e.Singer).IsUnicode(false);
             entity.Property(e => e.Title).IsUnicode(false);
             entity.Property(e => e.Writer).IsUnicode(false);
+            entity.Property(e => e.Genre).IsUnicode(false);
         });
 
         modelBuilder.Entity<SubCollectionAssociation>(entity =>

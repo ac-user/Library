@@ -11,12 +11,21 @@
         <i class="bi bi-pencil" @onclick="EnableEditMode" />
         <div>
             <p><strong>Title:</strong> @Book.Title</p>
+            <p><strong>Sub-Title:</strong> @Book.SubTitle</p>
             <p><strong>Series:</strong> @Book.Series</p>
             <p><strong>Author:</strong> @Book.Author</p>
+            <p><strong>ISBN:</strong> @Book.ISBN</p>
+            <p><strong>Pages:</strong> @Book.Pages</p>
+            <p><strong>Language:</strong> @Book.Language</p>
             <p><strong>Publisher:</strong> @Book.Publisher</p>
-            <p><strong>Published:</strong> @Book.Published.ToString("MMMM dd, yyyy")</p>
-            <p><strong>Description:</strong> @Book.Description</p>
+            <p><strong>Published:</strong> @Book.Published?.ToString("MMMM dd, yyyy")</p>
             <p><strong>Summary:</strong> @Book.Summary</p>
+            <p><strong>Description:</strong> @Book.Description</p>
+            <p><strong>Times Read:</strong> @Book.Description</p>
+            <p><strong>Ongoing:</strong> @Book.Description</p>
+            <p><strong>Reading:</strong> @Book.Description</p>
+            <p><strong>Stars:</strong> @Book.Description</p>
+            <p><strong>Genre:</strong> @Book.Description</p>
         </div>
     }
 </Library.UI.Components.Elements.LoadableContent>

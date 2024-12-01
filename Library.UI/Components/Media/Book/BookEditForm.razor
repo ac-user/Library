@@ -13,8 +13,25 @@
     </div>
     <div class="row">
         <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Sub-Title" FieldId="subTitle" HelpText="Enter the book's sub-title">
+                <InputText id="subTitle" class="form-control" @bind-Value="EditableBookModel.SubTitle" aria-describedby="subTitleHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Reading" FieldId="reading" Required="true" HelpText="Is the book currently being read">
+                <InputCheckbox id="reading" class="form-control" @bind-Value="EditableBookModel.IsActivelyReading" aria-describedby="ongoingHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
             <Library.UI.Components.Elements.EditFormGroup Label="Series" FieldId="series" HelpText="Enter the book's series">
                 <InputText id="series" class="form-control" @bind-Value="EditableBookModel.Series" aria-describedby="seriesHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Ongoing" FieldId="ongoing" Required="true" HelpText="Is the series ongoing">
+                <InputCheckbox id="ongoing" class="form-control" @bind-Value="EditableBookModel.Ongoing" aria-describedby="ongoingHelp" />
             </Library.UI.Components.Elements.EditFormGroup>
         </div>
     </div>
@@ -22,6 +39,23 @@
         <div class="col">
             <Library.UI.Components.Elements.EditFormGroup Label="Author" FieldId="author" HelpText="Enter the author's name">
                 <InputText id="author" class="form-control" @bind-Value="EditableBookModel.Author" aria-describedby="authorHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Pages" FieldId="pages" Required="true" HelpText="Enter the page count of the book">
+                <InputNumber id="pages" class="form-control" @bind-Value="EditableBookModel.Pages" aria-describedby="pagesHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Times Read" FieldId="read" HelpText="Enter the number of times the book was read">
+                <InputNumber id="read" class="form-control" @bind-Value="EditableBookModel.TimesRead" aria-describedby="readHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Language" FieldId="language" HelpText="Enter the language">
+                <InputText id="language" class="form-control" @bind-Value="EditableBookModel.Language" aria-describedby="languageHelp" />
             </Library.UI.Components.Elements.EditFormGroup>
         </div>
         <div class="col">
@@ -50,6 +84,16 @@
     <div class="row">
         <Library.UI.Components.Elements.EditFormGroup Label="Summary" FieldId="summary">
             <InputTextArea id="summary" class="form-control" @bind-Value="EditableBookModel.Summary" />
+        </Library.UI.Components.Elements.EditFormGroup>
+    </div>
+    <div class="row">
+        <Library.UI.Components.Elements.EditFormGroup Label="Genre" FieldId="genre">
+            <InputTextArea id="genre" class="form-control" @bind-Value="EditableBookModel.Genre" />
+        </Library.UI.Components.Elements.EditFormGroup>
+    </div>
+    <div class="row">
+        <Library.UI.Components.Elements.EditFormGroup FieldId="stars">
+            <Library.UI.Components.Elements.Stars StarCount="5" @bind-value="EditableBookModel.Stars" />
         </Library.UI.Components.Elements.EditFormGroup>
     </div>
     <EditFormButtons OnClose="OnClose" />

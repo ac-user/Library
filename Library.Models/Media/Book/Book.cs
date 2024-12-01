@@ -23,6 +23,10 @@
         /// </summary>
         public string? Author { get; set; }
         /// <summary>
+        /// Who created the art
+        /// </summary>
+        public string? Artist { get; set; }
+        /// <summary>
         /// The company who printed the book
         /// </summary>
         public string? Publisher { get; set; }

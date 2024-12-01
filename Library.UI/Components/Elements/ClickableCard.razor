@@ -2,6 +2,10 @@
 
 <div class="card clickable @Size @Status @Class" @onclick="OnClick" @ondblclick="OnDoubleClick">
     <div class="card-body">
+        @if(Deletable)
+        {
+            <i class="bi bi-trash text-danger position-absolute top-0 end-0" @onclick="OnDelete" />
+        }
         @ChildContent
     </div>
     <h5 class="card-title position-relative bottom-0">@Title</h5>
@@ -15,11 +19,17 @@
     [Parameter]
     public EventCallback OnClick { get; set; }
 
+    [Parameter]
+    public EventCallback OnDelete { get; set; }
+
     [Parameter] 
     public string Title { get; set; }
 
     [Parameter] 
     public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public bool Deletable{ get; set; }
 
     [Parameter]
     public string Size { get; set; }

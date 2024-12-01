@@ -1,0 +1,24 @@
+﻿<div>
+    @for(int i = 0; i < StarCount; i++)
+    {
+        <i @key="i" class="bi @(i < Value ? "bi-star-fill" : "bi-star" )" style="height:15px; width:15px;" @onclick="@(() => OnClick(i))" />
+    }
+</div>
+
+@code {
+    [Parameter]
+    public int StarCount { get; set; }
+
+    [Parameter]
+    public int Value { get; set; }
+
+    [Parameter]
+    public EventCallback<int> ValueChanged { get; set; }
+
+
+    private void OnClick(int id)
+    {
+        Value = id;
+        ValueChanged.InvokeAsync(id);
+    }
+}

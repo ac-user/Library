@@ -7,15 +7,15 @@
     <h2> @collection.Name</h2>
 
     <Library.UI.Components.Elements.SearchBox OnSearch="OnSearch" />
-
-    <Library.UI.Components.Elements.ClickableCard OnClick="OnClickAddMedia" Title="Media" Size="small">
-        <i class="bi bi-plus-circle" />
-    </Library.UI.Components.Elements.ClickableCard>
-    <Library.UI.Components.Elements.ClickableCard OnClick="OnClickAddCollection" Title="Collection" Size="small">
-        <i class="bi bi-plus-circle" />
-    </Library.UI.Components.Elements.ClickableCard>
-
     <div class="container">
+        <div>
+            <Library.UI.Components.Elements.ClickableCard OnClick="OnClickAddMedia" Title="Media" Size="small">
+                <i class="bi bi-plus-circle" />
+            </Library.UI.Components.Elements.ClickableCard>
+            <Library.UI.Components.Elements.ClickableCard OnClick="OnClickAddCollection" Title="Collection" Size="small">
+                <i class="bi bi-plus-circle" />
+            </Library.UI.Components.Elements.ClickableCard>
+        </div>
 
         @foreach (var content in collection.Books.Where(w => w.Title.Contains(searchTerm)))
         {

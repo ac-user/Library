@@ -1,15 +1,7 @@
 ﻿namespace Library.UI.Model.ViewModels.Media.Movie
 {
-    public class Movies
+    public class Movies : MediaContentBase
     {
-        /// <summary>
-        /// Unique Identifier for the media content
-        /// </summary>
-        public int Id { get; set; }
-        /// <summary>
-        /// What the mendia content is called
-        /// </summary>
-        public string Title { get; set; }
         /// <summary>
         /// Series the show is from, if any
         /// </summary>
@@ -26,5 +18,18 @@
         /// Summary of the show
         /// </summary>
         public string? Summary { get; set; }
+        /// <summary>
+        /// How many times watched
+        /// </summary>
+        public int? TimesWatched { get; set; }
+        /// <summary>
+        /// Is the series ongoing
+        /// </summary>
+        public bool Ongoing { get; set; }
+        /// <summary>
+        /// Are you currently watching series
+        /// </summary>
+        public bool IsActivelyWatching { get; set; }
+
     }
 }

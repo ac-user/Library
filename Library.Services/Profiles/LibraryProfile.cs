@@ -16,19 +16,25 @@ namespace Library.Services.Profiles
 
         private void MediaContentMaps()
         {
+            CreateMap<string, List<string>>()
+                .ConstructUsing(s => s.Split(',', StringSplitOptions.None).ToList());
+
             CreateMap<Book, Entity.Book>()
                 .ForMember(d=> d.BookId, o =>o.MapFrom(s => s.Id))
+                .ForMember(d => d.Genre, o => o.MapFrom(s => string.Join(',', s.Genre)))
                 .ForMember(d => d.Isbn, o => o.MapFrom(s => s.Identification)).ReverseMap();
             CreateMap<Book, BookCreationRequest>().ReverseMap();
             CreateMap<Book, BookModificationRequest>().ReverseMap();
 
             CreateMap<Movie, Entity.Movie>()
-                .ForMember(d => d.MovieId, o => o.MapFrom(s => s.Id)).ReverseMap();
+                .ForMember(d => d.MovieId, o => o.MapFrom(s => s.Id))
+                 .ForMember(d => d.Genre, o => o.MapFrom(s => string.Join(',', s.Genre))).ReverseMap();
             CreateMap<Movie, MovieCreationRequest>().ReverseMap();
             CreateMap<Movie, MovieModificationRequest>().ReverseMap();
             
             CreateMap<Music, Entity.Music>()
-                .ForMember(d => d.MusicId, o => o.MapFrom(s => s.Id)).ReverseMap();
+                .ForMember(d => d.MusicId, o => o.MapFrom(s => s.Id))
+                 .ForMember(d => d.Genre, o => o.MapFrom(s => string.Join(',', s.Genre))).ReverseMap();
             CreateMap<Music, MusicCreationRequest>().ReverseMap();
             CreateMap<Music, MusicModificationRequest>().ReverseMap();
 

@@ -23,13 +23,17 @@
                 <i class="bi bi-film" alt="Movies" />
             </Library.UI.Components.Elements.ClickableCard>
         </div>
-        <Library.UI.Components.Elements.ClickableCard OnClick="OnClickAddCollection">
+        <Library.UI.Components.Elements.ClickableCard Title="Add Collection" OnClick="OnClickAddCollection">
             <i class="bi bi-plus-circle" />
         </Library.UI.Components.Elements.ClickableCard>
         <Library.UI.Components.Elements.LoadableContent Loading="@(_model?.Collections == null)">
             @foreach (var collection in _model.Collections.Where(w => w.Name.Contains(searchTerm)))
             {
-                <Library.UI.Components.Elements.ClickableCard Title="@collection.Name" OnClick="@(() => NavigateToCollection(collection.Id))" />
+                <Library.UI.Components.Elements.ClickableCard 
+                    Title="@collection.Name" 
+                    Deletable="true"
+                    OnDelete="@(() => OnDeleteCollectionAsync(collection.Id))"
+                    OnDoubleClick="@(() => NavigateToCollection(collection.Id))" />
             }
         </Library.UI.Components.Elements.LoadableContent>
     </div>
@@ -40,3 +44,9 @@
 {
     <Library.UI.Components.Media.NewMedia OnClose="CloseAddMediaPopup" />
 }
+
+@if (notificationUtility != null)
+{
+    <Library.UI.Components.Elements.Notification Title="@notificationUtility.Title" Message="@notificationUtility.Message" />
+}
+
