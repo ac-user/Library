@@ -45,9 +45,9 @@ namespace Library.UI.Adapters
             try
             {
                 var details = await httpResponse.Content.ReadAsStringAsync(cancellationToken);
-                if(httpResponse.IsSuccessStatusCode && String.IsNullOrWhiteSpace(details))
+                if(httpResponse.IsSuccessStatusCode && !String.IsNullOrWhiteSpace(details))
                 {
-                    JsonSerializer.Deserialize<int>(details);
+                    response.Id = JsonSerializer.Deserialize<int>(details);
                 }
                 else if(httpResponse.StatusCode == System.Net.HttpStatusCode.BadRequest &&
                     String.IsNullOrWhiteSpace(details))

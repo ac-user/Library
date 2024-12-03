@@ -22,14 +22,14 @@
                 <InputText id="subTitle" class="form-control" @bind-Value="EditableBookModel.SubTitle" aria-describedby="subTitleHelp" />
             </Library.UI.Components.Elements.EditFormGroup>
         </div>
-        <div class="col-1">
-            <Library.UI.Components.Elements.EditFormGroup Label="Reading" FieldId="reading" >
-                <InputCheckbox id="reading" class="form-control" @bind-Value="EditableBookModel.IsActivelyReading" aria-describedby="ongoingHelp" />
+        <div class="col-2 align-content-center">
+            <Library.UI.Components.Elements.EditFormGroup FieldId="reading" >
+                <Library.UI.Components.Elements.CheckboxButton Label="Reading" @bind-IsChecked="EditableBookModel.IsActivelyReading" />
             </Library.UI.Components.Elements.EditFormGroup>
         </div>
-        <div class="col-1">
-                <Library.UI.Components.Elements.EditFormGroup Label="Ongoing" FieldId="ongoing">
-                    <InputCheckbox id="ongoing" class="form-control" @bind-Value="EditableBookModel.Ongoing" aria-describedby="ongoingHelp" />
+        <div class="col-2 align-content-center">
+                <Library.UI.Components.Elements.EditFormGroup FieldId="ongoing">
+                    <Library.UI.Components.Elements.CheckboxButton Label="Ongoing" @bind-IsChecked="EditableBookModel.Ongoing" />
                 </Library.UI.Components.Elements.EditFormGroup>
         </div>
         <div class="col-2">

@@ -39,7 +39,7 @@ namespace Library.Services.Commands
                     CollectionId = collectionId,
                     MediaId = s.MediaId,
                     MediaType = s.MediaType.ToString()
-                });
+                }).ToArray();
 
                 _context.CollectionAssociations.AddRange(collectionContent);
                 await _context.SaveChangesAsync(cancellationToken);
@@ -58,7 +58,7 @@ namespace Library.Services.Commands
                 {
                     CollectionId = collectionId,
                     SubCollectionId = s.Id
-                });
+                }).ToArray();
 
                 await _context.SubCollectionAssociations.AddRangeAsync(collectionContent, cancellationToken);
                 await _context.SaveChangesAsync(cancellationToken);

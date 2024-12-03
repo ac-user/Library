@@ -19,15 +19,15 @@
 
         @foreach (var content in collection.Books.Where(w => w.Title.Contains(searchTerm)))
         {
-            <Library.UI.Components.Elements.ClickableCard Title="@content.Title" OnClick="@(() => OnClickMedia(content.Id))" />
+            <Library.UI.Components.Elements.ClickableCard Title="@content.Title" OnClick="@(() => OnClickMedia(content.Id, Model.ViewModels.Media.MediaType.Book))" />
         }
         @foreach (var content in collection.Music.Where(w => w.Title.Contains(searchTerm)))
         {
-            <Library.UI.Components.Elements.ClickableCard Title="@content.Title" OnClick="@(() => OnClickMedia(content.Id))" />
+            <Library.UI.Components.Elements.ClickableCard Title="@content.Title" OnClick="@(() => OnClickMedia(content.Id, Model.ViewModels.Media.MediaType.Music))" />
         }
         @foreach (var content in collection.Movies.Where(w => w.Title.Contains(searchTerm)))
         {
-            <Library.UI.Components.Elements.ClickableCard Title="@content.Title" OnClick="@(() => OnClickMedia(content.Id))" />
+            <Library.UI.Components.Elements.ClickableCard Title="@content.Title" OnClick="@(() => OnClickMedia(content.Id, Model.ViewModels.Media.MediaType.Movie))" />
         }
 
         @foreach (var collection in collection.SubCollections.Where(w => w.Name.Contains(searchTerm)))
@@ -38,7 +38,7 @@
 
     @if (showMedia)
     {
-        <Library.UI.Components.Media.MediaView Id="@contentToOpen" OnClose="CloseMediaPopup" />
+        <Library.UI.Components.Media.MediaView Id="@contentToOpen" MediaType="@contentType" OnClose="CloseMediaPopup" />
     }
     @if (addMedia)
     {

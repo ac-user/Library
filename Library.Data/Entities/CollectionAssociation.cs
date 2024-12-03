@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Library.Data.Entities;
+﻿namespace Library.Data.Entities;
 
 public partial class CollectionAssociation
 {
@@ -15,8 +12,8 @@ public partial class CollectionAssociation
 
 
     public Collection Collection { get; set; } 
-    public ICollection<Book> Books { get; set; } = new List<Book>();
-    public ICollection<Music> Music { get; set; } = new List<Music>();
-    public ICollection<Movie> Movies { get; set; } = new List<Movie>();
+    public Book Book { get; set; } 
+    public Music Music { get; set; }
+    public Movie Movie { get; set; }
 
 }

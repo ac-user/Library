@@ -22,9 +22,9 @@
             <InputText id="series" class="form-control" @bind-Value="EditableMovieModel.Series" aria-describedby="seriesHelp" />
         </Library.UI.Components.Elements.EditFormGroup>
         </div>
-        <div class="col-1">
-            <Library.UI.Components.Elements.EditFormGroup Label="Ongoing" FieldId="ongoing" HelpText="Is the series ongoing">
-                <InputCheckbox id="ongoing" class="form-control" @bind-Value="EditableMovieModel.Ongoing" aria-describedby="ongoingHelp" />
+        <div class="col-1 align-content-center">
+            <Library.UI.Components.Elements.EditFormGroup FieldId="ongoing" HelpText="Is the series ongoing">
+                <Library.UI.Components.Elements.CheckboxButton Label="Ongoing" @bind-IsChecked="EditableMovieModel.Ongoing" />
             </Library.UI.Components.Elements.EditFormGroup>
         </div>
         <div class="col-2">

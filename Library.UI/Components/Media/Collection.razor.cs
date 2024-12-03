@@ -1,5 +1,6 @@
 using AutoMapper;
 using Library.UI.Adapters;
+using Library.UI.Model.ViewModels.Media;
 using Microsoft.AspNetCore.Components;
 using ViewModels = Library.UI.Model.ViewModels.Media;
 
@@ -26,6 +27,7 @@ namespace Library.UI.Components.Media
         private bool showMedia;
         private bool addMedia;
         private int contentToOpen;
+        private MediaType contentType;
 
         protected override async Task OnParametersSetAsync()
         {
@@ -50,9 +52,10 @@ namespace Library.UI.Components.Media
             Navigation.NavigateTo($"/collection/{id}");
         }
 
-        private void OnClickMedia(int id)
+        private void OnClickMedia(int id, MediaType mediaType)
         {
             contentToOpen = id;
+            contentType = mediaType;
             showMedia = true;
         }
 

@@ -28,15 +28,15 @@ namespace Library.Services.Queries
                 result.Id = itemId;
 
                 /*Gether media content*/
-                var books = _mapper.Map<List<Book>>(await _context.CollectionAssociations.AsNoTracking().Include(i => i.Books)
+                var books = _mapper.Map<List<Book>>(await _context.CollectionAssociations.AsNoTracking().Include(i => i.Book)
                                                            .Where(w => w.CollectionId == itemId && w.MediaType == MediaContentType.Book.ToString())
-                                                           .SelectMany(s => s.Books).ToListAsync(cancellationToken));
+                                                           .Select(s => s.Book).ToListAsync(cancellationToken));
                 var music = _mapper.Map<List<Music>>(await _context.CollectionAssociations.AsNoTracking().Include(i => i.Music)
                                                            .Where(w => w.CollectionId == itemId && w.MediaType == MediaContentType.Music.ToString())
-                                                           .SelectMany(s => s.Music).ToListAsync(cancellationToken));
-                var movies = _mapper.Map<List<Movie>>(await _context.CollectionAssociations.AsNoTracking().Include(i => i.Movies)
+                                                           .Select(s => s.Music).ToListAsync(cancellationToken));
+                var movies = _mapper.Map<List<Movie>>(await _context.CollectionAssociations.AsNoTracking().Include(i => i.Movie)
                                                            .Where(w => w.CollectionId == itemId && w.MediaType == MediaContentType.Movie.ToString())
-                                                           .SelectMany(s => s.Movies).ToListAsync(cancellationToken));
+                                                           .Select(s => s.Movie).ToListAsync(cancellationToken));
                 result.Name = collection!.Title;
                 result.Books = books;
                 result.Music = music;

@@ -28,6 +28,6 @@ public partial class Music
 
 
 
-    public CollectionAssociation CollectionAssociation { get; set; }
+    public ICollection<CollectionAssociation> CollectionAssociations { get; set; } = new List<CollectionAssociation>();
 
 }

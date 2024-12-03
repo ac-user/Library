@@ -31,6 +31,6 @@ public partial class Movie
 
     public string Genre { get; set; }
 
-    public CollectionAssociation CollectionAssociation { get; set; }
+    public ICollection<CollectionAssociation> CollectionAssociations { get; set; } = new List<CollectionAssociation>();
 
 }

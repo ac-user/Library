@@ -62,6 +62,7 @@ public partial class LibraryContext : DbContext
             entity.Property(e => e.Ongoing).HasColumnType("bit");
             entity.Property(e => e.IsActivelyReading).HasColumnType("bit");
             entity.Property(e => e.Genre).IsUnicode(false);
+
         });
 
         modelBuilder.Entity<Collection>(entity =>
@@ -90,20 +91,20 @@ public partial class LibraryContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
-            entity.HasMany(h => h.Books)
-                  .WithOne(o => o.CollectionAssociation)
-                  .HasForeignKey(f => f.BookId)
-                  .HasPrincipalKey(p => p.MediaId);
+            entity.HasOne(h => h.Book)
+                  .WithMany(o => o.CollectionAssociations)
+                  .HasForeignKey(f => f.MediaId)
+                  .HasPrincipalKey(p => p.BookId);
 
-            entity.HasMany(h => h.Music)
-                  .WithOne(o => o.CollectionAssociation)
-                  .HasForeignKey(f => f.MusicId)
-                  .HasPrincipalKey(p => p.MediaId);
+            entity.HasOne(h => h.Music)
+                  .WithMany(o => o.CollectionAssociations)
+                  .HasForeignKey(f => f.MediaId)
+                  .HasPrincipalKey(p => p.MusicId);
 
-            entity.HasMany(h => h.Movies)
-                  .WithOne(o => o.CollectionAssociation)
-                  .HasForeignKey(f => f.MovieId)
-                  .HasPrincipalKey(p => p.MediaId);
+            entity.HasOne(h => h.Movie)
+                  .WithMany(o => o.CollectionAssociations)
+                  .HasForeignKey(f => f.MediaId)
+                  .HasPrincipalKey(p => p.MovieId);
         });
 
         modelBuilder.Entity<Movie>(entity =>
@@ -123,6 +124,7 @@ public partial class LibraryContext : DbContext
             entity.Property(e => e.Ongoing).HasColumnType("bit");
             entity.Property(e => e.IsActivelyWatching).HasColumnType("bit");
             entity.Property(e => e.Genre).IsUnicode(false);
+
         });
 
         modelBuilder.Entity<Music>(entity =>
@@ -140,6 +142,7 @@ public partial class LibraryContext : DbContext
             entity.Property(e => e.Title).IsUnicode(false);
             entity.Property(e => e.Writer).IsUnicode(false);
             entity.Property(e => e.Genre).IsUnicode(false);
+
         });
 
         modelBuilder.Entity<SubCollectionAssociation>(entity =>
