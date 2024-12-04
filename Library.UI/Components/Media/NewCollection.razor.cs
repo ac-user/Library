@@ -40,7 +40,7 @@ namespace Library.UI.Components.Media
 
         protected override void OnInitialized()
         {
-            newCollection.Name = "New Collection";
+            //newCollection.Name = "New Collection";
             base.OnInitialized();
         }
 

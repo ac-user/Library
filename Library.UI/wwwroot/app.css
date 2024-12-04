@@ -56,6 +56,12 @@ a, .btn-link {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
+.header {
+  background-color: aliceblue;
+  padding: 8px;
+  border-bottom: 1px solid lightgray;
+}
+
 .content {
   padding-top: 1.1rem;
 }
@@ -71,6 +77,19 @@ a, .btn-link {
 .quad-container {
   height: 16rem;
   width: 16rem;
+}
+
+.new-collection-name {
+  font-size: large;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-color: lightblue;
+  height: 40px;
+  width: 450px;
+}
+.new-collection-name:focus-visible {
+  outline: none;
 }
 
 h1:focus {

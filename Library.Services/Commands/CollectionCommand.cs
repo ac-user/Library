@@ -97,9 +97,9 @@ namespace Library.Services.Commands
 
             return success;
         }
-        public async Task<bool> DeleteAsync(int collectionId, int itemId, CancellationToken cancellationToken)
+        public async Task<bool> DeleteAsync(int collectionId, MediaContentType mediaType, int itemId, CancellationToken cancellationToken)
         {
-            var itemToDelete = _context.CollectionAssociations.FirstOrDefault(f => f.CollectionId == collectionId && f.MediaId == itemId);
+            var itemToDelete = _context.CollectionAssociations.FirstOrDefault(f => f.CollectionId == collectionId && f.MediaType == mediaType.ToString() && f.MediaId == itemId);
             bool success = true;
 
             if (itemToDelete != null)

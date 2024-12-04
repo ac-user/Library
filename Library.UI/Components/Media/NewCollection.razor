@@ -1,7 +1,7 @@
 ﻿@page "/new-collection"
 @rendermode RenderMode.InteractiveServer
 
-<InputText @bind-Value="newCollection.Name" />
+<InputText class="new-collection-name mb-3" @bind-Value="newCollection.Name" placeholder="New Collection"/>
 <Library.UI.Components.Elements.SearchBox OnSearch="OnSearch" />
 
 <Library.UI.Components.Elements.LoadableContent Loading="loading">

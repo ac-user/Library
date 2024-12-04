@@ -1,7 +1,10 @@
 using AutoMapper;
+using Library.Models.Media;
 using Library.UI.Adapters;
 using Library.UI.Model.ViewModels.Media;
+using Library.UI.Utilities;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using ViewModels = Library.UI.Model.ViewModels.Media;
 
 namespace Library.UI.Components.Media
@@ -10,6 +13,9 @@ namespace Library.UI.Components.Media
     {
         [Inject]
         protected ICollectionAdapter CollectionAdapter { get; set; }
+
+        [Inject]
+        protected IJSRuntime JSRuntime { get; set; }
 
         [Inject]
         protected IMapper Mapper { get; set; }
@@ -22,6 +28,7 @@ namespace Library.UI.Components.Media
         public int collectionId { get; set; }
 
 
+        private NotificationUtility notificationUtility;
         private ViewModels.Collection collection;
         private string searchTerm = "";
         private bool showMedia;
@@ -32,15 +39,49 @@ namespace Library.UI.Components.Media
         protected override async Task OnParametersSetAsync()
         {
             await GetCollectionAsync();
+            notificationUtility = new NotificationUtility(JSRuntime);
             await base.OnParametersSetAsync();
         }
 
         private async Task GetCollectionAsync()
         {
             CancellationTokenSource cts = new CancellationTokenSource();
-            collection = Mapper.Map<ViewModels.Collection>(await CollectionAdapter.GetAsync(Utilities.Account.AccountId, collectionId, cts.Token));
+            var result = await CollectionAdapter.GetAsync(Utilities.Account.AccountId, collectionId, cts.Token);
+            collection = Mapper.Map<ViewModels.Collection>(result);
+            collection.MediaContent =
+            [
+                .. result.Books.Select(s => new ViewModels.Media() { Id = s.Id, Title = s.Title, Type = MediaType.Book }),
+                .. result.Music.Select(s => new ViewModels.Media() { Id = s.Id, Title = s.Title, Type = MediaType.Music }),
+                .. result.Movies.Select(s => new ViewModels.Media() { Id = s.Id, Title = s.Title, Type = MediaType.Movie }),
+            ];
             cts.Dispose();
         }
+
+        private async Task OnDeleteClickAsync(int id, MediaType mediaType)
+        {
+            using var command = new CommandUtility();
+            var type = Mapper.Map<MediaContentType>(mediaType);
+            var tuple = (Utilities.Account.AccountId, collectionId, type, id);
+
+            await command.ExecuteAsync((tuple, token) => CollectionAdapter.DeleteAsync(Utilities.Account.AccountId, collectionId, type, id, new CancellationToken()),
+                                    tuple,
+                                    onSuccess: () => OnSuccessSubmit(id, mediaType),
+                                    onFailure: OnFailedSubmit);
+            
+        }
+
+        private void OnSuccessSubmit(int id, MediaType mediaType)
+        {
+            collection.MediaContent.Remove(collection.MediaContent.First(f => f.Id == id && f.Type == mediaType));
+            
+            notificationUtility.ShowNotification("Success", "Removed content from collection");
+        }
+
+        private void OnFailedSubmit()
+        {
+            notificationUtility.ShowNotification("Failed", "Failed to delete content");
+        }
+
 
         private void OnClickAddCollection()
         {

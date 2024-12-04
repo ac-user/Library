@@ -1,6 +1,4 @@
-﻿using Library.UI.Model.ViewModels.Media.Movie;
-
-namespace Library.UI.Model.ViewModels.Media
+﻿namespace Library.UI.Model.ViewModels.Media
 {
     /// <summary>
     /// Content collections
@@ -18,20 +16,26 @@ namespace Library.UI.Model.ViewModels.Media
         /// <summary>
         /// Books within the collection
         /// </summary>
-        public List<Book.Book> Books { get; set; }
-        /// <summary>
-        /// Music within the collection
-        /// </summary>
-        public List<Music.Music> Music { get; set; }
-        /// <summary>
-        /// Movies within the collection
-        /// </summary>
-        public List<Movies> Movies { get; set; }
+        public List<Media> MediaContent { get; set; }
         /// <summary>
         /// Subcollections within the collection
         /// </summary>
         public List<Collection> SubCollections { get; set; }
     }
 
-
+    public class Media
+    {
+        /// <summary>
+        /// Media content identifier
+        /// </summary>
+        public int Id { get; set; }
+        /// <summary>
+        /// Title of the content
+        /// </summary>
+        public string Title { get; set; }
+        /// <summary>
+        /// Type of media
+        /// </summary>
+        public MediaType Type { get; set; }
+    }
 }

@@ -90,11 +90,12 @@ namespace Library.Services.Services.Media
 
             return response;
         }
-        public async Task<ResponseStatus> DeleteAsync(int id, int collectionId, CancellationToken cancellationToken)
+
+        public async Task<ResponseStatus> DeleteAsync(int collectionId, MediaContentType mediaType, int mediaId, CancellationToken cancellationToken)
         {
             var response = new ResponseStatus()
             {
-                IsSuccess = await _command.DeleteAsync(id, collectionId, cancellationToken)
+                IsSuccess = await _command.DeleteAsync(collectionId, mediaType, mediaId, cancellationToken)
             };
 
             if (!response.IsSuccess)

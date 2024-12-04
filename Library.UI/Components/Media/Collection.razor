@@ -4,7 +4,7 @@
 <PageTitle>Collection</PageTitle>
 
 <Library.UI.Components.Elements.LoadableContent Loading="@(collection == null)">
-    <h2> @collection.Name</h2>
+    <h3> @collection.Name</h3>
 
     <Library.UI.Components.Elements.SearchBox OnSearch="OnSearch" />
     <div class="container">
@@ -17,17 +17,12 @@
             </Library.UI.Components.Elements.ClickableCard>
         </div>
 
-        @foreach (var content in collection.Books.Where(w => w.Title.Contains(searchTerm)))
+        @foreach (var content in collection.MediaContent.Where(w => w.Title.Contains(searchTerm)))
         {
-            <Library.UI.Components.Elements.ClickableCard Title="@content.Title" OnClick="@(() => OnClickMedia(content.Id, Model.ViewModels.Media.MediaType.Book))" />
-        }
-        @foreach (var content in collection.Music.Where(w => w.Title.Contains(searchTerm)))
-        {
-            <Library.UI.Components.Elements.ClickableCard Title="@content.Title" OnClick="@(() => OnClickMedia(content.Id, Model.ViewModels.Media.MediaType.Music))" />
-        }
-        @foreach (var content in collection.Movies.Where(w => w.Title.Contains(searchTerm)))
-        {
-            <Library.UI.Components.Elements.ClickableCard Title="@content.Title" OnClick="@(() => OnClickMedia(content.Id, Model.ViewModels.Media.MediaType.Movie))" />
+            <Library.UI.Components.Elements.ClickableCard Title="@content.Title"
+                                                          Deletable="true"
+                                                          OnDelete="@(() => OnDeleteClickAsync(content.Id, content.Type))"
+                                                          OnClick="@(() => OnClickMedia(content.Id, Model.ViewModels.Media.MediaType.Book))" />
         }
 
         @foreach (var collection in collection.SubCollections.Where(w => w.Name.Contains(searchTerm)))

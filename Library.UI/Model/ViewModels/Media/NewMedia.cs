@@ -15,7 +15,7 @@ namespace Library.UI.Model.ViewModels.Media
     public enum MediaType
     {
         Book,
-        Music,
-        Movie
+        Movie,
+        Music
     }
 }

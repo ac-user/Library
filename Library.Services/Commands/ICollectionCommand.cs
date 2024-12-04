@@ -1,4 +1,5 @@
-﻿using Library.Services.Models;
+﻿using Library.Models.Media;
+using Library.Services.Models;
 using Model = Library.Models;
 
 namespace Library.Services.Commands
@@ -25,9 +26,10 @@ namespace Library.Services.Commands
         /// Delete the association between a collection and media content
         /// </summary>
         /// <param name="collectionId">collection item belongs to</param>
-        /// <param name="itemId">item to remvoe</param>
+        /// <param name="mediaType">type of item to remove</param>
+        /// <param name="itemId">item to remove</param>
         /// <param name="cancellationToken">token to cancel long running processes</param>
         /// <returns>Deletion status</returns>
-        Task<bool> DeleteAsync(int collectionId, int itemId, CancellationToken cancellationToken);
+        Task<bool> DeleteAsync(int collectionId, MediaContentType mediaType, int itemId, CancellationToken cancellationToken);
     }
 }

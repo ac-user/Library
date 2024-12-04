@@ -30,6 +30,16 @@ namespace Library.UI.Adapters
         /// <returns>Deletion status</returns>
         Task<CommandResponseStatus> DeleteAsync(int accountId, int collectionId, CancellationToken cancellationToken);
         /// <summary>
+        /// Delete a collection
+        /// </summary>
+        /// <param name="accountId">the users account</param>
+        /// <param name="collectionId">collection to delete</param>
+        /// <param name="collectionId">content type of the item</param>
+        /// <param name="collectionId">item to delete from collection</param>
+        /// <param name="cancellationToken">token to cancel long running processes</param>
+        /// <returns>Deletion status</returns>
+        Task<CommandResponseStatus> DeleteAsync(int accountId, int collectionId, MediaContentType mediaType, int mediaId, CancellationToken cancellationToken);
+        /// <summary>
         /// Get a specific collection
         /// </summary>
         /// <param name="accountId">the users account</param>

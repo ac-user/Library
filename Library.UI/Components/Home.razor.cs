@@ -30,13 +30,6 @@ namespace Library.UI.Components
         private bool addMedia;
         private string searchTerm = "";
 
-        protected override void OnInitialized()
-        {
-            Utilities.Account.UserName = "Isabella218";
-            Utilities.Account.AccountId = 1;
-            base.OnInitialized();
-        }
-
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)

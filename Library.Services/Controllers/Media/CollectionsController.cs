@@ -141,19 +141,20 @@ namespace Library.Services.Controllers.Media
         /// </summary>
         /// <param name="accountId">user collections are associated to</param>
         /// <param name="collectionId">collection content is associated to</param>
+        /// <param name="mediaType">type of content to remove</param>
         /// <param name="mediaId">content to delete</param>
         /// <param name="cancellationToken">token to cancel long running processes</param>
         /// <returns>Status of creation</returns>
-        [HttpDelete("{collectionId}/Content/{mediaId}")]
+        [HttpDelete("{collectionId}/Content/{mediaType}/{mediaId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BadRequestObjectResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status412PreconditionFailed)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> DeleteAsync(int accountId, int collectionId, int mediaId, CancellationToken cancellationToken)
+        public async Task<IActionResult> DeleteAsync(int accountId, int collectionId, MediaContentType mediaType, int mediaId, CancellationToken cancellationToken)
         {
             return await ExecuteCommandAsync(async () =>
             {
-                return await _service.DeleteAsync(collectionId, mediaId, cancellationToken);
+                return await _service.DeleteAsync(collectionId, mediaType, mediaId, cancellationToken);
             },
             accountId,
             cancellationToken,
