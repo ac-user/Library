@@ -22,5 +22,9 @@
         /// Language it is in
         /// </summary>
         public string? Language { get; set; }
+        /// <summary>
+        /// Png imagge in byte form
+        /// </summary>
+        public byte[]? Image { get; set; }
     }
 }

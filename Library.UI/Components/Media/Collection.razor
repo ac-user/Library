@@ -22,7 +22,7 @@
             <Library.UI.Components.Elements.ClickableCard Title="@content.Title"
                                                           Deletable="true"
                                                           OnDelete="@(() => OnDeleteClickAsync(content.Id, content.Type))"
-                                                          OnClick="@(() => OnClickMedia(content.Id, Model.ViewModels.Media.MediaType.Book))" />
+                                                          OnDoubleClick="@(() => OnClickMedia(content.Id, content.Type))" />
         }
 
         @foreach (var collection in collection.SubCollections.Where(w => w.Name.Contains(searchTerm)))

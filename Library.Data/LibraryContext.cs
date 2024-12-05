@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Library.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Library.Data;
 
@@ -62,7 +63,7 @@ public partial class LibraryContext : DbContext
             entity.Property(e => e.Ongoing).HasColumnType("bit");
             entity.Property(e => e.IsActivelyReading).HasColumnType("bit");
             entity.Property(e => e.Genre).IsUnicode(false);
-
+            entity.Property(i => i.Image).HasColumnType("VARBINARY(MAX)");
         });
 
         modelBuilder.Entity<Collection>(entity =>
@@ -124,6 +125,7 @@ public partial class LibraryContext : DbContext
             entity.Property(e => e.Ongoing).HasColumnType("bit");
             entity.Property(e => e.IsActivelyWatching).HasColumnType("bit");
             entity.Property(e => e.Genre).IsUnicode(false);
+            entity.Property(i => i.Image).HasColumnType("VARBINARY(MAX)");
 
         });
 
@@ -142,6 +144,7 @@ public partial class LibraryContext : DbContext
             entity.Property(e => e.Title).IsUnicode(false);
             entity.Property(e => e.Writer).IsUnicode(false);
             entity.Property(e => e.Genre).IsUnicode(false);
+            entity.Property(i => i.Image).HasColumnType("VARBINARY(MAX)");
 
         });
 

@@ -8,7 +8,7 @@
         /// <summary>
         /// Secondary title
         /// </summary>
-        public string SubTitle { get; set; }
+        public string? SubTitle { get; set; }
         /// <summary>
         /// Unique identifier for the media
         /// </summary>

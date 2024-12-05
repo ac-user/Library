@@ -38,11 +38,6 @@ namespace Library.UI.Components.Media
         private string searchTerm = "";
         private bool loading = true;
 
-        protected override void OnInitialized()
-        {
-            //newCollection.Name = "New Collection";
-            base.OnInitialized();
-        }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -93,6 +88,11 @@ namespace Library.UI.Components.Media
                 var element = newCollection.Collections.FirstOrDefault(f => f.Id == id);
                 element!.Selected = !element.Selected;
             }
+        }
+
+        private void OnCancleClick()
+        {
+            Navigation.NavigateTo("/");
         }
 
         private async Task OnSaveCollection()

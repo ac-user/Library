@@ -26,6 +26,7 @@ public partial class Music
 
     public string Genre { get; set; }
 
+    public byte[]? Image { get; set; }
 
 
     public ICollection<CollectionAssociation> CollectionAssociations { get; set; } = new List<CollectionAssociation>();

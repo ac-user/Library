@@ -5,6 +5,9 @@
     <DataAnnotationsValidator />
     <ValidationSummary />
     <div class="row">
+        <Library.UI.Components.Elements.ImageUpload @bind-Image="EditableMovieModel.Image" />
+    </div>
+    <div class="row">
         <div class="col">
             <Library.UI.Components.Elements.EditFormGroup Label="Title" FieldId="movieTitle" Required="true" >
                 <InputText id="movieTitle" class="form-control" @bind-Value="EditableMovieModel.Title" required aria-describedby="movieTitleHelp" />

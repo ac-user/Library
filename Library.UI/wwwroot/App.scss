@@ -54,6 +54,21 @@ a, .btn-link {
     }
 }
 
+.img-thumbnail{
+    max-height:50px;
+    max-width:50px;
+}
+
+.col-footer {
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    justify-content: flex-end;
+    background-color: rgba(2, 6, 3, 0.05);
+    backdrop-filter: blur(1.2px);
+}
+
 h1:focus {
     outline: none;
 }

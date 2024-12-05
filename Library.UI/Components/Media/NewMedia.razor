@@ -9,9 +9,9 @@
     <div class="form-group">
         <label for="mediaType">Select Media Type</label>
         <select id="mediaType" class="form-control" @onchange="OnMediaTypeChange" aria-describedby="mediaTypeHelp" required>
-            <option value="0">Book</option>
-            <option value="1">Music</option>
-            <option value="2">Movie</option>
+            <option value="@MediaType.Book">Book</option>
+            <option value="@MediaType.Music">Music</option>
+            <option value="@MediaType.Movie">Movie</option>
         </select>
         <small id="mediaTypeHelp" class="form-text text-muted">Choose the type of media you want to add.</small>
     </div>

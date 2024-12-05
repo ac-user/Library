@@ -5,6 +5,9 @@
     <DataAnnotationsValidator />
     <ValidationSummary />
     <div class="row">
+        <Library.UI.Components.Elements.ImageUpload @bind-Image="EditableBookModel.Image" />
+    </div>
+    <div class="row">
         <div class="col">
             <Library.UI.Components.Elements.EditFormGroup Label="Title" FieldId="bookTitle" Required="true" HelpText="Enter the book's title">
                 <InputText id="bookTitle" class="form-control" @bind-Value="EditableBookModel.Title" required aria-describedby="bookTitleHelp" />

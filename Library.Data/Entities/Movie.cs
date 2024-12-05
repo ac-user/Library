@@ -30,6 +30,8 @@ public partial class Movie
     public int? Stars { get; set; }
 
     public string Genre { get; set; }
+    
+    public byte[]? Image { get; set; }
 
     public ICollection<CollectionAssociation> CollectionAssociations { get; set; } = new List<CollectionAssociation>();
 

@@ -3,7 +3,7 @@
 @page "/media/{mediaType}"
 @rendermode RenderMode.InteractiveServer
 
-<h3>@mediaType</h3>
+<h3>@(mediaType == ViewModels.MediaType.Music.ToString() ? mediaType : $"{mediaType}'s")</h3>
 <div class="row">
     <div class="col-9">
         <Library.UI.Components.Elements.SearchBox OnSearch="OnSearch" />
@@ -27,7 +27,12 @@
                 Title="@element.Title"
                 Deletable="true"
                 OnDoubleClick="@(() => ShowCardDetails(element.ContentId))"
-                OnDelete="@(() => DeleteMediaContentAsync(element.ContentId))"/>
+                OnDelete="@(() => DeleteMediaContentAsync(element.ContentId))">
+                @if (element.Image != null)
+                {
+                    <img src="@($"data:image/png;base64,{Convert.ToBase64String(element.Image)}")" alt="Uploaded Image" class="img-thumbnail" />
+                }
+            </Library.UI.Components.Elements.ClickableCard>
         }
     </div>
 }

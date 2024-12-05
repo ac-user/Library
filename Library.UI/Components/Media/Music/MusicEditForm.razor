@@ -5,9 +5,12 @@
     <DataAnnotationsValidator />
     <ValidationSummary />
     <div class="row">
+        <Library.UI.Components.Elements.ImageUpload @bind-Image="EditableMusicModel.Image" />
+    </div>
+    <div class="row">
         <div class="col">
             <Library.UI.Components.Elements.EditFormGroup Label="Title" FieldId="title" Required="true">
-                <InputText id="title" class="form-control" @bind-Value="EditableMusicModel.Title" aria-describedby="titleHelp" />
+                <InputText id="title" class="form-control" @bind-Value="EditableMusicModel.Title" required aria-describedby="titleHelp" />
             </Library.UI.Components.Elements.EditFormGroup>
         </div>
         <div class="col-3">
@@ -18,8 +21,8 @@
     </div>
     <div class="row">
         <div class="col">
-            <Library.UI.Components.Elements.EditFormGroup Label="Album" FieldId="album">
-                <InputText id="album" class="form-control" @bind-Value="EditableMusicModel.Album" aria-describedby="albumHelp" />
+            <Library.UI.Components.Elements.EditFormGroup Label="Album" Required="true" FieldId="album">
+                <InputText id="album" class="form-control" @bind-Value="EditableMusicModel.Album" required aria-describedby="albumHelp" />
             </Library.UI.Components.Elements.EditFormGroup>
         </div>
     </div>

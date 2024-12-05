@@ -1,0 +1,58 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+@inject IJSRuntime JSRuntime
+
+<div class="image-upload-container">
+    <div id="dropZone" class="drop-zone">
+        <p>Drag & Drop an Image Here</p>
+        @if (Image != null)
+        {
+            <div class="image-preview">
+                <img src="@($"data:image/png;base64,{Convert.ToBase64String(Image)}")" alt="Uploaded Image" class="img-thumbnail" />
+            </div>
+        }
+        <InputFile accept="image/*" OnChange="OnFileSelected" id="fileInput" />
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public byte[] Image { get; set; }
+
+    [Parameter]
+    public EventCallback<byte[]> ImageChanged { get; set; }
+
+    private async Task OnFileSelected(InputFileChangeEventArgs e)
+    {
+        if (e != null && e.FileCount > 0)
+        {
+            if (e.File.ContentType.Contains("png"))
+            {
+                await ProcessFileAsync(e.File);
+            }
+            else
+            {
+
+            }
+        }
+    }
+
+    private void TriggerFileInput()
+    {
+        JSRuntime.InvokeVoidAsync("document.getElementById('fileInput').click()");
+    }
+
+    private async Task ProcessFileAsync(IBrowserFile file)
+    {
+        int maxSize = 500000;
+        if (file.Size < maxSize)
+        {
+            using (var ms = new MemoryStream())
+            {
+                await file.OpenReadStream().CopyToAsync(ms);
+                var fileBytes = ms.ToArray();
+                Image = fileBytes;
+                await ImageChanged.InvokeAsync(Image);
+            }
+        }
+    }
+}

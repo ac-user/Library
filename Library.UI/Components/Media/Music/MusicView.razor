@@ -8,6 +8,10 @@
     }
     else if (Music != null)
     {
+        if (Music.Image != null)
+        {
+            <img src="@($"data:image/png;base64,{Convert.ToBase64String(Music.Image)}")" alt="Uploaded Image" class="img-thumbnail" />
+        }
         <i class="bi bi-pencil position-absolute end-0 p-2" @onclick="EnableEditMode" />
         <div>
             <p><strong>@Music.Title</strong> @Music.Stars <i class="bi bi-star"/> </p>

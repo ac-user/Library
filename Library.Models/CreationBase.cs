@@ -22,5 +22,9 @@
         /// A short description of the content
         /// </summary>
         public string? Description { get; set; }
+        /// <summary>
+        /// Image for content in viewable byte form
+        /// </summary>
+        public byte[]? Image { get; set; }
     }
 }

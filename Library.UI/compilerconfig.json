@@ -6,5 +6,9 @@
   {
     "outputFile": "wwwroot/App.css",
     "inputFile": "wwwroot/App.scss"
+  },
+  {
+    "outputFile": "Components/Elements/ImageUpload.razor.css",
+    "inputFile": "Components/Elements/ImageUpload.razor.scss"
   }
 ]
