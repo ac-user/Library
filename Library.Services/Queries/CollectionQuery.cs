@@ -27,7 +27,7 @@ namespace Library.Services.Queries
             {
                 result.Id = itemId;
 
-                /*Gether media content*/
+                /*Gather media content*/
                 var books = _mapper.Map<List<Book>>(await _context.CollectionAssociations.AsNoTracking().Include(i => i.Book)
                                                            .Where(w => w.CollectionId == itemId && w.MediaType == MediaContentType.Book.ToString())
                                                            .Select(s => s.Book).ToListAsync(cancellationToken));

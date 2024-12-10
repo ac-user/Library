@@ -35,7 +35,7 @@ namespace Library.UI.Components.Media.Book
                 var modifyBook = Mapper.Map<AdapterModels.Media.Book.BookModificationRequest>(EditableBookModel);
                 await command.ExecuteAsync((request, token) => BookAdapter.ModifyAsync(Utilities.Account.AccountId, request, token),
                                             modifyBook,
-                                            onSuccess: (() => OnSuccessSubmit()),
+                                            onSuccess: (async () => await OnSuccessSubmit()),
                                             onFailure: OnFailedSubmit);
             }
         }

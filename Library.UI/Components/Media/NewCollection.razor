@@ -5,28 +5,43 @@
 <Library.UI.Components.Elements.SearchBox OnSearch="OnSearch" />
 
 <Library.UI.Components.Elements.LoadableContent Loading="loading">
-    <div class="container">
+    <div class="container mb-5">
 
         @foreach (var content in newCollection.Books.Where(w => w.Title.Contains(searchTerm)))
         {
             <Library.UI.Components.Elements.ClickableCard @key="@($"book_{content.Id}")"
-                                                          Title="@content.Title"
+                                                          Title="@((content.Image == null || content.Image.Length == 0) ? content.Title : "")"
                                                           Status="@(content.Selected ? "selected" : "")"
-                                                          OnClick="@(() => OnToggleContentSelection(Model.ViewModels.Media.MediaType.Book, content.Id))" />
+                                                          OnClick="@(() => OnToggleContentSelection(Model.ViewModels.Media.MediaType.Book, content.Id))" >
+                @if (content.Image != null && content.Image.Length > 0)
+                {
+                    <img src="@($"data:image/png;base64,{Convert.ToBase64String(content.Image)}")" alt="Uploaded Image" class="img-thumbnail" />
+                }
+            </Library.UI.Components.Elements.ClickableCard>
         }
         @foreach (var content in newCollection.Music.Where(w => w.Title.Contains(searchTerm)))
         {
             <Library.UI.Components.Elements.ClickableCard @key="@($"music_{content.Id}")"
-                                                          Title="@content.Title"
+                                                          Title="@((content.Image == null || content.Image.Length == 0) ? content.Title : "")"
                                                           Status="@(content.Selected ? "selected" : "")"
-                                                          OnClick="@(() => OnToggleContentSelection(Model.ViewModels.Media.MediaType.Music, content.Id))" />
+                                                          OnClick="@(() => OnToggleContentSelection(Model.ViewModels.Media.MediaType.Music, content.Id))" >
+                @if (content.Image != null && content.Image.Length > 0)
+                {
+                    <img src="@($"data:image/png;base64,{Convert.ToBase64String(content.Image)}")" alt="Uploaded Image" class="img-thumbnail" />
+                }
+            </Library.UI.Components.Elements.ClickableCard>
         }
         @foreach (var content in newCollection.Movies.Where(w => w.Title.Contains(searchTerm)))
         {
             <Library.UI.Components.Elements.ClickableCard @key="@($"movie_{content.Id}")"
-                                                          Title="@content.Title"
+                                                          Title="@((content.Image == null || content.Image.Length == 0) ? content.Title : "")"
                                                           Status="@(content.Selected ? "selected" : "")"
-                                                          OnClick="@(() => OnToggleContentSelection(Model.ViewModels.Media.MediaType.Movie, content.Id))" />
+                                                          OnClick="@(() => OnToggleContentSelection(Model.ViewModels.Media.MediaType.Movie, content.Id))">
+                @if (content.Image != null && content.Image.Length > 0)
+                {
+                    <img src="@($"data:image/png;base64,{Convert.ToBase64String(content.Image)}")" alt="Uploaded Image" class="img-thumbnail" />
+                }
+            </Library.UI.Components.Elements.ClickableCard>
 
         }
 

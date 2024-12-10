@@ -9,25 +9,33 @@
     <Library.UI.Components.Elements.SearchBox OnSearch="OnSearch" />
     <div class="container">
         <div>
-            <Library.UI.Components.Elements.ClickableCard OnClick="OnClickAddMedia" Title="Media" Size="small" Status="disabled">
+            <Library.UI.Components.Elements.ClickableCard OnClick="OnClickAddMediaAsync" Title="Media" Size="small">
                 <i class="bi bi-plus-circle" />
             </Library.UI.Components.Elements.ClickableCard>
-            <Library.UI.Components.Elements.ClickableCard OnClick="OnClickAddCollection" Title="Collection" Size="small" Status="disabled">
+            <Library.UI.Components.Elements.ClickableCard OnClick="OnClickAddCollectionAsync" Title="Collection" Size="small">
                 <i class="bi bi-plus-circle" />
             </Library.UI.Components.Elements.ClickableCard>
         </div>
 
         @foreach (var content in collection.MediaContent.Where(w => w.Title.Contains(searchTerm)))
         {
-            <Library.UI.Components.Elements.ClickableCard Title="@content.Title"
+            <Library.UI.Components.Elements.ClickableCard Title="@((content.Image == null || content.Image.Length == 0) ? content.Title : "")"
                                                           Deletable="true"
                                                           OnDelete="@(() => OnDeleteClickAsync(content.Id, content.Type))"
-                                                          OnDoubleClick="@(() => OnClickMedia(content.Id, content.Type))" />
+                                                          OnDoubleClick="@(() => OnClickMedia(content.Id, content.Type))" >
+                @if (content.Image != null && content.Image.Length > 0)
+                {
+                    <img src="@($"data:image/png;base64,{Convert.ToBase64String(content.Image)}")" alt="Uploaded Image" class="img-thumbnail" />
+                }
+            </Library.UI.Components.Elements.ClickableCard>
         }
 
         @foreach (var collection in collection.SubCollections.Where(w => w.Name.Contains(searchTerm)))
         {
-            <Library.UI.Components.Elements.ClickableCard Title="@collection.Name" OnClick="@(() => NavigateToCollection(collection.Id))" />
+            <Library.UI.Components.Elements.ClickableCard Title="@collection.Name"
+                                                          Deletable="true"
+                                                          OnDelete="@(() => OnDeleteClickAsync(collection.Id))"
+                                                          OnDoubleClick="@(() => NavigateToCollection(collection.Id))" />
         }
     </div>
 
@@ -37,6 +45,36 @@
     }
     @if (addMedia)
     {
-        <Library.UI.Components.Media.NewMedia OnClose="CloseMediaPopup" />
+        <Library.UI.Components.Elements.Modal Title="Select Media to Add" OnClose="CloseMediaPopup">
+            <div class="mb-4 gap-2">
+                @foreach(var content in allMediaContent)
+                {
+                    <div @key="@($"{content.Type.ToString()}_{content.Id}")" class="selectable-row @(content.Selected ? "selected" : "")" @onclick="@(() => ToggleSelection(content.Id, content.Type))">
+                        @content.Title (@content.Type.ToString())
+                    </div>
+                }
+                <button class="position-absolute end-0 me-3 mb-2 btn btn-outline-primary" @onclick="OnAssociateMediaContentClickAsync">Add</button>
+            </div>
+        </Library.UI.Components.Elements.Modal>
+    }
+    @if (addCollection)
+    {
+        <Library.UI.Components.Elements.Modal Title="Select Sub-Collections to Add" OnClose="CloseMediaPopup">
+            <div class="mb-4 gap-2">
+                @foreach(var content in allCollections)
+                {
+                    <div @key="@($"col_{content.Id}")" class="selectable-row @(content.Selected ? "selected" : "")" @onclick="@(() => ToggleSelection(content.Id))">
+                        @content.Title
+                    </div>
+                }
+                <button class="position-absolute end-0 me-3 mb-2 btn btn-outline-primary" @onclick="OnAssociateSubCollectionClickAsync">Add</button>
+            </div>
+        </Library.UI.Components.Elements.Modal>
     }
 </Library.UI.Components.Elements.LoadableContent>
+
+
+@if (notificationUtility != null)
+{
+    <Library.UI.Components.Elements.Notification Title="@notificationUtility.Title" Message="@notificationUtility.Message" />
+}

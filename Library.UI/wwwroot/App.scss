@@ -20,10 +20,17 @@ a, .btn-link {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
+
 .header {
-    background-color: aliceblue;
+    background: linear-gradient(90deg, rgba(10,13,162,1) 3%, rgba(0,111,213,1) 12%, rgba(174,209,240,0.29735644257703087) 23%, rgba(252,252,252,0.48503151260504207) 29%);
     padding: 8px;
     border-bottom: 1px solid lightgray;
+
+    .user-icon {
+        background-color: rgba(10,13,162,1);
+        border-radius: 50%;
+        padding: 0px 4px;
+    }
 }
 
 .content {
@@ -37,7 +44,7 @@ a, .btn-link {
 
 .quad-container{
     height:16rem;
-    width:16rem;
+    width:14rem;
 }
 
 .new-collection-name {
@@ -54,10 +61,26 @@ a, .btn-link {
     }
 }
 
-.img-thumbnail{
-    max-height:50px;
-    max-width:50px;
+.img-thumbnail {
+    max-height: 12.5rem;
+    max-width: 12.5rem;
+    border: none;
 }
+
+.selectable-row{
+    padding:2px;
+    border-radius:5px;
+    cursor:pointer;
+
+    &.selected{
+        border:1px solid lightblue;
+    }
+}
+
+.fit-content{
+    width: fit-content !important;
+}
+
 
 .col-footer {
     width: 100vw;

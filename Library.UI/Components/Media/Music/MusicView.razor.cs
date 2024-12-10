@@ -38,5 +38,11 @@ namespace Library.UI.Components.Media.Music
             editableMusic = Mapper.Map<ViewModels.Media.Music.EditableMusic>(Music);
             editMode = true;
         }
+
+        private async Task ModifiedEntryAsync()
+        {
+            await GetAsync();
+            TurnOffEditMode();
+        }
     }
 }

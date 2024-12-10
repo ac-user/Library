@@ -1,5 +1,15 @@
-﻿
+﻿@inject NavigationManager Navigate
+@rendermode RenderMode.InteractiveServer
+
 <div class="header">
-    <h2 class="d-flex justify-content-center align-self-center"> @Utilities.Account.UserName's Athenaeum</h2>
+    <h2 class="d-flex justify-content-start align-self-center text-light clickable fit-content" @onclick="NavigateHome">Athenaeum</h2>
+    <i class="bi bi-person-fill position-absolute top-0 end-0 mt-3 me-4 text-light user-icon clickable" />
 </div>
 
+@code{
+
+    private void NavigateHome()
+    {
+        Navigate.NavigateTo("/", forceLoad:true);
+    }
+}

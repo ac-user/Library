@@ -6,8 +6,8 @@
 
     .drop-zone {
         @include flexibleColumn;
-        align-items:center;
-        height:inherit;
+        align-items: center;
+        height: inherit;
         width: inherit;
         position: absolute;
         border: 1px dashed lightblue;
@@ -25,5 +25,12 @@
         height: inherit;
         width: inherit;
         position: relative;
+
+        img {
+            object-fit: contain;
+            overflow: hidden;
+            height: inherit;
+            width: inherit;
+        }
     }
 }

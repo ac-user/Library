@@ -1,3 +1,29 @@
+$primary-color: rgba(10,13,162,1);
+$secondar-color: rgba(0,111,213,1);
+
+.primary-background{
+    background-color:$primary-color !important;
+}
+
+.secondry-background {
+    background-color: $secondar-color !important;
+}
+
+.primary-text{
+    color:$primary-color !important;
+}
+
+.secondary-text {
+    color: $secondar-color !important;
+}
+
+.in-progress-label {
+    background-color: lightblue;
+    border-radius:5px;
+    padding:1px 5px;
+    font-size:small;
+}
+
 @mixin flexibleColumn{
     display:flex;
     justify-content:center;

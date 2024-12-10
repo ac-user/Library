@@ -1,4 +1,50 @@
 ﻿@import 'css/Actions.css';
+.primary-background {
+  background-color: rgb(10, 13, 162) !important;
+}
+
+.secondry-background {
+  background-color: rgb(0, 111, 213) !important;
+}
+
+.primary-text {
+  color: rgb(10, 13, 162) !important;
+}
+
+.secondary-text {
+  color: rgb(0, 111, 213) !important;
+}
+
+.in-progress-label {
+  background-color: lightblue;
+  border-radius: 5px;
+  padding: 1px 5px;
+  font-size: small;
+}
+
+.primary-background {
+  background-color: rgb(10, 13, 162) !important;
+}
+
+.secondry-background {
+  background-color: rgb(0, 111, 213) !important;
+}
+
+.primary-text {
+  color: rgb(10, 13, 162) !important;
+}
+
+.secondary-text {
+  color: rgb(0, 111, 213) !important;
+}
+
+.in-progress-label {
+  background-color: lightblue;
+  border-radius: 5px;
+  padding: 1px 5px;
+  font-size: small;
+}
+
 .card {
   width: 13rem;
   height: 15rem;
@@ -11,6 +57,8 @@
   align-content: center;
   flex-direction: column;
   align-items: center;
+  box-shadow: 0px 6px 10px 1px rgb(228, 233, 235);
+  border: none;
 }
 .card .card-body {
   display: flex;
@@ -18,6 +66,12 @@
   align-content: center;
   flex-direction: column;
   align-items: center;
+  width: inherit;
+  height: inherit;
+}
+.card .card-body img {
+  width: inherit;
+  height: inherit;
 }
 .card .card-body .card-title {
   font-size: small;
@@ -36,6 +90,13 @@
 .card.disabled {
   pointer-events: none;
   background-color: lightgray;
+}
+
+.bi-trash {
+  background-color: white;
+  border-radius: 95%;
+  padding: 1px 5px 0px 5px !important;
+  margin: 5px;
 }
 
 html, body {
@@ -57,9 +118,14 @@ a, .btn-link {
 }
 
 .header {
-  background-color: aliceblue;
+  background: linear-gradient(90deg, rgb(10, 13, 162) 3%, rgb(0, 111, 213) 12%, rgba(174, 209, 240, 0.2973564426) 23%, rgba(252, 252, 252, 0.4850315126) 29%);
   padding: 8px;
   border-bottom: 1px solid lightgray;
+}
+.header .user-icon {
+  background-color: rgb(10, 13, 162);
+  border-radius: 50%;
+  padding: 0px 4px;
 }
 
 .content {
@@ -76,7 +142,7 @@ a, .btn-link {
 
 .quad-container {
   height: 16rem;
-  width: 16rem;
+  width: 14rem;
 }
 
 .new-collection-name {
@@ -93,8 +159,22 @@ a, .btn-link {
 }
 
 .img-thumbnail {
-  max-height: 50px;
-  max-width: 50px;
+  max-height: 12.5rem;
+  max-width: 12.5rem;
+  border: none;
+}
+
+.selectable-row {
+  padding: 2px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.selectable-row.selected {
+  border: 1px solid lightblue;
+}
+
+.fit-content {
+  width: fit-content !important;
 }
 
 .col-footer {

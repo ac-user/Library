@@ -14,6 +14,25 @@ namespace Library.UI.Adapters
         /// <returns>Creation status</returns>
         Task<CommandResponseStatus> CreateAsync(int accountId, CollectionCreationRequest request, CancellationToken cancellationToken);
         /// <summary>
+        /// Create association between content and collection
+        /// </summary>
+        /// <param name="accountId">the users account</param>
+        /// <param name="collectionId">the collection to associate to</param>
+        /// <param name="mediaType">type of content to associate</param>
+        /// <param name="mediaId">content to associate</param>
+        /// <param name="cancellationToken">token to cancel long running processes</param>
+        /// <returns>Creation status</returns>
+        Task<CommandResponseStatus> CreateAsync(int accountId, int collectionId, MediaContentType mediaType, int mediaId, CancellationToken cancellationToken);
+        /// <summary>
+        /// Create association between two collections
+        /// </summary>
+        /// <param name="accountId">the users account</param>
+        /// <param name="collectionId">the collection to associate to</param>
+        /// <param name="subId">subcollection to associate</param>
+        /// <param name="cancellationToken">token to cancel long running processes</param>
+        /// <returns>Creation status</returns>
+        Task<CommandResponseStatus> CreateAsync(int accountId, int collectionId, int subId, CancellationToken cancellationToken);
+        /// <summary>
         /// Update a collection
         /// </summary>
         /// <param name="accountId">the users account</param>
@@ -29,6 +48,15 @@ namespace Library.UI.Adapters
         /// <param name="cancellationToken">token to cancel long running processes</param>
         /// <returns>Deletion status</returns>
         Task<CommandResponseStatus> DeleteAsync(int accountId, int collectionId, CancellationToken cancellationToken);
+        /// <summary>
+        /// Delete a collection's subcollection
+        /// </summary>
+        /// <param name="accountId">the users account</param>
+        /// <param name="collectionId">collection to delete</param>
+        /// <param name="subId">subcollection to remove</param>
+        /// <param name="cancellationToken">token to cancel long running processes</param>
+        /// <returns>Deletion status</returns>
+        Task<CommandResponseStatus> DeleteAsync(int accountId, int collectionId, int subId, CancellationToken cancellationToken);
         /// <summary>
         /// Delete a collection
         /// </summary>

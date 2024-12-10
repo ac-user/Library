@@ -4,38 +4,70 @@
     @if (editMode)
     {
         <i class="bi breadcrumb-item" @onclick="TurnOffEditMode" />
-        <MovieEditForm EditableMovieModel="editableMovie" IsCreate="false" OnClose="OnClose" OnSuccess="TurnOffEditMode" />
+        <MovieEditForm EditableMovieModel="editableMovie" IsCreate="false" OnClose="OnClose" OnSuccess="ModifiedEntryAsync" />
     }
     else if (Movie != null)
     {
-        if (Movie.Image != null)
+        if (Movie.Image != null && Movie.Image.Length > 0)
         {
             <img src="@($"data:image/png;base64,{Convert.ToBase64String(Movie.Image)}")" alt="Uploaded Image" class="img-thumbnail" />
         }
-        <i class="bi bi-pencil position-absolute end-0 p-2" @onclick="EnableEditMode" />
-        <div>
-            <p><strong>@Movie.Title</strong> @Movie.Stars <i class="bi bi-star" /></p>
-            <p><strong>Series:</strong> @Movie.Series</p>
-            <p>
-                @if (Movie.Ongoing)
+        <i class="bi bi-pencil-square position-absolute end-0 p-2" @onclick="EnableEditMode" />
+        <div class="p-2 d-flex flex-column gap-4">
+            <div class="row">
+                <div class="d-flex flex-row">
+                    <h1 class="fit-content me-3"> @Movie.Series</h1>
+                    @if (Movie.Ongoing)
+                    {
+                        <label class="fit-content position-absolute end-0 me-4 in-progress-label">
+                            In-progress
+                        </label>
+                    }
+                </div>
+                <h4 class="fit-content">@Movie.Title</h4>
+                <h4 class="fit-content">@Movie.Stars <i class="bi bi-star" /></h4>
+            </div>
+            <div class="row d-flex flex-row">
+                @if (!String.IsNullOrWhiteSpace(Movie.Writer))
                 {
-                    <strong>Ongoing</strong>
-
-                    <br />
+                    <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                        <small class="text-muted bi bi-pen" />
+                        <small class="text-muted">@Movie.Writer</small>
+                    </div>
                 }
-                @if (Movie.IsActivelyWatching)
+                @if (!String.IsNullOrWhiteSpace(Movie.Language))
                 {
-                    <strong>Reading</strong>
-
-                    <br />
+                    <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                        <small class="text-muted" >Language</small>
+                        <small class="text-muted text-nowrap">@Movie.Language</small>
+                    </div>
                 }
-            </p>
-            <p><strong>Language:</strong> @Movie.Language</p>
-            <p><strong>Writer:</strong> @Movie.Writer</p>
-            <p><strong>Date Released:</strong> @Movie.DateReleased?.ToString("MM/DD/YYYY")</p>
-            <p><strong>Summary:</strong> @Movie.Summary</p>
-            <p><strong>Times Watched:</strong> @Movie.TimesWatched</p>
-            <p><strong>Genre:</strong> @(String.Join(',',Movie.Genre))</p>
+                @if (!String.IsNullOrWhiteSpace(Movie.Studio) || Movie.DateReleased != null)
+                {
+                    <div class="col-3 d-flex flex-column justify-content-center  align-items-center">
+                        <small class="text-muted bi bi-film"/>
+                        <small class="text-muted text-nowrap">@Movie.Studio <div class="vr  mx-1" /> @Movie.DateReleased?.ToString("MMMM yyyy")</small>
+                    </div>
+                }
+                <div class="col-1 d-flex flex-column justify-content-center  align-items-center">
+                    <small class="text-muted">Watched</small>
+                    <small class="text-muted text-nowrap">
+                        @(Movie.TimesWatched ?? 0)
+                        @if (Movie.IsActivelyWatching)
+                        {
+                            <div class="vr mx-1" />
+
+                            <i class="bi bi-bookmark-check" />
+                        }
+                    </small>
+                </div>
+            </div>
+            <div class="row">
+                <span>@(String.Join(',', Movie.Genre))</span>
+            </div>
+            <div class="row">
+                <p>@Movie.Summary</p>
+            </div>
         </div>
     }
 </Library.UI.Components.Elements.LoadableContent>

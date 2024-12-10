@@ -40,5 +40,10 @@ namespace Library.UI.Components.Media.Book
             editMode = true;
         }
 
+        private async Task ModifiedEntryAsync()
+        {
+            await GetAsync();
+            TurnOffEditMode();
+        }
     }
 }

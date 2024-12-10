@@ -4,10 +4,19 @@
     @include card;
     @include flexibleColumn;
     align-items: center;
+    box-shadow: 0px 6px 10px 1px rgba(228,233,235,1);
+    border:none;
 
     .card-body {
         @include flexibleColumn;
         align-items: center;
+        width:inherit;
+        height:inherit;
+
+        img{
+            width:inherit;
+            height:inherit;
+        }
 
         .card-title {
             font-size: small;
@@ -30,8 +39,15 @@
         border: 1px solid #1bd2ff;
     }
 
-    &.disabled{
-        pointer-events:none;
-        background-color:lightgray;
+    &.disabled {
+        pointer-events: none;
+        background-color: lightgray;
     }
+}
+
+.bi-trash {
+    background-color: white;
+    border-radius: 95%;
+    padding: 1px 5px 0px 5px !important;
+    margin: 5px;
 }

@@ -50,6 +50,8 @@ namespace Library.UI.Profiles
                 .ForMember(d => d.Music, o => o.MapFrom(s => s.MediaContent.Where(w => w.Type == Views.Media.MediaType.Music)))
                 .ForMember(d => d.Movies, o => o.MapFrom(s => s.MediaContent.Where(w => w.Type == Views.Media.MediaType.Movie)));
             CreateMap<Adapter.Media.Collection, Views.Media.Collection>();
+            CreateMap<Adapter.Media.Collection, Views.Media.SelectableCollection>()
+                .ForMember(d => d.Title, o => o.MapFrom(s => s.Name));
             CreateMap<Views.CollectionCards, Adapter.Media.Collection>().ReverseMap();
         }
 

@@ -35,8 +35,16 @@
         /// </summary>
         public string Title { get; set; }
         /// <summary>
+        /// Type of the content
+        /// </summary>
+        public MediaType Type { get; set; }
+        /// <summary>
         /// Is the element selected to be in the collection
         /// </summary>
         public bool Selected { get; set; }
+        /// <summary>
+        /// Image for the media
+        /// </summary>
+        public byte[]? Image { get; set; }
     }
 }

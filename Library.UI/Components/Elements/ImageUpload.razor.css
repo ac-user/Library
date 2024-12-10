@@ -1,4 +1,27 @@
-﻿.image-upload-container {
+﻿.primary-background {
+  background-color: rgb(10, 13, 162) !important;
+}
+
+.secondry-background {
+  background-color: rgb(0, 111, 213) !important;
+}
+
+.primary-text {
+  color: rgb(10, 13, 162) !important;
+}
+
+.secondary-text {
+  color: rgb(0, 111, 213) !important;
+}
+
+.in-progress-label {
+  background-color: lightblue;
+  border-radius: 5px;
+  padding: 1px 5px;
+  font-size: small;
+}
+
+.image-upload-container {
   height: 175px;
   width: 95%;
 }
@@ -24,4 +47,10 @@
   height: inherit;
   width: inherit;
   position: relative;
+}
+.image-upload-container .image-preview img {
+  object-fit: contain;
+  overflow: hidden;
+  height: inherit;
+  width: inherit;
 }

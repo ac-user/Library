@@ -30,6 +30,9 @@
         /// Are you currently watching series
         /// </summary>
         public bool IsActivelyWatching { get; set; }
-
+        /// <summary>
+        /// The studio that produced the movie
+        /// </summary>
+        public string? Studio { get; set; }
     }
 }

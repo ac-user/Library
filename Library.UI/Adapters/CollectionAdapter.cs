@@ -17,6 +17,26 @@ namespace Library.UI.Adapters
             return await GetCommandResponse(httpResponse, cancellationToken);
         }
 
+        public async Task<CommandResponseStatus> CreateAsync(int accountId, int collectionId, MediaContentType mediaType, int mediaId, CancellationToken cancellationToken)
+        {
+            var httpResponse = await MakeCommandRequest<CollectionCreationRequest>(HttpMethod.Put,
+                                                                            $"api/Account/{accountId}/Library/Media/Collections/{collectionId}/Content/{mediaType}/{mediaId}",
+                                                                            body: null,
+                                                                            cancellationToken);
+
+            return await GetCommandResponse(httpResponse, cancellationToken);
+        }
+
+        public async Task<CommandResponseStatus> CreateAsync(int accountId, int collectionId, int subId, CancellationToken cancellationToken)
+        {
+            var httpResponse = await MakeCommandRequest<CollectionCreationRequest>(HttpMethod.Put,
+                                                                            $"api/Account/{accountId}/Library/Media/Collections/{collectionId}/Content/SubCollections/{subId}",
+                                                                            body: null,
+                                                                            cancellationToken);
+
+            return await GetCommandResponse(httpResponse, cancellationToken);
+        }
+
         public async Task<CommandResponseStatus> ModifyAsync(int accountId, Collection request, CancellationToken cancellationToken)
         {
             var httpResponse = await MakeCommandRequest<Collection>(HttpMethod.Put,
@@ -31,6 +51,16 @@ namespace Library.UI.Adapters
         {
             var httpResponse = await MakeCommandRequest<Collection>(HttpMethod.Delete,
                                                                             $"api/Account/{accountId}/Library/Media/Collections/{collectionId}",
+                                                                            body: null,
+                                                                            cancellationToken);
+
+            return await GetCommandResponse(httpResponse, cancellationToken);
+        }
+        
+        public async Task<CommandResponseStatus> DeleteAsync(int accountId, int collectionId, int subId, CancellationToken cancellationToken)
+        {
+            var httpResponse = await MakeCommandRequest<Collection>(HttpMethod.Delete,
+                                                                            $"api/Account/{accountId}/Library/Media/Collections/{collectionId}/Content/SubCollections/{subId}",
                                                                             body: null,
                                                                             cancellationToken);
 

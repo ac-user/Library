@@ -39,5 +39,11 @@ namespace Library.UI.Components.Media.Movie
             editableMovie = Mapper.Map<ViewModels.Media.Movie.EditableMovie>(Movie);
             editMode = true;
         }
+
+        private async Task ModifiedEntryAsync()
+        {
+            await GetAsync();
+            TurnOffEditMode();
+        }
     }
 }

@@ -31,5 +31,13 @@ namespace Library.Services.Commands
         /// <param name="cancellationToken">token to cancel long running processes</param>
         /// <returns>Deletion status</returns>
         Task<bool> DeleteAsync(int collectionId, MediaContentType mediaType, int itemId, CancellationToken cancellationToken);
+        /// <summary>
+        /// Delete the association between two collections 
+        /// </summary>
+        /// <param name="collectionId">collection item belongs to</param>
+        /// <param name="subId">subcollection to remove</param>
+        /// <param name="cancellationToken">token to cancel long running processes</param>
+        /// <returns>Deletion status</returns>
+        Task<bool> DeleteAsync(int collectionId, int subId, CancellationToken cancellationToken);
     }
 }

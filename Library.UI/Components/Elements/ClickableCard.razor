@@ -4,11 +4,14 @@
     <div class="card-body">
         @if(Deletable)
         {
-            <i class="bi bi-trash text-danger position-absolute top-0 end-0" @onclick="OnDelete" />
+            <i class="bi bi-trash text-danger position-absolute top-0 end-0 p-2" @onclick="OnDelete" />
         }
         @ChildContent
     </div>
-    <h5 class="card-title position-relative bottom-0">@Title</h5>
+    @if (!String.IsNullOrWhiteSpace(Title))
+    {
+        <h5 class="card-title position-relative bottom-0">@Title</h5>
+    }
 </div>
 
 

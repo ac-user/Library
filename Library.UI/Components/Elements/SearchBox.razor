@@ -2,8 +2,9 @@
     <input type="text"
            class="form-control"
            placeholder="@Placeholder"
-           @bind="searchTerm"
-           @onkeypress="OnKeyPress"
+           @bind-value="searchTerm"
+           @bind-value:event="oninput"
+           @onkeyup="OnSearchAsync"
            aria-label="Search input"
            aria-describedby="search-button" />
 </div>
@@ -12,19 +13,14 @@
     [Parameter] 
     public EventCallback<string> OnSearch { get; set; }
 
+    private string searchTerm { get; set; }
+
     [Parameter] 
     public string Placeholder { get; set; } = "Search";
 
-    private string searchTerm;
-
-    private async Task OnKeyPress(KeyboardEventArgs e)
+    private async Task OnSearchAsync(KeyboardEventArgs e)
     {
-        if (e.Key.Length == 1 || e.Key == "Backspace") 
-        {
-            if (OnSearch.HasDelegate)
-            {
-                await OnSearch.InvokeAsync(searchTerm);
-            }
-        }
+        searchTerm = searchTerm ?? "";
+        await OnSearch.InvokeAsync(searchTerm);
     }
 }

@@ -37,5 +37,9 @@
         /// Type of media
         /// </summary>
         public MediaType Type { get; set; }
+        /// <summary>
+        /// Image of the media
+        /// </summary>
+        public byte[]? Image { get; set; }
     }
 }

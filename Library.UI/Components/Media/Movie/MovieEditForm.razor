@@ -25,12 +25,12 @@
             <InputText id="series" class="form-control" @bind-Value="EditableMovieModel.Series" aria-describedby="seriesHelp" />
         </Library.UI.Components.Elements.EditFormGroup>
         </div>
-        <div class="col-1 align-content-center">
-            <Library.UI.Components.Elements.EditFormGroup FieldId="ongoing" HelpText="Is the series ongoing">
+        <div class="col-2 align-content-end">
+            <Library.UI.Components.Elements.EditFormGroup FieldId="ongoing">
                 <Library.UI.Components.Elements.CheckboxButton Label="Ongoing" @bind-IsChecked="EditableMovieModel.Ongoing" />
             </Library.UI.Components.Elements.EditFormGroup>
         </div>
-        <div class="col-2">
+        <div class="col-3">
             <Library.UI.Components.Elements.EditFormGroup Label="Times Watched" FieldId="watch">
                 <InputNumber id="watch" class="form-control" @bind-Value="EditableMovieModel.TimesWatched" aria-describedby="watchHelp" />
             </Library.UI.Components.Elements.EditFormGroup>

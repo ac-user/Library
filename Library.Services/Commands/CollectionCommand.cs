@@ -97,6 +97,21 @@ namespace Library.Services.Commands
 
             return success;
         }
+
+        public async Task<bool> DeleteAsync(int collectionId, int subId, CancellationToken cancellationToken)
+        {
+            var itemToDelete = _context.SubCollectionAssociations.FirstOrDefault(f => f.CollectionId == collectionId && f.SubCollectionId == subId);
+            bool success = true;
+
+            if (itemToDelete != null)
+            {
+                _context.SubCollectionAssociations.Remove(itemToDelete);
+                success = await _context.SaveChangesAsync(cancellationToken) >= 1;
+            }
+
+            return success;
+        }
+
         public async Task<bool> DeleteAsync(int collectionId, MediaContentType mediaType, int itemId, CancellationToken cancellationToken)
         {
             var itemToDelete = _context.CollectionAssociations.FirstOrDefault(f => f.CollectionId == collectionId && f.MediaType == mediaType.ToString() && f.MediaId == itemId);
