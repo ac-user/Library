@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Library.Data;
-using Library.Services.Models.Media.Music;
+using Library.Models.Media.Music;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library.Services.Queries
@@ -18,12 +18,12 @@ namespace Library.Services.Queries
 
         public async Task<Music> GetAsync(int itemId, CancellationToken cancellationToken)
         {
-            return _mapper.Map<Music>(await _context.Musics.FirstOrDefaultAsync(f => f.MusicId == itemId, cancellationToken));
+            return _mapper.Map<Music>(await _context.Musics.AsNoTracking().FirstOrDefaultAsync(f => f.MusicId == itemId, cancellationToken));
         }
 
         public async Task<List<Music>> GetAllAsync(int accountId, CancellationToken cancellationToken)
         {
-            return _mapper.Map<List<Music>>(await _context.Musics.Where(f => f.MusicId == accountId).ToListAsync(cancellationToken));
+            return _mapper.Map<List<Music>>(await _context.Musics.AsNoTracking().Where(f => f.AccountId == accountId).ToListAsync(cancellationToken));
         }
     }
 }

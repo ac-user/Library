@@ -1,0 +1,18 @@
+﻿[
+  {
+    "outputFile": "wwwroot/css/Actions.css",
+    "inputFile": "wwwroot/css/Actions.scss"
+  },
+  {
+    "outputFile": "wwwroot/App.css",
+    "inputFile": "wwwroot/App.scss"
+  },
+  {
+    "outputFile": "Components/Elements/ImageUpload.razor.css",
+    "inputFile": "Components/Elements/ImageUpload.razor.scss"
+  },
+  {
+    "outputFile": "Components/Elements/ThemeSelector.razor.css",
+    "inputFile": "Components/Elements/ThemeSelector.razor.scss"
+  }
+]

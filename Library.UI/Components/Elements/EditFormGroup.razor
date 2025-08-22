@@ -1,0 +1,38 @@
+﻿
+<div class="form-group m-1">
+    <label for="@FieldId">@Label 
+        @if (Required)
+        {
+            <span class="text-danger" *ngIf="Required">*</span>
+        }
+    </label>
+        @ChildContent
+    <small id="@helpText" class="form-text text-muted">@HelpText</small>
+</div>
+
+@code {
+    [Parameter] 
+    public string Label { get; set; }
+
+    [Parameter] 
+    public string HelpText { get; set; }
+
+    [Parameter] 
+    public string FieldId { get; set; }
+
+    [Parameter] 
+    public bool Required { get; set; }
+
+    [Parameter] 
+    public RenderFragment ChildContent { get;set; }
+
+
+    private string helpText;
+
+    protected override void OnParametersSet()
+    {
+        helpText = $"{FieldId}Help";
+        base.OnParametersSet();
+    }
+
+}

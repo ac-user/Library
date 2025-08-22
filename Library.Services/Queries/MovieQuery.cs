@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Library.Data;
-using Library.Services.Models.Media.Movies;
+using Library.Models.Media.Movies;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library.Services.Queries
@@ -18,12 +18,12 @@ namespace Library.Services.Queries
 
         public async Task<Movie> GetAsync(int itemId, CancellationToken cancellationToken)
         {
-            return _mapper.Map<Movie>(await _context.Movies.FirstOrDefaultAsync(f => f.MovieId == itemId, cancellationToken));
+            return _mapper.Map<Movie>(await _context.Movies.AsNoTracking().FirstOrDefaultAsync(f => f.MovieId == itemId, cancellationToken));
         }
 
         public async Task<List<Movie>> GetAllAsync(int accountId, CancellationToken cancellationToken)
         {
-            return _mapper.Map<List<Movie>>(await _context.Movies.Where(f => f.MovieId == accountId).ToListAsync(cancellationToken));
+            return _mapper.Map<List<Movie>>(await _context.Movies.AsNoTracking().Where(f => f.AccountId == accountId).ToListAsync(cancellationToken));
         }
     }
 }

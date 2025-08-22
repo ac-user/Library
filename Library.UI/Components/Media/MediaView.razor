@@ -1,0 +1,17 @@
+﻿@using ViewModels = Library.UI.Model.ViewModels.Media;
+
+<Library.UI.Components.Elements.Modal OnClose="OnClose">
+    @if (MediaType == ViewModels.MediaType.Book)
+    {
+        <Library.UI.Components.Media.Book.BookView Id="Id" />
+    }
+    else if (MediaType == ViewModels.MediaType.Music)
+    {
+        <Library.UI.Components.Media.Music.MusicView Id="Id" />
+    }
+    else if (MediaType == ViewModels.MediaType.Movie)
+    {
+        <Library.UI.Components.Media.Movie.MovieView Id="Id" />
+    }
+</Library.UI.Components.Elements.Modal>
+

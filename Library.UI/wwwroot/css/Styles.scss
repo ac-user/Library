@@ -1,0 +1,46 @@
+@use "sass:map";
+@import "Variables.scss";
+
+@mixin themes() {
+    @each $scheme, $value in $color-schemes{
+        #theme:has(##{$scheme}:checked) ~{
+            $color-scheme-map: $value !global;
+            @content;
+        }
+    }
+}
+
+@function themed($key) {
+    @return map-get($color-scheme-map, $key);
+}
+
+
+.in-progress-label {
+    background-color: lightblue;
+    border-radius:5px;
+    padding:1px 5px;
+    font-size:small;
+}
+
+@mixin flexibleColumn{
+    display:flex;
+    justify-content:center;
+    align-content:center;
+    flex-direction:column;
+}
+
+@mixin flexibleBox {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+@mixin card {
+    width: 13rem;
+    height: 15rem;
+    margin: .5rem;
+    border: 1px solid grey;
+    border-radius: 5px;
+    position: relative;
+}

@@ -1,13 +1,14 @@
 using Library.Data;
 using Library.Services.Commands;
-using Library.Services.Models.Media.Book;
-using Library.Services.Models.Media.Movies;
-using Library.Services.Models.Media.Music;
+using Library.Models.Media.Book;
+using Library.Models.Media.Movies;
+using Library.Models.Media.Music;
 using Library.Services.Profiles;
 using Library.Services.Queries;
 using Library.Services.Services;
 using Library.Services.Services.Media;
 using Microsoft.EntityFrameworkCore;
+using Library.Models.Media;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,16 +33,19 @@ builder.Services.AddDbContext<LibraryContext>(options => options.UseSqlServer(bu
 builder.Services.AddScoped<IContentCommandFactory<Book>,BookCommand>();
 builder.Services.AddScoped<IContentCommandFactory<Movie>,MovieCommand>();
 builder.Services.AddScoped<IContentCommandFactory<Music>, MusicCommand>();
+builder.Services.AddScoped<ICollectionCommand, CollectionCommand>();
 
 builder.Services.AddScoped<IContentQueryFactory<Book>,BookQuery>();
 builder.Services.AddScoped<IContentQueryFactory<Movie>,MovieQuery>();
 builder.Services.AddScoped<IContentQueryFactory<Music>,MusicQuery>();
+builder.Services.AddScoped<IContentQueryFactory<Collection>, CollectionQuery>();
 
 builder.Services.AddScoped<IValidate,Validate>();
 
 builder.Services.AddScoped<IContentServiceFactory<Book>,BookService>();
 builder.Services.AddScoped<IContentServiceFactory<Movie>,MovieService>();
 builder.Services.AddScoped<IContentServiceFactory<Music>,MusicService>();
+builder.Services.AddScoped<ICollectionService, CollectionService>();
 
 var app = builder.Build();
 

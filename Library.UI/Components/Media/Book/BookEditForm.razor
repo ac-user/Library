@@ -1,0 +1,113 @@
+﻿@inherits MediaEditFormBase
+@using ViewModels = Library.UI.Model.ViewModels;
+
+<EditForm Model="@EditableBookModel" OnValidSubmit="HandleValidBookSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="row">
+        <Library.UI.Components.Elements.ImageUpload @bind-Image="EditableBookModel.Image" />
+    </div>
+    <div class="row">
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Title" FieldId="bookTitle" Required="true" HelpText="Enter the book's title">
+                <InputText id="bookTitle" class="form-control" @bind-Value="EditableBookModel.Title" required aria-describedby="bookTitleHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+        <div class="col-3">
+            <Library.UI.Components.Elements.EditFormGroup FieldId="stars">
+                <Library.UI.Components.Elements.Stars StarCount="5" @bind-Value="EditableBookModel.Stars" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Sub-Title" FieldId="subTitle" HelpText="Enter the book's sub-title">
+                <InputText id="subTitle" class="form-control" @bind-Value="EditableBookModel.SubTitle" aria-describedby="subTitleHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+        <div class="col-2 align-content-center">
+            <Library.UI.Components.Elements.EditFormGroup FieldId="reading" >
+                <Library.UI.Components.Elements.CheckboxButton Label="Reading" @bind-IsChecked="EditableBookModel.IsActivelyReading" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+        <div class="col-2 align-content-center">
+                <Library.UI.Components.Elements.EditFormGroup FieldId="ongoing">
+                    <Library.UI.Components.Elements.CheckboxButton Label="Ongoing" @bind-IsChecked="EditableBookModel.Ongoing" />
+                </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+        <div class="col-2">
+            <Library.UI.Components.Elements.EditFormGroup Label="Times Read" FieldId="read">
+                <InputNumber id="read" class="form-control" @bind-Value="EditableBookModel.TimesRead" aria-describedby="readHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Series" FieldId="series" HelpText="Enter the book's series">
+                <InputText id="series" class="form-control" @bind-Value="EditableBookModel.Series" aria-describedby="seriesHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Author" FieldId="author" HelpText="Enter the author's name">
+                <InputText id="author" class="form-control" @bind-Value="EditableBookModel.Author" aria-describedby="authorHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+        <div class="col-2">
+            <Library.UI.Components.Elements.EditFormGroup Label="Pages" FieldId="pages">
+                <InputNumber id="pages" class="form-control" @bind-Value="EditableBookModel.Pages" aria-describedby="pagesHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <Library.UI.Components.Elements.EditFormGroup Label="Artist" FieldId="art" HelpText="Enter the artists name">
+                <InputText id="art" class="form-control" @bind-Value="EditableBookModel.Artist" aria-describedby="artHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+        <div class="col-3">
+            <Library.UI.Components.Elements.EditFormGroup Label="Language" FieldId="language" HelpText="Enter the language">
+                <InputText id="language" class="form-control" @bind-Value="EditableBookModel.Language" aria-describedby="languageHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="ISBN" FieldId="isbn" Required="true" HelpText="Enter the ISBN of the book">
+                <InputText id="isbn" class="form-control" @bind-Value="EditableBookModel.ISBN" aria-describedby="isbnHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Publisher" FieldId="publisher" HelpText="Enter the Publisher of the book">
+                <InputText id="publisher" class="form-control" @bind-Value="EditableBookModel.Publisher" aria-describedby="publisherHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Published Date" FieldId="published">
+                <InputDate id="published" class="form-control" @bind-Value="EditableBookModel.Published" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Description" FieldId="description">
+                <InputTextArea id="description" class="form-control" @bind-Value="EditableBookModel.Description" />
+            </Library.UI.Components.Elements.EditFormGroup>
+            <Library.UI.Components.Elements.EditFormGroup Label="Summary" FieldId="summary">
+                <InputTextArea id="summary" class="form-control" @bind-Value="EditableBookModel.Summary" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+        <div class="col-5">
+            <Library.UI.Components.Elements.EditFormGroup Label="Genre" FieldId="select">
+                <Library.UI.Components.Elements.MultiSelect Items="Genres" @bind-SelectedItems="EditableBookModel.Genre" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+    </div>   
+    
+    <EditFormButtons OnClose="OnClose" />
+</EditForm>
+
+
+@if (notificationUtility != null)
+{
+    <Library.UI.Components.Elements.Notification Title="@notificationUtility.Title" Message="@notificationUtility.Message" />
+}

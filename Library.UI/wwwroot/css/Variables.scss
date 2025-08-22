@@ -1,0 +1,47 @@
+$primary-color-light: rgba(10,13,162,1);
+$secondary-color-light: rgba(0,111,213,1);
+$font-color-disabled-light: lightgrey;
+$font-color-action-light: blue;
+
+$primary-color-dark: rgba(10,13,162,1);
+$secondary-color-dark: rgba(0,111,213,1);
+$font-color-disabled-dark: lightgrey;
+$font-color-action-dark: black;
+
+$primary-color-ndsu: green;
+$secondary-color-ndsu: yellow;
+$font-color-disabled-ndsu: lightgrey;
+$font-color-action-ndsu: blue;
+
+$colors: ( 
+    "primary-color",
+    "secondary-color",
+    "font-color-disabled",
+    "font-color-action"
+);
+$light-colors: ( 
+    "primary-color": $primary-color-light,
+    "secondary-color": $secondary-color-light,
+    "font-color-disabled": $font-color-disabled-light,
+    "font-color-action": $font-color-action-light
+);
+$dark-colors: ( 
+    "primary-color": $primary-color-dark,
+    "secondary-color": $secondary-color-dark,
+    "font-color-disabled": $font-color-disabled-dark,
+    "font-color-action": $font-color-action-dark
+);
+$ndsu-colors: ( 
+    "primary-color": $primary-color-ndsu,
+    "secondary-color": $secondary-color-ndsu,
+    "font-color-disabled": $font-color-disabled-ndsu,
+    "font-color-action": $font-color-action-ndsu
+);
+
+
+$color-schemes: (
+    light: $light-colors,
+    dark: $dark-colors,
+    ndsu:$ndsu-colors
+);
+

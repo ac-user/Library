@@ -1,0 +1,72 @@
+﻿@inherits MediaEditFormBase
+@using ViewModels = Library.UI.Model.ViewModels;
+
+<EditForm Model="@EditableMusicModel" OnValidSubmit="HandleValidMusicSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="row">
+        <Library.UI.Components.Elements.ImageUpload @bind-Image="EditableMusicModel.Image" />
+    </div>
+    <div class="row">
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Title" FieldId="title" Required="true">
+                <InputText id="title" class="form-control" @bind-Value="EditableMusicModel.Title" required aria-describedby="titleHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+        <div class="col-3">
+            <Library.UI.Components.Elements.EditFormGroup FieldId="stars">
+                <Library.UI.Components.Elements.Stars StarCount="5" @bind-value="EditableMusicModel.Stars" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Album" Required="true" FieldId="album">
+                <InputText id="album" class="form-control" @bind-Value="EditableMusicModel.Album" required aria-describedby="albumHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Artist" FieldId="artist">
+                <InputText id="artist" class="form-control" @bind-Value="EditableMusicModel.Artist" aria-describedby="artistHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Composer" FieldId="composer">
+                <InputText id="composer" class="form-control" @bind-Value="EditableMusicModel.Composer" aria-describedby="composerHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Language" FieldId="language" HelpText="Enter the language">
+                <InputText id="language" class="form-control" @bind-Value="EditableMusicModel.Language" aria-describedby="languageHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Date Published" FieldId="datePublished">
+                <InputDate id="date" class="form-control" @bind-Value="EditableMusicModel.DateReleased" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Times Listened" FieldId="listened" HelpText="Enter the number of times listened">
+                <InputNumber id="listened" class="form-control" @bind-Value="EditableMusicModel.TimesListenedTo" aria-describedby="listenedHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+    </div>
+    <div class="row">
+        <Library.UI.Components.Elements.EditFormGroup Label="Genre" FieldId="select">
+            <Library.UI.Components.Elements.MultiSelect Items="Genres" @bind-SelectedItems="EditableMusicModel.Genre" />
+        </Library.UI.Components.Elements.EditFormGroup>
+    </div>
+    
+    <EditFormButtons OnClose="OnClose" />
+</EditForm>
+
+@if (notificationUtility != null)
+{
+    <Library.UI.Components.Elements.Notification Title="@notificationUtility.Title" Message="@notificationUtility.Message" />
+}

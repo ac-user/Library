@@ -1,0 +1,19 @@
+﻿<input type="checkbox" class="btn-check" id="btn-check-@Label" checked="@IsChecked" autocomplete="off">
+<label class="btn btn-primary" for="btn-check-@Label" @onclick="OnClick">@Label</label>
+
+@code {
+    [Parameter]
+    public string Label { get; set; }
+
+    [Parameter]
+    public bool IsChecked { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> IsCheckedChanged { get; set; }
+
+    private async Task OnClick()
+    {
+        IsChecked = !IsChecked;
+        await IsCheckedChanged.InvokeAsync(IsChecked);
+    }
+}

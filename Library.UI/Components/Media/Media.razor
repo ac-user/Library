@@ -1,0 +1,98 @@
+﻿@using Library.UI.Model.ViewModels.Media
+@using ViewModels = Library.UI.Model.ViewModels.Media;
+@page "/media/{mediaType}"
+@rendermode RenderMode.InteractiveServer
+
+<h3>@(mediaType == ViewModels.MediaType.Music.ToString() ? mediaType : $"{mediaType}'s")</h3>
+<div class="row">
+    <div class="col-10">
+        <Library.UI.Components.Elements.SearchBox OnSearch="OnSearch" />
+    </div>
+    <div class="col-2 btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-outline-primary @(cardView ? "active" : "")" @onclick="ShowCards">
+            Card
+        </label>
+        <label class="btn btn-outline-primary @(!cardView ? "active" : "")" @onclick="ShowTable">
+            Table
+        </label>
+    </div>
+</div>
+
+@if(cardView)
+{
+    <div class="container">
+        @foreach (var element in mediaContents.Where(w => w.Title.Contains(searchTerm)))
+        {
+            if (element.Image == null || element.Image.Length <= 0)
+            {
+                <Library.UI.Components.Elements.ClickableCard 
+                    Title="@element.Title"
+                    Deletable="true"
+                    OnDoubleClick="@(() => ShowCardDetails(element.ContentId))"
+                    OnDelete="@(() => DeleteMediaContentAsync(element.ContentId))"/>
+            }
+            else
+            {
+                <Library.UI.Components.Elements.ClickableCard 
+                    Deletable="true"
+                    OnDoubleClick="@(() => ShowCardDetails(element.ContentId))"
+                    OnDelete="@(() => DeleteMediaContentAsync(element.ContentId))">
+                        <img src="@($"data:image/png;base64,{Convert.ToBase64String(element.Image)}")" alt="Uploaded Image" />
+                </Library.UI.Components.Elements.ClickableCard>
+            }
+        }
+    </div>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Title</th>
+                @if (pageMediaType == MediaType.Book)
+                {
+                    <th>Series</th>
+                    <th>Volume</th>
+                    <th>Publisher</th>
+                }
+                else if (pageMediaType == MediaType.Music)
+                {
+                    <th>Album</th>
+                    <th>Artist</th>
+                    <th>Composer</th>
+                }
+                else
+                {
+                    <th>Series</th>
+                    <th>Genre</th>
+                    <th></th>
+                }
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var element in mediaContents)
+            {
+                <tr class="clickable">
+                    <td @ondblclick="@(() => ShowCardDetails(element.ContentId))">@element.Title</td>
+                    <td @ondblclick="@(() => ShowCardDetails(element.ContentId))">@element.ColumnTwo</td>
+                    <td @ondblclick="@(() => ShowCardDetails(element.ContentId))">@element.ColumnThree</td>
+                    <td @ondblclick="@(() => ShowCardDetails(element.ContentId))">@element.ColumnFour</td>
+                    <td @onclick="@(() => DeleteMediaContentAsync(element.ContentId))"><i class="bi bi-trash text-danger" /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@if (notificationUtility != null && !showDetails)
+{
+    <Library.UI.Components.Elements.Notification Title="@notificationUtility.Title" Message="@notificationUtility.Message"/>
+}
+
+@if (showDetails)
+{
+     <MediaView MediaType="@pageMediaType"
+                Id="@contentToOpen"
+                OnClose="CloseDetailView" /> 
+}

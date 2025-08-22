@@ -1,0 +1,51 @@
+﻿@page "/"
+@rendermode RenderMode.InteractiveServer
+
+<PageTitle>Home</PageTitle>
+
+<h3 class="d-flex justify-content-center align-items-center">@Utilities.Account.UserName</h3>
+<Library.UI.Components.Elements.SearchBox OnSearch="OnSearch" />
+
+<section class="m-4">
+    <div class="container">
+        <div class="position-relative quad-container mb-3">
+            <Library.UI.Components.Elements.ClickableCard Size="small" Class="top-0 left-0 position-absolute" OnClick="OnClickAddMedia">
+                    <i class="bi bi-plus-circle" />
+                </Library.UI.Components.Elements.ClickableCard>
+            <Library.UI.Components.Elements.ClickableCard Size="small" Class="top-0 end-0 position-absolute" Title="Books" OnClick="NavigateToBooks">
+                <i class="bi bi-book" alt="Books" />
+                </Library.UI.Components.Elements.ClickableCard>
+            <Library.UI.Components.Elements.ClickableCard Size="small" Class="bottom-0 left-0 position-absolute" Title="Music" OnClick="NavigateToMusic">
+                    <i class="bi bi-music-note-beamed" alt="Music" />
+                </Library.UI.Components.Elements.ClickableCard>
+            <Library.UI.Components.Elements.ClickableCard Size="small" Class="bottom-0 end-0 position-absolute" Title="Movies" OnClick="NavigateToMovies">
+                <i class="bi bi-film" alt="Movies" />
+            </Library.UI.Components.Elements.ClickableCard>
+        </div>
+        <Library.UI.Components.Elements.ClickableCard Title="Add Collection" OnClick="OnClickAddCollection">
+            <i class="bi bi-plus-circle" />
+        </Library.UI.Components.Elements.ClickableCard>
+        <Library.UI.Components.Elements.LoadableContent Loading="@(_model?.Collections == null)">
+            @foreach (var collection in _model.Collections.Where(w => w.Name.Contains(searchTerm)))
+            {
+                <Library.UI.Components.Elements.ClickableCard 
+                    Title="@collection.Name" 
+                    Deletable="true"
+                    OnDelete="@(() => OnDeleteCollectionAsync(collection.Id))"
+                    OnDoubleClick="@(() => NavigateToCollection(collection.Id))" />
+            }
+        </Library.UI.Components.Elements.LoadableContent>
+    </div>
+
+</section>
+
+@if (addMedia)
+{
+    <Library.UI.Components.Media.NewMedia OnClose="CloseAddMediaPopup" />
+}
+
+@if (notificationUtility != null)
+{
+    <Library.UI.Components.Elements.Notification Title="@notificationUtility.Title" Message="@notificationUtility.Message" />
+}
+

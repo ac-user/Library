@@ -1,0 +1,40 @@
+﻿@rendermode RenderMode.InteractiveServer
+@using Library.UI.Components.Elements
+@using System.Globalization
+@using Microsoft.AspNetCore.Components.Web
+@using Library.UI.Model.ViewModels.Media;
+@using Library.Models.Media;
+
+<Modal Title="@($"Add New {selectedMediaType.ToString()}")" OnClose="OnClose">
+    <div class="form-group mb-3">
+        <label for="mediaType">Select Media Type</label>
+        <select id="mediaType" class="form-control" @onchange="OnMediaTypeChange" aria-describedby="mediaTypeHelp" required>
+            <option value="@MediaType.Book">Book</option>
+            <option value="@MediaType.Music">Music</option>
+            <option value="@MediaType.Movie">Movie</option>
+        </select>
+    </div>
+
+    @if (selectedMediaType == MediaType.Book)
+    {
+        <Library.UI.Components.Media.Book.BookEditForm EditableBookModel="newMedia.Book"
+                                                       IsCreate="true"
+                                                       OnSuccess="OnClose"
+                                                       OnClose="OnClose" />
+    }
+    else if (selectedMediaType == MediaType.Music)
+    {
+        <Library.UI.Components.Media.Music.MusicEditForm EditableMusicModel="newMedia.Music"
+                                                         IsCreate="true"
+                                                         OnSuccess="OnClose"
+                                                         OnClose="OnClose" />
+    }
+    else if (selectedMediaType == MediaType.Movie)
+    {
+        <Library.UI.Components.Media.Movie.MovieEditForm EditableMovieModel="newMedia.Movie"
+                                                         IsCreate="true"
+                                                         OnSuccess="OnClose"
+                                                         OnClose="OnClose" />
+    }
+</Modal>
+

@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
-using Library.Services.Models.Media.Book;
-using Library.Services.Models.Media.Movies;
-using Library.Services.Models.Media.Music;
+using Library.Models.Media;
+using Library.Models.Media.Book;
+using Library.Models.Media.Movies;
+using Library.Models.Media.Music;
 using Entity = Library.Data.Entities;
 
 namespace Library.Services.Profiles
@@ -15,17 +16,41 @@ namespace Library.Services.Profiles
 
         private void MediaContentMaps()
         {
-            CreateMap<Book, Entity.Book>().ReverseMap();
+            CreateMap<string, List<string>>()
+                .ConstructUsing(s => s.Split(',', StringSplitOptions.None).ToList());
+
+            CreateMap<Book, Entity.Book>()
+                .ForMember(d=> d.BookId, o =>o.MapFrom(s => s.Id))
+                .ForMember(d => d.Genre, o => o.MapFrom(s => string.Join(',', s.Genre)))
+                .ForMember(d => d.Isbn, o => o.MapFrom(s => s.Identification)).ReverseMap();
             CreateMap<Book, BookCreationRequest>().ReverseMap();
             CreateMap<Book, BookModificationRequest>().ReverseMap();
 
-            CreateMap<Movie, Entity.Movie>().ReverseMap();
+            CreateMap<Movie, Entity.Movie>()
+                .ForMember(d => d.MovieId, o => o.MapFrom(s => s.Id))
+                 .ForMember(d => d.Genre, o => o.MapFrom(s => string.Join(',', s.Genre))).ReverseMap();
             CreateMap<Movie, MovieCreationRequest>().ReverseMap();
             CreateMap<Movie, MovieModificationRequest>().ReverseMap();
             
-            CreateMap<Music, Entity.Music>().ReverseMap();
+            CreateMap<Music, Entity.Music>()
+                .ForMember(d => d.MusicId, o => o.MapFrom(s => s.Id))
+                .ForMember(d => d.Singer, o => o.MapFrom(s => s.Artist))
+                .ForMember(d => d.Writer, o => o.MapFrom(s => s.Composer))
+                 .ForMember(d => d.Genre, o => o.MapFrom(s => string.Join(',', s.Genre))).ReverseMap();
             CreateMap<Music, MusicCreationRequest>().ReverseMap();
             CreateMap<Music, MusicModificationRequest>().ReverseMap();
+
+
+            CreateMap<NewCollectionContent, Book>();
+            CreateMap<NewCollectionContent, Music>();
+            CreateMap<NewCollectionContent, Movie>();
+            CreateMap<NewCollectionContent, Collection>();
+            CreateMap<CollectionCreationRequest, Collection>()
+                .ForMember(d => d.Name, o => o.MapFrom(s => s.Title))
+                .ForMember(d => d.Books, o => o.MapFrom(s => s.NewCollectionContents.Where(w => w.MediaType == MediaContentType.Book)))
+                .ForMember(d => d.Music, o => o.MapFrom(s => s.NewCollectionContents.Where(w => w.MediaType == MediaContentType.Music)))
+                .ForMember(d => d.Movies, o => o.MapFrom(s => s.NewCollectionContents.Where(w => w.MediaType == MediaContentType.Movie)))
+                .ForMember(d => d.SubCollections, o => o.MapFrom(s => s.NewCollectionContents.Where(w => w.MediaType == null))).ReverseMap();
         }
 
     }

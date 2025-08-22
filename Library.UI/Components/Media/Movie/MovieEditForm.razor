@@ -1,0 +1,74 @@
+﻿@inherits MediaEditFormBase
+@using ViewModels = Library.UI.Model.ViewModels;
+
+<EditForm Model="@EditableMovieModel" OnValidSubmit="HandleValidMovieSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="row">
+        <Library.UI.Components.Elements.ImageUpload @bind-Image="EditableMovieModel.Image" />
+    </div>
+    <div class="row">
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Title" FieldId="movieTitle" Required="true" >
+                <InputText id="movieTitle" class="form-control" @bind-Value="EditableMovieModel.Title" required aria-describedby="movieTitleHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+        <div class="col-2">
+            <Library.UI.Components.Elements.EditFormGroup FieldId="stars">
+                <Library.UI.Components.Elements.Stars StarCount="5" @bind-Value="EditableMovieModel.Stars" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+        <Library.UI.Components.Elements.EditFormGroup Label="Series" FieldId="series">
+            <InputText id="series" class="form-control" @bind-Value="EditableMovieModel.Series" aria-describedby="seriesHelp" />
+        </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+        <div class="col-2 align-content-end">
+            <Library.UI.Components.Elements.EditFormGroup FieldId="ongoing">
+                <Library.UI.Components.Elements.CheckboxButton Label="Ongoing" @bind-IsChecked="EditableMovieModel.Ongoing" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+        <div class="col-3">
+            <Library.UI.Components.Elements.EditFormGroup Label="Times Watched" FieldId="watch">
+                <InputNumber id="watch" class="form-control" @bind-Value="EditableMovieModel.TimesWatched" aria-describedby="watchHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Writer" FieldId="writer">
+                <InputText id="writer" class="form-control" @bind-Value="EditableMovieModel.Writer" aria-describedby="writerHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Language" FieldId="language" HelpText="Enter the language">
+                <InputText id="language" class="form-control" @bind-Value="EditableMovieModel.Language" aria-describedby="languageHelp" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Date Released" FieldId="dateReleased">
+                <InputDate id="date" class="form-control" @bind-Value="EditableMovieModel.DateReleased" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Summary" FieldId="summary">
+                <InputTextArea id="summary" class="form-control" @bind-Value="EditableMovieModel.Summary" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+        <div class="col">
+            <Library.UI.Components.Elements.EditFormGroup Label="Genre" FieldId="select">
+                <Library.UI.Components.Elements.MultiSelect Items="Genres" @bind-SelectedItems="EditableMovieModel.Genre" />
+            </Library.UI.Components.Elements.EditFormGroup>
+        </div>
+    </div>
+    <EditFormButtons OnClose="OnClose" />
+</EditForm>
+
+@if (notificationUtility != null)
+{
+    <Library.UI.Components.Elements.Notification Title="@notificationUtility.Title" Message="@notificationUtility.Message" />
+}

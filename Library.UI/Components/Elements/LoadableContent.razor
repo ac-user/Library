@@ -1,0 +1,17 @@
+﻿@if (Loading)
+{
+    <i class="bi` spinner-border" />
+}
+else
+{
+    @ChildContent
+}
+
+@code {
+    [Parameter]
+    public bool Loading { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+}

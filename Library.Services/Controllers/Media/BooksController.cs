@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Library.Services.Models.Media.Book;
+using Library.Models.Media.Book;
 using Library.Services.Services;
 using Library.Services.Services.Media;
 using Microsoft.AspNetCore.Mvc;
@@ -83,7 +83,7 @@ namespace Library.Services.Controllers.Media
         {
             return await ExecuteCommandAsync(async () =>
             {
-                return await _bookService.CreateAsync(_mapper.Map<Book>(request), cancellationToken);
+                return await _bookService.CreateAsync(accountId, _mapper.Map<Book>(request), cancellationToken);
             },
             accountId,
             cancellationToken,
@@ -108,7 +108,7 @@ namespace Library.Services.Controllers.Media
         {
             return await ExecuteCommandAsync(async () =>
             {
-                return await _bookService.UpdateAsync(_mapper.Map<Book>(request), cancellationToken);
+                return await _bookService.UpdateAsync(accountId, _mapper.Map<Book>(request), cancellationToken);
             },
             accountId,
             cancellationToken,
@@ -123,7 +123,7 @@ namespace Library.Services.Controllers.Media
         /// <param name="bookId">book to delete</param>
         /// <param name="cancellationToken">token to cancel long running processes</param>
         /// <returns>Status of creation</returns>
-        [HttpDelete]
+        [HttpDelete("{bookId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BadRequestObjectResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status412PreconditionFailed)]

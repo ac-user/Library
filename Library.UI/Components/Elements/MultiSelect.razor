@@ -1,0 +1,27 @@
+﻿
+<select id="select" class="form-control" multiple @onchange="OnSelectChanged">
+    @foreach (string item in Items)
+    {
+        <option value="@item" selected="@SelectedItems.Contains(item)">@item</option>
+    }
+</select>
+
+
+@code {
+    [Parameter]
+    public List<string> Items { get; set; } = new List<string>();
+
+    [Parameter]
+    public List<string> SelectedItems { get; set; } = new List<string>();
+
+    [Parameter]
+    public EventCallback<List<string>> SelectedItemsChanged { get; set; } 
+
+    private async Task OnSelectChanged(ChangeEventArgs e)
+    {
+        // Get selected options from the event
+        var selectedOptions = (e.Value as string[]) ?? Array.Empty<string>();
+        SelectedItems = selectedOptions.ToList();
+        await SelectedItemsChanged.InvokeAsync(SelectedItems);
+    }
+}

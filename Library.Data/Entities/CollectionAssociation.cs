@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Library.Data.Entities;
+﻿namespace Library.Data.Entities;
 
 public partial class CollectionAssociation
 {
@@ -12,4 +9,11 @@ public partial class CollectionAssociation
     public string MediaType { get; set; } = null!;
 
     public int MediaId { get; set; }
+
+
+    public Collection Collection { get; set; } 
+    public Book Book { get; set; } 
+    public Music Music { get; set; }
+    public Movie Movie { get; set; }
+
 }

@@ -1,0 +1,72 @@
+﻿@page "/new-collection"
+@rendermode RenderMode.InteractiveServer
+
+<InputText class="new-collection-name mb-3" @bind-Value="newCollection.Name" placeholder="New Collection"/>
+<Library.UI.Components.Elements.SearchBox OnSearch="OnSearch" />
+
+<Library.UI.Components.Elements.LoadableContent Loading="loading">
+    <div class="container mb-5">
+
+        @foreach (var content in newCollection.Books.Where(w => w.Title.Contains(searchTerm)))
+        {
+            <Library.UI.Components.Elements.ClickableCard @key="@($"book_{content.Id}")"
+                                                          Title="@((content.Image == null || content.Image.Length == 0) ? content.Title : "")"
+                                                          Status="@(content.Selected ? "selected" : "")"
+                                                          OnClick="@(() => OnToggleContentSelection(Model.ViewModels.Media.MediaType.Book, content.Id))" >
+                @if (content.Image != null && content.Image.Length > 0)
+                {
+                    <img src="@($"data:image/png;base64,{Convert.ToBase64String(content.Image)}")" alt="Uploaded Image" class="img-thumbnail" />
+                }
+            </Library.UI.Components.Elements.ClickableCard>
+        }
+        @foreach (var content in newCollection.Music.Where(w => w.Title.Contains(searchTerm)))
+        {
+            <Library.UI.Components.Elements.ClickableCard @key="@($"music_{content.Id}")"
+                                                          Title="@((content.Image == null || content.Image.Length == 0) ? content.Title : "")"
+                                                          Status="@(content.Selected ? "selected" : "")"
+                                                          OnClick="@(() => OnToggleContentSelection(Model.ViewModels.Media.MediaType.Music, content.Id))" >
+                @if (content.Image != null && content.Image.Length > 0)
+                {
+                    <img src="@($"data:image/png;base64,{Convert.ToBase64String(content.Image)}")" alt="Uploaded Image" class="img-thumbnail" />
+                }
+            </Library.UI.Components.Elements.ClickableCard>
+        }
+        @foreach (var content in newCollection.Movies.Where(w => w.Title.Contains(searchTerm)))
+        {
+            <Library.UI.Components.Elements.ClickableCard @key="@($"movie_{content.Id}")"
+                                                          Title="@((content.Image == null || content.Image.Length == 0) ? content.Title : "")"
+                                                          Status="@(content.Selected ? "selected" : "")"
+                                                          OnClick="@(() => OnToggleContentSelection(Model.ViewModels.Media.MediaType.Movie, content.Id))">
+                @if (content.Image != null && content.Image.Length > 0)
+                {
+                    <img src="@($"data:image/png;base64,{Convert.ToBase64String(content.Image)}")" alt="Uploaded Image" class="img-thumbnail" />
+                }
+            </Library.UI.Components.Elements.ClickableCard>
+
+        }
+
+        @foreach (var collection in newCollection.Collections.Where(w => w.Title.Contains(searchTerm)))
+        {
+            <Library.UI.Components.Elements.ClickableCard @key="@($"collection_{collection.Id}")"
+                                                          Title="@collection.Title"
+                                                          Status="@(collection.Selected ? "selected" : "")"
+                                                          OnClick="@(() => OnToggleContentSelection(null, collection.Id))" />
+        }
+
+        @if (!newCollection.Books.Any() && !newCollection.Music.Any() && !newCollection.Movies.Any())
+        {
+            <p>There is nothing here, sorry. Try going back to the home page and adding content</p>
+        }
+    </div>
+</Library.UI.Components.Elements.LoadableContent>
+
+<footer class="position-fixed end-0 bottom-0 p-2 g-3 col-footer">
+    <button type="button" class="btn btn-light" @onclick="OnCancleClick">Cancel</button>
+    <button type="submit" class="btn btn-primary" @onclick="OnSaveCollection">Save</button>
+</footer>
+
+@if (notificationUtility != null)
+{
+    <Library.UI.Components.Elements.Notification Title="@notificationUtility.Title" Message="@notificationUtility.Message" />
+}
+    

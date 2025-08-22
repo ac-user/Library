@@ -1,0 +1,40 @@
+﻿.in-progress-label {
+  background-color: lightblue;
+  border-radius: 5px;
+  padding: 1px 5px;
+  font-size: small;
+}
+
+.image-upload-container {
+  height: 175px;
+  width: 95%;
+}
+.image-upload-container .drop-zone {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: inherit;
+  width: inherit;
+  position: absolute;
+  border: 1px dashed lightblue;
+  border-radius: 5px;
+}
+.image-upload-container .drop-zone .fileInput {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.image-upload-container .image-preview {
+  height: inherit;
+  width: inherit;
+  position: relative;
+}
+.image-upload-container .image-preview img {
+  object-fit: contain;
+  overflow: hidden;
+  height: inherit;
+  width: inherit;
+}

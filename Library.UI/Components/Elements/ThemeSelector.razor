@@ -1,0 +1,18 @@
+﻿<div id="theme">
+    <InputRadioGroup @bind-Value="selectedTheme">
+        <InputRadio id="light" Value="Theme.light"><i class="bi-sun"/></InputRadio>
+        <InputRadio id="dark" Value="Theme.dark"><i class="bi-moon" /></InputRadio>
+        <InputRadio id="ndsu" Value="Theme.ndsu"><i class="bi-backpack" /></InputRadio>
+    </InputRadioGroup>
+</div>
+
+@code {
+    private enum Theme
+    {
+        light,
+        dark, 
+        ndsu
+    }
+
+    private Theme selectedTheme;
+}

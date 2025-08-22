@@ -1,0 +1,11 @@
+
+#theme{
+    display:flex;
+    flex-direction:row;
+    gap: 8px;
+
+    input[type="radio"]:before,
+    input[type="radio"]:after{
+        content:none;
+    }
+}

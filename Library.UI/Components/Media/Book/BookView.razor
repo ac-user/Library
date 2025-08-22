@@ -1,0 +1,90 @@
+﻿@inherits ViewBase
+
+<Library.UI.Components.Elements.LoadableContent Loading="@(Book == null)">
+    @if (editMode)
+    {
+        <i class="bi breadcrumb-item" @onclick="TurnOffEditMode" />
+        <BookEditForm EditableBookModel="editableBook" IsCreate="false" OnClose="OnClose" OnSuccess="ModifiedEntryAsync" />
+    }
+    else if (Book != null)
+    {
+        if (Book.Image != null && Book.Image.Length > 0)
+        {
+            <img src="@($"data:image/png;base64,{Convert.ToBase64String(Book.Image)}")" alt="Uploaded Image" class="img-thumbnail" />
+        }
+        <i class="bi bi-pencil-square position-absolute end-0 p-2" @onclick="EnableEditMode" />
+        <div class="p-2 d-flex flex-column gap-4">
+            <div class="row">
+                <div class="d-flex flex-row">
+                    <h1 class="fit-content me-3"> @Book.Series</h1>
+                    @if (Book.Ongoing)
+                    {
+                        <label class="fit-content position-absolute end-0 me-4 in-progress-label">
+                            In-progress
+                        </label>
+                    }
+                </div>
+                <h4 class="fit-content">
+                    @Book.Title
+                    @if(!String.IsNullOrWhiteSpace(Book.SubTitle))
+                    {
+                        <span>&nbsp;(@Book.SubTitle)</span>
+                    }
+                </h4>
+                <h4 class="fit-content">@Book.Stars <i class="bi bi-star" /></h4>
+            </div>
+            <div class="row d-flex flex-row">
+                <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                    <small class="text-muted">ISBN</small>
+                    <small class="text-muted">@Book.ISBN</small>
+                </div>
+                @if (!String.IsNullOrWhiteSpace(Book.Author))
+                {
+                    <div class="col d-flex flex-column justify-content-center align-items-center">
+                        <small class="text-muted bi bi-pen" />
+                        <small class="text-muted">@Book.Author</small>
+                    </div>
+                }
+                @if (!String.IsNullOrWhiteSpace(Book.Artist))
+                {
+                    <div class="col d-flex flex-column justify-content-center align-items-center">
+                        <small class="text-muted bi bi-pallete" />
+                        <small class="text-muted">@Book.Artist</small>
+                    </div>
+                }
+                @if (!String.IsNullOrWhiteSpace(Book.Language) || Book.Pages > 0)
+                {
+                    <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                        <small class="text-muted bi bi-book"/>
+                        <small class="text-muted text-nowrap">@Book.Pages <div class="vr  mx-1" />@Book.Language</small>
+                    </div>
+                }
+                @if (!String.IsNullOrWhiteSpace(Book.Publisher) || Book.Published != null)
+                {
+                    <div class="col d-flex flex-column justify-content-center  align-items-center">
+                        <small class="text-muted">Publish</small>
+                        <small class="text-muted text-nowrap">@Book.Publisher <div class="vr  mx-1" />@Book.Published?.ToString("MMMM yyyy")</small>
+                    </div>
+                }
+                <div class="col-1 d-flex flex-column justify-content-center  align-items-center">
+                    <small class="text-muted">Read</small>
+                    <small class="text-muted text-nowrap">@Book.TimesRead 
+                        @if (Book.IsActivelyReading)
+                        {
+                            <div class="vr mx-1" /><i class="bi bi-bookmark-check"/>
+                        }
+                    </small>
+                </div>
+            </div>
+            <div class="row">
+                <span>@(String.Join(',', Book.Genre))</span>
+            </div>
+            <div class="row">
+                <p>@Book.Summary</p>
+            </div>
+            <div class="row">
+                <p>@Book.Description</p>
+            </div>
+        </div>
+    }
+</Library.UI.Components.Elements.LoadableContent>

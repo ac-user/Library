@@ -1,0 +1,26 @@
+﻿<div class="input-group mb-3" role="search" aria-label="Search">
+    <input type="text"
+           class="form-control"
+           placeholder="@Placeholder"
+           @bind-value="searchTerm"
+           @bind-value:event="oninput"
+           @onkeyup="OnSearchAsync"
+           aria-label="Search input"
+           aria-describedby="search-button" />
+</div>
+
+@code {
+    [Parameter] 
+    public EventCallback<string> OnSearch { get; set; }
+
+    private string searchTerm { get; set; }
+
+    [Parameter] 
+    public string Placeholder { get; set; } = "Search";
+
+    private async Task OnSearchAsync(KeyboardEventArgs e)
+    {
+        searchTerm = searchTerm ?? "";
+        await OnSearch.InvokeAsync(searchTerm);
+    }
+}
