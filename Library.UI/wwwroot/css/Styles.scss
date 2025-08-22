@@ -1,21 +1,19 @@
-$primary-color: rgba(10,13,162,1);
-$secondar-color: rgba(0,111,213,1);
+@use "sass:map";
+@import "Variables.scss";
 
-.primary-background{
-    background-color:$primary-color !important;
+@mixin themes() {
+    @each $scheme, $value in $color-schemes{
+        #theme:has(##{$scheme}:checked) ~{
+            $color-scheme-map: $value !global;
+            @content;
+        }
+    }
 }
 
-.secondry-background {
-    background-color: $secondar-color !important;
+@function themed($key) {
+    @return map-get($color-scheme-map, $key);
 }
 
-.primary-text{
-    color:$primary-color !important;
-}
-
-.secondary-text {
-    color: $secondar-color !important;
-}
 
 .in-progress-label {
     background-color: lightblue;

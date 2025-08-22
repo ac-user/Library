@@ -10,5 +10,9 @@
   {
     "outputFile": "Components/Elements/ImageUpload.razor.css",
     "inputFile": "Components/Elements/ImageUpload.razor.scss"
+  },
+  {
+    "outputFile": "Components/Elements/ThemeSelector.razor.css",
+    "inputFile": "Components/Elements/ThemeSelector.razor.scss"
   }
 ]
